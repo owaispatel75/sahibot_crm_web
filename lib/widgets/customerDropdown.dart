@@ -1,151 +1,16 @@
-// import 'package:flutter/material.dart';
-
-// class CompanyDropdown extends StatefulWidget {
-//   final String? selectedCompany;
-//   final void Function(String) onCompanySelected;
-
-//   const CompanyDropdown({
-//     super.key,
-//     this.selectedCompany,
-//     required this.onCompanySelected,
-//   });
-
-//   @override
-//   State<CompanyDropdown> createState() => _CompanyDropdownState();
-// }
-
-// class _CompanyDropdownState extends State<CompanyDropdown> {
-//   final List<String> allCompanies = [
-//     'WVTS',
-//     'Your Company',
-//     'Mine Company',
-//     'Zylker Corp',
-//   ];
-//   List<String> filteredCompanies = [];
-//   bool dropdownOpen = false;
-//   String? selectedCompany;
-//   final TextEditingController searchController = TextEditingController();
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     selectedCompany = widget.selectedCompany;
-//     filteredCompanies = List.from(allCompanies);
-//   }
-
-//   void toggleDropdown() {
-//     setState(() {
-//       dropdownOpen = !dropdownOpen;
-//     });
-//   }
-
-//   void selectCompany(String company) {
-//     setState(() {
-//       selectedCompany = company;
-//       widget.onCompanySelected(company);
-//       dropdownOpen = false;
-//       searchController.clear();
-//       filteredCompanies = List.from(allCompanies);
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         GestureDetector(
-//           onTap: toggleDropdown,
-//           child: Container(
-//             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-//             decoration: BoxDecoration(
-//               border: Border.all(color: Colors.green, width: 2),
-//               borderRadius: BorderRadius.circular(6),
-//             ),
-//             child: Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 Text(selectedCompany ?? 'Select Company Name'),
-//                 Icon(
-//                   dropdownOpen ? Icons.arrow_drop_up : Icons.arrow_drop_down,
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//         if (dropdownOpen)
-//           Container(
-//             margin: const EdgeInsets.only(top: 4),
-//             padding: const EdgeInsets.all(8),
-//             decoration: BoxDecoration(
-//               border: Border.all(color: Colors.green),
-//               borderRadius: BorderRadius.circular(6),
-//             ),
-//             child: Column(
-//               children: [
-//                 TextField(
-//                   controller: searchController,
-//                   onChanged: (value) {
-//                     setState(() {
-//                       filteredCompanies =
-//                           allCompanies
-//                               .where(
-//                                 (company) => company.toLowerCase().contains(
-//                                   value.toLowerCase(),
-//                                 ),
-//                               )
-//                               .toList();
-//                     });
-//                   },
-//                   decoration: InputDecoration(
-//                     hintText: 'Search',
-//                     prefixIcon: Icon(Icons.search),
-//                     contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(6),
-//                     ),
-//                   ),
-//                 ),
-//                 const SizedBox(height: 8),
-//                 ...filteredCompanies.map((company) {
-//                   return ListTile(
-//                     title: Text(company),
-//                     onTap: () => selectCompany(company),
-//                   );
-//                 }).toList(),
-//                 const Divider(),
-//                 ListTile(
-//                   leading: Icon(Icons.add, color: Colors.blue),
-//                   title: Text(
-//                     '+ New Company',
-//                     style: TextStyle(color: Colors.blue),
-//                   ),
-//                   onTap: () {
-//                     // handle new company creation logic
-//                   },
-//                 ),
-//               ],
-//             ),
-//           ),
-//       ],
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:sahibot_crm_web/config/app_theme.dart';
 
-class CompanyDropdown extends StatefulWidget {
+class Customerdropdown extends StatefulWidget {
   @override
-  _CompanyDropdownState createState() => _CompanyDropdownState();
+  _CustomerdropdownState createState() => _CustomerdropdownState();
 }
 
-class _CompanyDropdownState extends State<CompanyDropdown> {
+class _CustomerdropdownState extends State<Customerdropdown> {
   final List<String> companies = [
-    'WVTS',
-    'Your Company',
-    'Mine Company',
-    'Zylker Corp',
+    'Bilal',
+    'Owais',
+    'Junaid',
   ];
 
   List<String> filteredCompanies = [];
@@ -299,7 +164,7 @@ class _CompanyDropdownState extends State<CompanyDropdown> {
             children: [
               Expanded(
                 child: Text(
-                  selectedCompany ?? 'Select Customer Name',
+                  selectedCompany ?? 'Select Company Name',
                   style: TextStyle(
                     color:
                         selectedCompany == null ? Colors.black : Colors.black,

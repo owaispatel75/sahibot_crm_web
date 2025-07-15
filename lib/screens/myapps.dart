@@ -68,7 +68,7 @@ class MyAppsScreen extends StatelessWidget {
                             subtitle: "Stay organized and move forward",
                             icon: Icons.phone_forwarded,
                             onPressed: () {
-                              //context.go('/dashboard');
+                              context.go('/followup');
                             },
                           ),
                           AppTile(

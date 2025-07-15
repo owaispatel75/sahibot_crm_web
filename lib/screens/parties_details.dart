@@ -318,6 +318,7 @@ class PartiesDetailsPage extends StatelessWidget {
                               child: Column(
                                 children: const [
                                   TabBar(
+                                    tabAlignment: TabAlignment.start,
                                     isScrollable: true,
                                     tabs: [
                                       Tab(text: 'Timeline'),

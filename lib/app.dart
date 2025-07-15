@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sahibot_crm_web/screens/FollowUpScreen.dart';
 import 'package:sahibot_crm_web/screens/contact_details.dart';
 import 'package:sahibot_crm_web/screens/contacts_screen.dart';
 import 'package:sahibot_crm_web/screens/myapps.dart';
@@ -9,31 +10,80 @@ import 'package:sahibot_crm_web/screens/parties_screen.dart';
 final _router = GoRouter(
   initialLocation: '/',
   routes: [
-    GoRoute(path: '/', builder: (context, state) => const MyAppsScreen()),
+    GoRoute(
+      path: '/',
+      pageBuilder:
+          (context, state) => const NoTransitionPage(child: MyAppsScreen()),
+    ),
     GoRoute(
       path: '/contacts',
-      builder: (context, state) => const ContactScreen(),
+      pageBuilder:
+          (context, state) => const NoTransitionPage(child: ContactScreen()),
     ),
     GoRoute(
       path: '/contacts/:contactName',
-      builder: (context, state) {
+      pageBuilder: (context, state) {
         final contactName = state.pathParameters['contactName']!;
-        return ContactDetailsPage(contactName: contactName);
+        return NoTransitionPage(
+          child: ContactDetailsPage(contactName: contactName),
+        );
       },
     ),
     GoRoute(
       path: '/parties',
-      builder: (context, state) => const PartiesScreen(),
+      pageBuilder:
+          (context, state) => const NoTransitionPage(child: PartiesScreen()),
     ),
     GoRoute(
       path: '/parties/:partiesName',
-      builder: (context, state) {
+      pageBuilder: (context, state) {
         final partiesName = state.pathParameters['partiesName']!;
-        return PartiesDetailsPage(partiesName: partiesName);
+        return NoTransitionPage(
+          child: PartiesDetailsPage(partiesName: partiesName),
+        );
       },
+    ),
+    GoRoute(
+      path: '/followup',
+      pageBuilder:
+          (context, state) => const NoTransitionPage(child: FollowUpScreen()),
     ),
   ],
 );
+
+
+// final _router = GoRouter(
+//   initialLocation: '/',
+//   routes: [
+//     GoRoute(path: '/', builder: (context, state) => const MyAppsScreen()),
+//     GoRoute(
+//       path: '/contacts',
+//       builder: (context, state) => const ContactScreen(),
+//     ),
+//     GoRoute(
+//       path: '/contacts/:contactName',
+//       builder: (context, state) {
+//         final contactName = state.pathParameters['contactName']!;
+//         return ContactDetailsPage(contactName: contactName);
+//       },
+//     ),
+//     GoRoute(
+//       path: '/parties',
+//       builder: (context, state) => const PartiesScreen(),
+//     ),
+//     GoRoute(
+//       path: '/parties/:partiesName',
+//       builder: (context, state) {
+//         final partiesName = state.pathParameters['partiesName']!;
+//         return PartiesDetailsPage(partiesName: partiesName);
+//       },
+//     ),
+//     GoRoute(
+//       path: '/followup',
+//       builder: (context, state) => const FollowUpScreen(),
+//     ),
+//   ],
+// );
 
 class SahibotCRM extends StatelessWidget {
   const SahibotCRM({super.key});

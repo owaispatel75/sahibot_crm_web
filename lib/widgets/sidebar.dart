@@ -55,7 +55,7 @@ class Sidebar extends StatelessWidget {
         currentLocation.startsWith('/pipelines') ||
         currentLocation.startsWith('/contacts') ||
         currentLocation.startsWith('/parties') ||
-        currentLocation.startsWith('/follow-up') ||
+        currentLocation.startsWith('/followup') ||
         currentLocation.startsWith('/products') ||
         currentLocation.startsWith('/activities');
 

@@ -314,11 +314,15 @@ class ContactDetailsPage extends StatelessWidget {
                           const VerticalDivider(width: 1),
                           Expanded(
                             child: DefaultTabController(
-                              length: 6,
+                              length: 5,
                               child: Column(
                                 children: const [
                                   TabBar(
+                                    tabAlignment: TabAlignment.start,
                                     isScrollable: true,
+                                    // labelPadding: EdgeInsets.symmetric(
+                                    //   horizontal: 12,
+                                    // ),
                                     tabs: [
                                       Tab(text: 'Timeline'),
                                       Tab(text: 'Notes'),
@@ -326,24 +330,35 @@ class ContactDetailsPage extends StatelessWidget {
                                       Tab(text: 'Pipelines'),
                                       Tab(text: 'Files'),
                                       //Tab(text: 'Social'),
-                                      
+
                                       // Add 'Files' tab here if needed
                                     ],
                                   ),
                                   Expanded(
                                     child: TabBarView(
                                       children: [
-                                        Center(
-                                          child: Text(
-                                            "This record doesn't have any history.",
+                                        // Center(
+                                        //   child: Text(
+                                        //     "This record doesn't have any history.",
+                                        //   ),
+                                        // ),
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsets
+                                                    .zero, // no left padding
+                                            child: Text(
+                                              "This record doesn't have any history.",
+                                            ),
                                           ),
                                         ),
                                         Center(child: Text("Notes View")),
                                         Center(child: Text("Activities View")),
                                         Center(child: Text("Pipelines View")),
                                         Center(child: Text("Files View")),
+
                                         //Center(child: Text("Social View")),
-                                        
                                       ],
                                     ),
                                   ),

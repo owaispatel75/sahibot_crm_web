@@ -57,8 +57,8 @@ class LeadsSectionSidebar extends StatelessWidget {
             context,
             label: 'Follow-up',
             icon: Icons.phone_callback,
-            route: '/follow-up',
-            isSelected: currentPath == '/follow-up',
+            route: '/followup',
+            isSelected: currentPath == '/followup',
           ),
           _menuItem(
             context,
