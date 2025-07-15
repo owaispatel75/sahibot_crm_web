@@ -16,6 +16,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:sahibot_crm_web/config/app_theme.dart';
+import 'package:sahibot_crm_web/screens/activity_screen.dart';
+import 'package:sahibot_crm_web/screens/activity_tab.dart';
 import 'package:sahibot_crm_web/widgets/leads_section_sidebar.dart';
 import 'package:sahibot_crm_web/widgets/sidebar.dart';
 import 'package:sahibot_crm_web/widgets/topbar.dart';
@@ -354,7 +356,8 @@ class ContactDetailsPage extends StatelessWidget {
                                           ),
                                         ),
                                         Center(child: Text("Notes View")),
-                                        Center(child: Text("Activities View")),
+                                        ActivityTab(),
+                                        //Center(child: Text("Activities View")),
                                         Center(child: Text("Pipelines View")),
                                         Center(child: Text("Files View")),
 

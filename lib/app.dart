@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sahibot_crm_web/screens/FollowUpScreen.dart';
+import 'package:sahibot_crm_web/screens/activity_screen.dart';
 import 'package:sahibot_crm_web/screens/contact_details.dart';
 import 'package:sahibot_crm_web/screens/contacts_screen.dart';
 import 'package:sahibot_crm_web/screens/myapps.dart';
@@ -48,9 +49,13 @@ final _router = GoRouter(
       pageBuilder:
           (context, state) => const NoTransitionPage(child: FollowUpScreen()),
     ),
+    GoRoute(
+      path: '/activities',
+      pageBuilder:
+          (context, state) => const NoTransitionPage(child: ActivitiesScreen()),
+    ),
   ],
 );
-
 
 // final _router = GoRouter(
 //   initialLocation: '/',
