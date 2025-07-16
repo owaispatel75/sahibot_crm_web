@@ -65,7 +65,7 @@ class LeadsSectionSidebar extends StatelessWidget {
             label: 'Products',
             icon: Icons.shopping_cart,
             route: '/products',
-            isSelected: currentPath == '/products',
+            isSelected: currentPath == '/products' || currentPath.startsWith('/products/'),
           ),
           _menuItem(
             context,

@@ -445,9 +445,11 @@ class ContactScreen extends StatefulWidget {
 
 class _ContactScreenState extends State<ContactScreen>
     with SingleTickerProviderStateMixin {
-  bool isPanelOpen = false;
+  
   String selectedContactName = '';
-  late TabController _tabController;
+  
+
+  bool isPanelOpen = false;
 
   void openPanel(String contactName) {
     if (mounted) {
@@ -465,6 +467,8 @@ class _ContactScreenState extends State<ContactScreen>
       });
     }
   }
+
+  late TabController _tabController;
 
   @override
   void initState() {

@@ -7,6 +7,8 @@ import 'package:sahibot_crm_web/screens/contacts_screen.dart';
 import 'package:sahibot_crm_web/screens/myapps.dart';
 import 'package:sahibot_crm_web/screens/parties_details.dart';
 import 'package:sahibot_crm_web/screens/parties_screen.dart';
+import 'package:sahibot_crm_web/screens/product_details.dart';
+import 'package:sahibot_crm_web/screens/products_screen.dart';
 
 final _router = GoRouter(
   initialLocation: '/',
@@ -53,6 +55,20 @@ final _router = GoRouter(
       path: '/activities',
       pageBuilder:
           (context, state) => const NoTransitionPage(child: ActivitiesScreen()),
+    ),
+    GoRoute(
+      path: '/products',
+      pageBuilder:
+          (context, state) => const NoTransitionPage(child: ProductsScreen()),
+    ),
+    GoRoute(
+      path: '/products/:productName',
+      pageBuilder: (context, state) {
+        final productName = state.pathParameters['productName']!;
+        return NoTransitionPage(
+          child: ProductDetailsPage(productName: productName),
+        );
+      },
     ),
   ],
 );
