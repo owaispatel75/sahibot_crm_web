@@ -9,6 +9,9 @@ import 'package:sahibot_crm_web/screens/parties_details.dart';
 import 'package:sahibot_crm_web/screens/parties_screen.dart';
 import 'package:sahibot_crm_web/screens/product_details.dart';
 import 'package:sahibot_crm_web/screens/products_screen.dart';
+import 'package:sahibot_crm_web/screens/teams_AllMember_screen.dart';
+import 'package:sahibot_crm_web/screens/teams_screen.dart';
+import 'package:sahibot_crm_web/screens/teams_userroles.dart';
 
 final _router = GoRouter(
   initialLocation: '/',
@@ -69,6 +72,21 @@ final _router = GoRouter(
           child: ProductDetailsPage(productName: productName),
         );
       },
+    ),
+    GoRoute(
+      path: '/team',
+      pageBuilder:
+          (context, state) => const NoTransitionPage(child: TeamsScreen()),
+    ),
+    GoRoute(
+      path: '/allmembers',
+      pageBuilder:
+          (context, state) => const NoTransitionPage(child: TeamsAllMemberScreen()),
+    ),
+    GoRoute(
+      path: '/userroles',
+      pageBuilder:
+          (context, state) => const NoTransitionPage(child: TeamsUserRolesScreen()),
     ),
   ],
 );

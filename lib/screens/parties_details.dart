@@ -323,7 +323,7 @@ class PartiesDetailsPage extends StatelessWidget {
                                     tabs: [
                                       Tab(text: 'Timeline'),
                                       Tab(text: 'Notes'),
-                                      Tab(text: 'Activities'),
+                                      Tab(text: 'Contact Activities'),
                                       Tab(text: 'Pipelines'),
                                       Tab(text: 'Contacts'),
                                       Tab(text: 'Files'),
