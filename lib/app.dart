@@ -60,6 +60,27 @@ final _router = GoRouter(
           (context, state) => const NoTransitionPage(child: ActivitiesScreen()),
     ),
     GoRoute(
+      path: '/pipelines',
+      pageBuilder: (context, state) => const NoTransitionPage(child: pipelinesScreen()),
+      routes: [
+        GoRoute(
+          path: 'details',
+          name: 'pipeline-details',
+          pageBuilder: (context, state) {
+            final args = state.extra! as PipelineDetailsArgs;
+            return NoTransitionPage(
+              child: PipelineDetailsScreen(
+                pipelineName: args.pipelineName,
+                currentStageId: args.currentStageId,
+                stages: args.stages,
+                deal: args.deal,
+              ),
+            );
+          },
+        ),
+      ],
+    ),
+    GoRoute(
       path: '/products',
       pageBuilder:
           (context, state) => const NoTransitionPage(child: ProductsScreen()),
