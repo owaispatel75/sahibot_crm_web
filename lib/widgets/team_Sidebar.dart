@@ -9,6 +9,10 @@ class TeamSidebar extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentPath = GoRouterState.of(context).uri.toString();
 
+    // final isTeamsSectionActive =
+    //     currentPath.startsWith('/teams') ||
+    //     currentPath.startsWith('/useraccess') ||currentPath.startsWith('/customize') ;
+
     return Container(
       width: 180,
       color: AppCustomTheme.lightBlueBg,
@@ -55,28 +59,51 @@ class TeamSidebar extends StatelessWidget {
           // ),
           _menuItem(
             context,
-            label: 'Sales Team',
-            icon: Icons.person,
+            label: 'All Members',
+            icon: Icons.directions_run,
             route: '/team',
+            //isSelected: isTeamsSectionActive,
             isSelected: currentPath == '/team',
           ),
           _menuItem(
             context,
-            label: 'User Roles',
-            icon: Icons.shopping_cart,
-            route: '/userroles',
-            isSelected: currentPath == '/userroles',
-            // isSelected:
-            //     currentPath == '/products' ||
-            //     currentPath.startsWith('/products/'),
+            label: 'User Access',
+            icon: Icons.directions_run,
+            route: '/useraccess',
+            isSelected: currentPath == '/useraccess',
           ),
           _menuItem(
             context,
-            label: 'All Members',
+            label: 'Customize',
             icon: Icons.directions_run,
-            route: '/allmembers',
-            isSelected: currentPath == '/allmembers',
+            route: '/customize',
+            isSelected: currentPath == '/customize',
           ),
+
+          // _menuItem(
+          //   context,
+          //   label: 'Sales Team',
+          //   icon: Icons.person,
+          //   route: '/team',
+          //   isSelected: currentPath == '/team',
+          // ),
+          // _menuItem(
+          //   context,
+          //   label: 'User Roles',
+          //   icon: Icons.shopping_cart,
+          //   route: '/userroles',
+          //   isSelected: currentPath == '/userroles',
+          //   // isSelected:
+          //   //     currentPath == '/products' ||
+          //   //     currentPath.startsWith('/products/'),
+          // ),
+          // _menuItem(
+          //   context,
+          //   label: 'All Members',
+          //   icon: Icons.directions_run,
+          //   route: '/allmembers',
+          //   isSelected: currentPath == '/allmembers',
+          // ),
         ],
       ),
     );
