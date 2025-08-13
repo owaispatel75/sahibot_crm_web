@@ -12,6 +12,8 @@ import 'package:sahibot_crm_web/screens/products_screen.dart';
 import 'package:sahibot_crm_web/screens/teams_AllMember_screen.dart';
 import 'package:sahibot_crm_web/screens/teams_screen.dart';
 import 'package:sahibot_crm_web/screens/kanban/kanban_models.dart';
+import 'package:sahibot_crm_web/screens/kanban/pipeline_details_screen.dart';
+import 'package:sahibot_crm_web/screens/kanban/piplines_screen.dart';
 import 'package:sahibot_crm_web/screens/teams_userroles.dart';
 
 final _router = GoRouter(
