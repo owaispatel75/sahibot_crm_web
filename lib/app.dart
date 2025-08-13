@@ -18,6 +18,7 @@ import 'package:sahibot_crm_web/screens/teams_userroles.dart';
 import 'package:sahibot_crm_web/screens/billing_screen.dart';
 import 'package:sahibot_crm_web/screens/TeamsAllMembersScreen_front.dart';
 import 'package:sahibot_crm_web/screens/customize_screen.dart';
+import 'package:sahibot_crm_web/screens/teams_useraccess_single.dart';
 
 final _router = GoRouter(
   initialLocation: '/',
@@ -128,6 +129,12 @@ final _router = GoRouter(
       path: '/userroles',
       pageBuilder:
           (context, state) => const NoTransitionPage(child: TeamsUserRolesScreen()),
+    ),
+    GoRoute(
+      path: '/useraccess',
+      pageBuilder:
+          (context, state) =>
+              const NoTransitionPage(child: TeamsUserAccessScreenF()),
     ),
   ],
 );
