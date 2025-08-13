@@ -59,6 +59,11 @@ final _router = GoRouter(
           (context, state) => const NoTransitionPage(child: FollowUpScreen()),
     ),
     GoRoute(
+      path: '/customize',
+      pageBuilder:
+          (context, state) => NoTransitionPage(child: CustomizeScreen()),
+    ),
+    GoRoute(
       path: '/billing',
       pageBuilder: (context, state) => NoTransitionPage(child: billingScreen()),
     ),
