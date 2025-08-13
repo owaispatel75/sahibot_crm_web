@@ -59,6 +59,13 @@ class Sidebar extends StatelessWidget {
         currentLocation.startsWith('/products') ||
         currentLocation.startsWith('/activities');
 
+    final isTeamsSectionActive =
+        currentLocation.startsWith('/team') ||
+        currentLocation.startsWith('/useraccess') || currentLocation.startsWith('/customize');    
+    
+    final isBillingSectionActive =
+        currentLocation.startsWith('/billing');
+
     return Container(
       width: 65,
       margin: EdgeInsets.all(0),
@@ -96,13 +103,13 @@ class Sidebar extends StatelessWidget {
           //   label: 'Links',
           //   isSelected: currentLocation == '/links',
           // ),
-          _buildMenuItem(
-            context,
-            route: '/team',
-            icon: Icons.groups,
-            label: 'Team',
-            isSelected: currentLocation == '/team',
-          ),
+          // _buildMenuItem(
+          //   context,
+          //   route: '/team',
+          //   icon: Icons.groups,
+          //   label: 'Team',
+          //   isSelected: currentLocation == '/team',
+          // ),
           // const Divider(color: Colors.white),
           // _buildMenuItem(
           //   context,
@@ -118,12 +125,28 @@ class Sidebar extends StatelessWidget {
           //   label: 'Support',
           //   isSelected: currentLocation == '/support',
           // ),
+          // _buildMenuItem(
+          //   context,
+          //   route: '/billing',
+          //   icon: Icons.receipt_long,
+          //   label: 'Billing',
+          //   isSelected: currentLocation == '/billing',
+          // ),
+          _buildMenuItem(
+            context,
+            route: '/team',
+            icon: Icons.groups,
+            label: 'Team',
+            isSelected: isTeamsSectionActive,
+            //isSelected: currentLocation == '/team',
+          ),
           _buildMenuItem(
             context,
             route: '/billing',
             icon: Icons.receipt_long,
             label: 'Billing',
-            isSelected: currentLocation == '/billing',
+            isSelected: isBillingSectionActive
+            // isSelected: currentLocation == '/billing',
           ),
         ],
       ),
