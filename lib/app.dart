@@ -117,7 +117,7 @@ final _router = GoRouter(
     GoRoute(
       path: '/team',
       pageBuilder:
-          (context, state) => const NoTransitionPage(child: TeamsAllMemberScreenF()),
+          (context, state) => const NoTransitionPage(child: TeamsAllMembersScreenF()),
     ),
     GoRoute(
       path: '/allmembers',
