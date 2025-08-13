@@ -16,6 +16,7 @@ import 'package:sahibot_crm_web/screens/kanban/pipeline_details_screen.dart';
 import 'package:sahibot_crm_web/screens/kanban/piplines_screen.dart';
 import 'package:sahibot_crm_web/screens/teams_userroles.dart';
 import 'package:sahibot_crm_web/screens/billing_screen.dart';
+import 'package:sahibot_crm_web/screens/TeamsAllMembersScreen_front.dart';
 import 'package:sahibot_crm_web/screens/customize_screen.dart';
 
 final _router = GoRouter(
@@ -116,7 +117,7 @@ final _router = GoRouter(
     GoRoute(
       path: '/team',
       pageBuilder:
-          (context, state) => const NoTransitionPage(child: TeamsAllMemberScreen()),
+          (context, state) => const NoTransitionPage(child: TeamsAllMemberScreenF()),
     ),
     GoRoute(
       path: '/allmembers',
