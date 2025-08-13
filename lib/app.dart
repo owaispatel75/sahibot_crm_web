@@ -108,10 +108,15 @@ final _router = GoRouter(
         );
       },
     ),
+    // GoRoute(
+    //   path: '/team',
+    //   pageBuilder:
+    //       (context, state) => const NoTransitionPage(child: TeamsScreen()),
+    // ),
     GoRoute(
       path: '/team',
       pageBuilder:
-          (context, state) => const NoTransitionPage(child: TeamsScreen()),
+          (context, state) => const NoTransitionPage(child: TeamsAllMemberScreen()),
     ),
     GoRoute(
       path: '/allmembers',
