@@ -89,11 +89,11 @@ class _TeamsAllMemberScreenFState extends State<TeamsAllMembersScreenF> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: _T.pageBg,
-      appBar: AppBar(
-        title: const Text('All Members'),
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.transparent,
-      ),
+      // appBar: AppBar(
+      //   title: const Text('All Members'),
+      //   backgroundColor: Colors.white,
+      //   surfaceTintColor: Colors.transparent,
+      // ),
       body: Stack(
         children: [
           Row(
