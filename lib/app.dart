@@ -16,6 +16,7 @@ import 'package:sahibot_crm_web/screens/kanban/pipeline_details_screen.dart';
 import 'package:sahibot_crm_web/screens/kanban/piplines_screen.dart';
 import 'package:sahibot_crm_web/screens/teams_userroles.dart';
 import 'package:sahibot_crm_web/screens/billing_screen.dart';
+import 'package:sahibot_crm_web/screens/customize_screen.dart';
 
 final _router = GoRouter(
   initialLocation: '/',
