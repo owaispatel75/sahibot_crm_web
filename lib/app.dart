@@ -15,6 +15,7 @@ import 'package:sahibot_crm_web/screens/kanban/kanban_models.dart';
 import 'package:sahibot_crm_web/screens/kanban/pipeline_details_screen.dart';
 import 'package:sahibot_crm_web/screens/kanban/piplines_screen.dart';
 import 'package:sahibot_crm_web/screens/teams_userroles.dart';
+import 'package:sahibot_crm_web/screens/billing_screen.dart';
 
 final _router = GoRouter(
   initialLocation: '/',
@@ -56,6 +57,10 @@ final _router = GoRouter(
       path: '/followup',
       pageBuilder:
           (context, state) => const NoTransitionPage(child: FollowUpScreen()),
+    ),
+    GoRoute(
+      path: '/billing',
+      pageBuilder: (context, state) => NoTransitionPage(child: billingScreen()),
     ),
     GoRoute(
       path: '/activities',
