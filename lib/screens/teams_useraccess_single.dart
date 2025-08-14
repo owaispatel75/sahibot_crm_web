@@ -997,6 +997,789 @@
 //   }
 // }
 
+//WORKING STARTS
+// import 'package:flutter/material.dart';
+// import 'package:go_router/go_router.dart';
+
+// class TeamsUserAccessScreenF extends StatefulWidget {
+//   const TeamsUserAccessScreenF({Key? key}) : super(key: key);
+
+//   @override
+//   State<TeamsUserAccessScreenF> createState() => _TeamsUserAccessScreenFState();
+// }
+
+// class _TeamsUserAccessScreenFState extends State<TeamsUserAccessScreenF> {
+//   late Future<List<TeamMember>> _future;
+
+//   /// search box
+//   String _query = '';
+
+//   /// Filter type dropdown + role filter
+//   String _filterType = 'User List'; // 'User List' | 'Role List'
+//   String? _selectedRole;
+//   List<String> _roles = const [];
+
+//   /// Modules/columns (order matches screenshot)
+//   static const _modules = <String>[
+//     'Tasks',
+//     'Pipelines',
+//     'Projects',
+//     'Product',
+//     'User Management',
+//     'Access Control',
+//     'Contacts',
+//     'Parties',
+//     'Approval',
+//   ];
+
+//   /// in-memory permissions: userId -> (module -> allowed)
+//   final Map<int, Map<String, bool>> _perms = {};
+
+//   /// track unsaved changes (controls Save button visibility)
+//   bool _hasChanges = false;
+
+//   /// nice purple for checked boxes
+//   static const _purple = Color(0xFF6C4FB3);
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _future = ApiServiceFake.getTeamMembers();
+//   }
+
+//   void _seedPermsAndRoles(List<TeamMember> members) {
+//     // roles list for Role List dropdown
+//     _roles = {
+//       for (final m in members) m.role,
+//     }.toList()
+//       ..sort();
+
+//     // seed permissions (demo defaults)
+//     for (final m in members) {
+//       _perms.putIfAbsent(m.id, () {
+//         return {
+//           for (final mod in _modules)
+//             mod: ['Tasks', 'Pipelines', 'Product', 'User Management', 'Parties']
+//                 .contains(mod),
+//         };
+//       });
+//     }
+//   }
+
+//   /// build a single user's permission payload (for Save)
+//   UserPermission _permsFor(TeamMember m) => UserPermission(
+//         userId: m.id,
+//         moduleAccess: Map<String, bool>.from(_perms[m.id] ?? {}),
+//       );
+
+//   void _refresh() => setState(() => _future = ApiServiceFake.getTeamMembers());
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Stack(
+//         children: [
+//           Row(children: const [Sidebar(), TeamSidebar()]),
+//           // content
+//           Padding(
+//             padding:
+//                 const EdgeInsets.only(left: 280.0, top: 64), // sidebars + topbar
+//             child: Column(
+//               children: [
+//                 _header(),
+//                 const SizedBox(height: 8),
+//                 Expanded(
+//                   child: FutureBuilder<List<TeamMember>>(
+//                     future: _future,
+//                     builder: (ctx, snap) {
+//                       if (snap.connectionState != ConnectionState.done) {
+//                         return const Center(
+//                             child: CircularProgressIndicator());
+//                       }
+//                       if (snap.hasError) {
+//                         return Center(child: Text('Error: ${snap.error}'));
+//                       }
+//                       final members = snap.data!;
+//                       _seedPermsAndRoles(members);
+
+//                       // search filter
+//                       final q = _query.trim().toLowerCase();
+//                       var filtered = q.isEmpty
+//                           ? members
+//                           : members
+//                               .where((m) =>
+//                                   m.name.toLowerCase().contains(q) ||
+//                                   m.email.toLowerCase().contains(q) ||
+//                                   m.role.toLowerCase().contains(q))
+//                               .toList();
+
+//                       // role filter (when Role List)
+//                       if (_filterType == 'Role List' && _selectedRole != null) {
+//                         filtered = filtered
+//                             .where((m) => m.role == _selectedRole)
+//                             .toList();
+//                       }
+
+//                       return AccessMatrixTable(
+//                         modules: _modules,
+//                         members: filtered,
+//                         getValue: (userId, module) =>
+//                             _perms[userId]?[module] ?? false,
+//                         setValue: (userId, module, v) => setState(() {
+//                           _perms[userId]![module] = v ?? false;
+//                           _hasChanges = true;
+//                         }),
+//                         setWholeColumn: (module, v) => setState(() {
+//                           for (final m in filtered) {
+//                             _perms[m.id]![module] = v ?? false;
+//                           }
+//                           _hasChanges = true;
+//                         }),
+//                         headerColor: AppCustomTheme.lightBlueBg,
+//                         checkColor: _purple,
+//                         borderColor: AppCustomTheme.lightgrayBg,
+//                       );
+//                     },
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//           const Positioned(top: 0, left: 0, right: 0, child: TopBar()),
+//         ],
+//       ),
+//     );
+//   }
+
+//   Widget _header() {
+//     return Padding(
+//       padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+//       child: Row(
+//         children: [
+//           // ElevatedButton.icon(
+//           //   onPressed: _refresh,
+//           //   style: ElevatedButton.styleFrom(
+//           //       backgroundColor: AppCustomTheme.bluePrimary),
+//           //   icon: const Icon(Icons.refresh, color: Colors.white),
+//           //   label:
+//           //       const Text('Refresh', style: TextStyle(color: Colors.white)),
+//           // ),
+//           //const SizedBox(width: 12),
+//           SizedBox(
+//             width: 260,
+//             child: TextField(
+//               onChanged: (v) => setState(() => _query = v),
+//               decoration: InputDecoration(
+//                 hintText: 'Search User',
+//                 prefixIcon: const Icon(Icons.search),
+//                 isDense: true,
+//                 border:
+//                     OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+//               ),
+//             ),
+//           ),
+//           const Spacer(),
+
+//           /// ---------------- Filter type dropdown block (your snippet) ----------------
+//           Row(
+//             children: [
+//               // Filter type dropdown
+//               Container(
+//                 padding: const EdgeInsets.symmetric(horizontal: 10),
+//                 decoration: BoxDecoration(
+//                   border:
+//                       Border.all(color: Colors.black, width: 1), // as shared
+//                   borderRadius: BorderRadius.circular(4),
+//                 ),
+//                 child: DropdownButton<String>(
+//                   underline: const SizedBox(),
+//                   value: _filterType,
+//                   items: ['User List', 'Role List']
+//                       .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+//                       .toList(),
+//                   onChanged: (val) => setState(() {
+//                     _filterType = val!;
+//                     _selectedRole = null; // reset role when switching
+//                   }),
+//                 ),
+//               ),
+
+//               // Role dropdown when in Role List mode
+//               if (_filterType == 'Role List') ...[
+//                 const SizedBox(width: 16),
+//                 Container(
+//                   padding: const EdgeInsets.symmetric(horizontal: 10),
+//                   decoration: BoxDecoration(
+//                     border: Border.all(color: Colors.black, width: 1),
+//                     borderRadius: BorderRadius.circular(4),
+//                   ),
+//                   child: DropdownButton<String>(
+//                     underline: const SizedBox(),
+//                     value: _selectedRole,
+//                     hint: const Text('Select Role'),
+//                     items: _roles
+//                         .map((role) =>
+//                             DropdownMenuItem(value: role, child: Text(role)))
+//                         .toList(),
+//                     onChanged: (val) => setState(() => _selectedRole = val),
+//                   ),
+//                 ),
+//               ],
+
+//               const SizedBox(width: 10),
+
+//               // Save button appears only when we have unsaved changes
+//               Visibility(
+//                 visible: _hasChanges,
+//                 child: ElevatedButton(
+//                   onPressed: () async {
+//                     // Build payload for all *currently loaded* members
+//                     final allMembers = await _future; // from same list
+//                     final allPermissions =
+//                         allMembers.map(_permsFor).toList(growable: false);
+
+//                     await ApiService().savePermissions(allPermissions);
+
+//                     if (!mounted) return;
+//                     setState(() => _hasChanges = false);
+//                     ScaffoldMessenger.of(context).showSnackBar(
+//                       const SnackBar(content: Text('Permissions saved')),
+//                     );
+//                   },
+//                   style: ElevatedButton.styleFrom(
+//                     backgroundColor: AppCustomTheme.bluePrimary,
+//                   ),
+//                   child: const Text('Save',
+//                       style: TextStyle(color: Colors.white)),
+//                 ),
+//               ),
+//             ],
+//           ),
+//           /// --------------------------------------------------------------------------
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+// /// ---------------------------------------------------------------------
+// /// Matrix table: “User, Role, [module columns with checkboxes]”
+// /// With select-all checkbox in each column header.
+// /// ---------------------------------------------------------------------
+// class AccessMatrixTable extends StatelessWidget {
+//   final List<String> modules;
+//   final List<TeamMember> members;
+//   final bool? Function(int userId, String module) getValue;
+//   final void Function(int userId, String module, bool? v) setValue;
+//   final void Function(String module, bool? v) setWholeColumn;
+
+//   final Color headerColor;
+//   final Color checkColor;
+//   final Color borderColor;
+
+//   const AccessMatrixTable({
+//     super.key,
+//     required this.modules,
+//     required this.members,
+//     required this.getValue,
+//     required this.setValue,
+//     required this.setWholeColumn,
+//     required this.headerColor,
+//     required this.checkColor,
+//     required this.borderColor,
+//   });
+
+//   bool _isColumnAllChecked(String module) {
+//     if (members.isEmpty) return false;
+//     for (final m in members) {
+//       if (getValue(m.id, module) != true) return false;
+//     }
+//     return true;
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final headerStyle =
+//         const TextStyle(fontWeight: FontWeight.w700, color: Colors.black87);
+
+//     Widget headCb(String module) => Transform.scale(
+//           scale: 0.95,
+//           child: Checkbox(
+//             value: _isColumnAllChecked(module),
+//             onChanged: (v) => setWholeColumn(module, v),
+//             shape:
+//                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+//             checkColor: Colors.white,
+//             activeColor: checkColor,
+//             side: BorderSide(color: Colors.grey.shade500),
+//           ),
+//         );
+
+//     // final headerRow = TableRow(
+//     //   decoration: BoxDecoration(color: headerColor),
+//     //   children: [
+//     //     _thCell('User', headerStyle),
+//     //     _thCell('Role', headerStyle),
+//     //     for (final mod in modules)
+//     //       Padding(
+//     //         padding: const EdgeInsets.all(10),
+//     //         child: Row(
+//     //           mainAxisAlignment: MainAxisAlignment.center,
+//     //           children: [
+//     //             Text(mod, style: headerStyle),
+//     //             const SizedBox(width: 6),
+//     //             headCb(mod),
+//     //           ],
+//     //         ),
+//     //       ),
+//     //   ],
+//     // );
+
+//     final headerRow = TableRow(
+//   decoration: BoxDecoration(color: headerColor),
+//   children: [
+//     _thCell('User', headerStyle),
+//     _thCell('Role', headerStyle),
+//     for (final mod in modules)
+//       Padding(
+//         padding: const EdgeInsets.all(10),
+//         child: Row(
+//           crossAxisAlignment: CrossAxisAlignment.center,
+//           children: [
+//             // <- lets the text wrap/ellipsize within the fixed cell width
+//             Expanded(
+//               child: Text(
+//                 mod,
+//                 style: headerStyle,
+//                 textAlign: TextAlign.center,
+//                 maxLines: 2,
+//                 overflow: TextOverflow.ellipsis,
+//                 softWrap: true,
+//               ),
+//             ),
+//             const SizedBox(width: 6),
+//             headCb(mod),
+//           ],
+//         ),
+//       ),
+//   ],
+// );
+
+
+//     final bodyRows = <TableRow>[
+//       for (final m in members)
+//         TableRow(
+//           decoration: const BoxDecoration(color: Colors.white),
+//           children: [
+//             _td(Padding(
+//               padding: const EdgeInsets.symmetric(vertical: 2),
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Text(m.name,
+//                       style: const TextStyle(
+//                           fontWeight: FontWeight.w700, color: Colors.black)),
+//                   const SizedBox(height: 2),
+//                   Text(m.email,
+//                       style:
+//                           const TextStyle(fontSize: 12, color: Colors.black54)),
+//                 ],
+//               ),
+//             )),
+//             _td(Text(m.role)),
+//             for (final mod in modules)
+//               _td(Center(
+//                 child: Transform.scale(
+//                   scale: 0.95,
+//                   child: Checkbox(
+//                     value: getValue(m.id, mod),
+//                     onChanged: (v) => setValue(m.id, mod, v),
+//                     shape: RoundedRectangleBorder(
+//                         borderRadius: BorderRadius.circular(4)),
+//                     checkColor: Colors.white,
+//                     activeColor: checkColor,
+//                     side: BorderSide(color: Colors.grey.shade500),
+//                   ),
+//                 ),
+//               ), tight: true),
+//           ],
+//         ),
+//     ];
+
+//     return Padding(
+//       padding: const EdgeInsets.symmetric(horizontal: 8),
+//       child: ClipRRect(
+//         borderRadius: BorderRadius.circular(10),
+//         child: SingleChildScrollView(
+//           scrollDirection: Axis.horizontal,
+//           child: ConstrainedBox(
+//             constraints: const BoxConstraints(minWidth: 1100),
+//             child: SingleChildScrollView(
+//               child: Table(
+//                 border: TableBorder.all(color: borderColor),
+//                 columnWidths: {
+//                   0: const FixedColumnWidth(260), // user
+//                   1: const FixedColumnWidth(160), // role
+//                   for (int i = 0; i < modules.length; i++)
+//                     2 + i: const FixedColumnWidth(160),
+//                 },
+//                 children: [
+//                   headerRow,
+//                   ...bodyRows,
+//                 ],
+//               ),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+
+//   Widget _thCell(String label, TextStyle style) =>
+//       Padding(padding: const EdgeInsets.all(12), child: Text(label, style: style));
+
+//   Widget _td(Widget child, {bool tight = false}) =>
+//       Padding(padding: EdgeInsets.all(tight ? 6 : 12), child: child);
+// }
+
+// /// ---------------------------------------------------------------------
+// /// Models & Fake/Stub APIs
+// /// ---------------------------------------------------------------------
+// class TeamMember {
+//   final int id;
+//   final String name;
+//   final String email;
+//   final int mobile;
+//   final String role;
+//   final int isActive;
+
+//   const TeamMember({
+//     required this.id,
+//     required this.name,
+//     required this.email,
+//     required this.mobile,
+//     required this.role,
+//     required this.isActive,
+//   });
+
+//   TeamMember copyWith({int? isActive}) => TeamMember(
+//         id: id,
+//         name: name,
+//         email: email,
+//         mobile: mobile,
+//         role: role,
+//         isActive: isActive ?? this.isActive,
+//       );
+// }
+
+// /// Payload used by Save button
+// class UserPermission {
+//   final int userId;
+//   final Map<String, bool> moduleAccess;
+//   const UserPermission({required this.userId, required this.moduleAccess});
+// }
+
+// /// Demo read service
+// class ApiServiceFake {
+//   static final List<TeamMember> _members = [
+//     const TeamMember(
+//       id: 1,
+//       name: 'owaispatel',
+//       email: 'owaispatel75@gmail.com',
+//       mobile: 9769175240,
+//       role: 'Owner',
+//       isActive: 1,
+//     ),
+//     const TeamMember(
+//       id: 2,
+//       name: 'Bilal Shaikh',
+//       email: 'sbillu93@gmail.com',
+//       mobile: 9876501234,
+//       role: 'Admin',
+//       isActive: 1,
+//     ),
+//     const TeamMember(
+//       id: 3,
+//       name: 'Asha Iyer',
+//       email: 'asha@zylker.com',
+//       mobile: 9998887777,
+//       role: 'Manager',
+//       isActive: 1,
+//     ),
+//     const TeamMember(
+//       id: 4,
+//       name: 'Dev Patel',
+//       email: 'dev@zylker.com',
+//       mobile: 8887776666,
+//       role: 'User',
+//       isActive: 1,
+//     ),
+//   ];
+
+//   static Future<List<TeamMember>> getTeamMembers() async {
+//     await Future.delayed(const Duration(milliseconds: 150));
+//     return List<TeamMember>.from(_members);
+//   }
+
+//   static Future<bool> updateUserStatus(int userId, int isActive) async {
+//     await Future.delayed(const Duration(milliseconds: 120));
+//     final i = _members.indexWhere((m) => m.id == userId);
+//     if (i == -1) return false;
+//     _members[i] = _members[i].copyWith(isActive: isActive);
+//     return true;
+//   }
+// }
+
+// /// Write stub to simulate saving to backend
+// class ApiService {
+//   static final Map<int, Map<String, bool>> _saved = {};
+
+//   Future<void> savePermissions(List<UserPermission> payload) async {
+//     await Future.delayed(const Duration(milliseconds: 250));
+//     for (final p in payload) {
+//       _saved[p.userId] = Map<String, bool>.from(p.moduleAccess);
+//     }
+//     // print('Saved: $_saved'); // debug
+//   }
+// }
+
+// /// ---------------------------------------------------------------------
+// /// Theme & chrome (TopBar / Sidebars) — same stubs you already had
+// /// ---------------------------------------------------------------------
+// class AppCustomTheme {
+//   static const bluePrimary = Color(0xFF2563EB);
+//   static const lightBlueBg = Color(0xFFEFF6FF);
+//   static final lightgrayBg = Colors.grey.shade300;
+// }
+
+// class TopBar extends StatelessWidget {
+//   const TopBar({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       padding: const EdgeInsets.symmetric(horizontal: 24),
+//       height: 64,
+//       decoration: BoxDecoration(
+//         color: Colors.white,
+//         boxShadow: [
+//           BoxShadow(
+//             color: Colors.black.withOpacity(0.08),
+//             blurRadius: 3,
+//             offset: const Offset(0, 2),
+//           ),
+//         ],
+//       ),
+//       child: Row(
+//         children: [
+//           const Icon(Icons.apps, color: Colors.black54),
+//           const SizedBox(width: 16),
+//           const Expanded(
+//             child: SizedBox(
+//               height: 40,
+//               child: TextField(
+//                 decoration: InputDecoration(
+//                   hintText: 'Search (CTRL/CMD+K)',
+//                   prefixIcon: Icon(Icons.search),
+//                   border: OutlineInputBorder(
+//                     borderRadius: BorderRadius.all(Radius.circular(12)),
+//                     borderSide: BorderSide.none,
+//                   ),
+//                   fillColor: Color(0xFFF1F3F4),
+//                   filled: true,
+//                   isDense: true,
+//                 ),
+//               ),
+//             ),
+//           ),
+//           const SizedBox(width: 16),
+//           const Icon(Icons.notifications, color: Colors.grey),
+//           const SizedBox(width: 16),
+//           const CircleAvatar(
+//             backgroundColor: Colors.blue,
+//             child: Text("BS", style: TextStyle(color: Colors.white)),
+//           ),
+//           const SizedBox(width: 8),
+//           const Text("Bilal\nManager", style: TextStyle(fontSize: 12)),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+// class Sidebar extends StatelessWidget {
+//   const Sidebar({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final currentLocation = GoRouterState.of(context).uri.toString();
+
+//     final isLeadsSectionActive =
+//         currentLocation.startsWith('/pipelines') ||
+//             currentLocation.startsWith('/contacts') ||
+//             currentLocation.startsWith('/parties') ||
+//             currentLocation.startsWith('/followup') ||
+//             currentLocation.startsWith('/products') ||
+//             currentLocation.startsWith('/activities');
+
+//     final isTeamsSectionActive = currentLocation.startsWith('/team') ||
+//         currentLocation.startsWith('/accesscontrol') ||
+//         currentLocation.startsWith('/customize');
+
+//     final isBillingSectionActive = currentLocation.startsWith('/billing');
+
+//     return Container(
+//       width: 65,
+//       color: AppCustomTheme.bluePrimary,
+//       child: Column(
+//         children: [
+//           const SizedBox(height: 60),
+//           _buildMenuItem(
+//             context,
+//             route: '/',
+//             icon: Icons.grid_view,
+//             label: 'My Apps',
+//             isSelected: currentLocation == '/',
+//           ),
+//           const SizedBox(height: 8),
+//           _buildMenuItem(
+//             context,
+//             route: '/pipelines',
+//             icon: Icons.bar_chart,
+//             label: 'Pipelines',
+//             isSelected: isLeadsSectionActive,
+//           ),
+//           _buildMenuItem(
+//             context,
+//             route: '/team',
+//             icon: Icons.groups,
+//             label: 'Team',
+//             isSelected: isTeamsSectionActive,
+//           ),
+//           _buildMenuItem(
+//             context,
+//             route: '/billing',
+//             icon: Icons.receipt_long,
+//             label: 'Billing',
+//             isSelected: isBillingSectionActive,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+
+//   Widget _buildMenuItem(
+//     BuildContext context, {
+//     required String route,
+//     required IconData icon,
+//     required String label,
+//     required bool isSelected,
+//   }) {
+//     final bgColor = isSelected ? Colors.white : AppCustomTheme.bluePrimary;
+//     final iconColor = isSelected ? AppCustomTheme.bluePrimary : Colors.white;
+//     final textColor = iconColor;
+
+//     return InkWell(
+//       onTap: () {
+//         final currentLocation = GoRouterState.of(context).uri.toString();
+//         if (currentLocation != route) context.go(route);
+//       },
+//       child: Container(
+//         width: double.infinity,
+//         color: bgColor,
+//         padding: const EdgeInsets.symmetric(vertical: 16),
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Icon(icon, color: iconColor, size: 20),
+//             const SizedBox(height: 6),
+//             Text(label, style: TextStyle(color: textColor, fontSize: 12)),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class TeamSidebar extends StatelessWidget {
+//   const TeamSidebar({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final currentPath = GoRouterState.of(context).uri.toString();
+
+//     return Container(
+//       width: 180,
+//       color: AppCustomTheme.lightBlueBg,
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.center,
+//         children: [
+//           const SizedBox(height: 64),
+//           _menuItem(
+//             context,
+//             label: 'All Members',
+//             icon: Icons.people_outline,
+//             route: '/team',
+//             isSelected: currentPath == '/team',
+//           ),
+//           _menuItem(
+//             context,
+//             label: 'Access Control',
+//             icon: Icons.security,
+//             route: '/accesscontrol',
+//             isSelected: currentPath == '/accesscontrol',
+//           ),
+//           _menuItem(
+//             context,
+//             label: 'Customize',
+//             icon: Icons.tune,
+//             route: '/customize',
+//             isSelected: currentPath == '/customize',
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+
+//   Widget _menuItem(
+//     BuildContext context, {
+//     required String label,
+//     required IconData icon,
+//     required String route,
+//     required bool isSelected,
+//   }) {
+//     return InkWell(
+//       onTap: () => context.go(route),
+//       child: Container(
+//         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+//         color: isSelected ? AppCustomTheme.lightBlueBg : Colors.transparent,
+//         child: Row(
+//           children: [
+//             Icon(icon,
+//                 size: 20,
+//                 color:
+//                     isSelected ? AppCustomTheme.bluePrimary : Colors.black54),
+//             const SizedBox(width: 12),
+//             Expanded(
+//               child: Text(
+//                 label,
+//                 style: TextStyle(
+//                   color: isSelected
+//                       ? AppCustomTheme.bluePrimary
+//                       : Colors.black87,
+//                   fontWeight:
+//                       isSelected ? FontWeight.w600 : FontWeight.normal,
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+//WORKING ENDS
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -1024,7 +1807,7 @@ class _TeamsUserAccessScreenFState extends State<TeamsUserAccessScreenF> {
     'Pipelines',
     'Projects',
     'Product',
-    'User Management',
+    'User Control',
     'Access Control',
     'Contacts',
     'Parties',
@@ -1265,12 +2048,236 @@ class _TeamsUserAccessScreenFState extends State<TeamsUserAccessScreenF> {
 /// Matrix table: “User, Role, [module columns with checkboxes]”
 /// With select-all checkbox in each column header.
 /// ---------------------------------------------------------------------
+// class AccessMatrixTable extends StatelessWidget {
+//   final List<String> modules;
+//   final List<TeamMember> members;
+//   final bool? Function(int userId, String module) getValue;
+//   final void Function(int userId, String module, bool? v) setValue;
+//   final void Function(String module, bool? v) setWholeColumn;
+
+//   final Color headerColor;
+//   final Color checkColor;
+//   final Color borderColor;
+
+//   const AccessMatrixTable({
+//     super.key,
+//     required this.modules,
+//     required this.members,
+//     required this.getValue,
+//     required this.setValue,
+//     required this.setWholeColumn,
+//     required this.headerColor,
+//     required this.checkColor,
+//     required this.borderColor,
+//   });
+
+//   bool _isColumnAllChecked(String module) {
+//     if (members.isEmpty) return false;
+//     for (final m in members) {
+//       if (getValue(m.id, module) != true) return false;
+//     }
+//     return true;
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final headerStyle =
+//         const TextStyle(fontWeight: FontWeight.w700, color: Colors.black87);
+
+//     Widget _headerCellCenter(String label) => Container(
+//       height: 56,                       // header row height (adjust as you like)
+//       alignment: Alignment.center,      // ← horizontal + vertical centering
+//       padding: const EdgeInsets.symmetric(horizontal: 8),
+//       child: Text(
+//         label,
+//         style: headerStyle,
+//         textAlign: TextAlign.center,    // ← ensure centered text
+//       ),
+//     );
+
+//     Widget headCb(String module) => Transform.scale(
+//           scale: 0.95,
+//           child: Checkbox(
+//             value: _isColumnAllChecked(module),
+//             onChanged: (v) => setWholeColumn(module, v),
+//             shape:
+//                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+//             checkColor: Colors.white,
+//             activeColor: checkColor,
+//             side: BorderSide(color: Colors.grey.shade500),
+//           ),
+//         );
+
+//     // final headerRow = TableRow(
+//     //   decoration: BoxDecoration(color: headerColor),
+//     //   children: [
+//     //     _thCell('User', headerStyle),
+//     //     _thCell('Role', headerStyle),
+//     //     for (final mod in modules)
+//     //       Padding(
+//     //         padding: const EdgeInsets.all(10),
+//     //         child: Row(
+//     //           mainAxisAlignment: MainAxisAlignment.center,
+//     //           children: [
+//     //             Text(mod, style: headerStyle),
+//     //             const SizedBox(width: 6),
+//     //             headCb(mod),
+//     //           ],
+//     //         ),
+//     //       ),
+//     //   ],
+//     // );
+
+//     final headerRow = TableRow(
+//       decoration: BoxDecoration(color: headerColor),
+//       children: [
+//       //   Align(
+//       //     alignment: Alignment.center,
+//       //     child: _thCell('User', headerStyle),
+//       //   ),
+//       //  Align(
+//       //     alignment: Alignment.center,
+//       //     child: _thCell('Role', headerStyle),
+//       //   ),
+
+//       _headerCellCenter('User'),
+//         _headerCellCenter('Role'),
+//         for (final mod in modules)
+//           Padding(
+//             padding: const EdgeInsets.all(0),
+//             child: Column(
+//               mainAxisSize: MainAxisSize.min,
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               crossAxisAlignment: CrossAxisAlignment.center,
+//               children: [
+//                 const SizedBox(height: 6),
+//                 // <- lets the text wrap/ellipsize within the fixed cell width
+//                 Text(
+//                   mod,
+//                   style: headerStyle,
+//                   textAlign: TextAlign.center,
+//                   maxLines: 1,
+//                   overflow: TextOverflow.ellipsis,
+//                   softWrap: true,
+//                 ),
+//                 //const SizedBox(height: 6),
+//                 // headCb(mod),
+//                 Align(
+//                   alignment: Alignment.center,
+//                   child: headCb(mod), // your existing header checkbox builder
+//                 ),
+//               ],
+//             ),
+//           ),
+//       ],
+//     );
+
+//     Widget _cellCenter(Widget child) => Container(
+//       alignment: Alignment.center,           // ⬅️ horizontal + vertical center
+//       padding: const EdgeInsets.symmetric(   // light, symmetric padding
+//         horizontal: 8,
+//         vertical: 12,
+//       ),
+//       child: child,
+//     );
+
+
+
+//     final bodyRows = <TableRow>[
+//       for (final m in members)
+//         TableRow(
+//           decoration: const BoxDecoration(color: Colors.white),
+//           children: [
+//             _td(Padding(
+//               padding: const EdgeInsets.symmetric(vertical: 2),
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Text(m.name,
+//                       style: const TextStyle(
+//                           fontWeight: FontWeight.w700, color: Colors.black)),
+//                   const SizedBox(height: 2),
+//                   Text(m.email,
+//                       style:
+//                           const TextStyle(fontSize: 12, color: Colors.black54)),
+//                 ],
+//               ),
+//             )),
+//             _td(
+//               _cellCenter(Text(m.role)),
+//             ),
+//             for (final mod in modules)
+//               _td(Center(
+//                 child: Transform.scale(
+//                   scale: 0.95,
+//                   child: Checkbox(
+//                     value: getValue(m.id, mod),
+//                     onChanged: (v) => setValue(m.id, mod, v),
+//                     shape: RoundedRectangleBorder(
+//                         borderRadius: BorderRadius.circular(4)),
+//                     checkColor: Colors.white,
+//                     activeColor: checkColor,
+//                     side: BorderSide(color: Colors.grey.shade500),
+//                   ),
+//                 ),
+//               ), tight: true),
+//           ],
+//         ),
+//     ];
+
+//     return Padding(
+//       padding: const EdgeInsets.symmetric(horizontal: 8),
+//       child: ClipRRect(
+//         borderRadius: BorderRadius.circular(10),
+//         child: SingleChildScrollView(
+//            scrollDirection: Axis.horizontal,
+//            child: ConstrainedBox(
+//              constraints: const BoxConstraints(minWidth: 1100),
+//             child: SingleChildScrollView(
+//               child: Table(
+//                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+//                 border: TableBorder.all(color: borderColor),
+//                 columnWidths: {
+//                   0: const FixedColumnWidth(190), // user
+//                   1: const FixedColumnWidth(100), // role
+//                   for (int i = 0; i < modules.length; i++)
+//                     2 + i: const FixedColumnWidth(120),
+//                 },
+//                 children: [
+//                   headerRow,
+//                   ...bodyRows,
+//                 ],
+//               ),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+
+//   Widget _thCell(String label, TextStyle style) =>
+//       Padding(padding: const EdgeInsets.all(6), child: Text(label, style: style, textAlign:TextAlign.center));
+
+//   Widget _td(Widget child, {bool tight = false}) =>
+//       Padding(padding: EdgeInsets.all(tight ? 6 : 12), child: child);
+// }
+
 class AccessMatrixTable extends StatelessWidget {
   final List<String> modules;
   final List<TeamMember> members;
+
+  /// Return whether a given user has access to a given module
   final bool? Function(int userId, String module) getValue;
+
+  /// Set access for a single (user,module) cell
   final void Function(int userId, String module, bool? v) setValue;
+
+  /// Set an entire module column for all users
   final void Function(String module, bool? v) setWholeColumn;
+
+  /// OPTIONAL: If provided, use this to set a whole user row at once.
+  /// If null, the widget will call [setValue] for each module instead.
+  final void Function(int userId, bool? v)? setWholeRow;
 
   final Color headerColor;
   final Color checkColor;
@@ -1283,10 +2290,13 @@ class AccessMatrixTable extends StatelessWidget {
     required this.getValue,
     required this.setValue,
     required this.setWholeColumn,
+    this.setWholeRow,
     required this.headerColor,
     required this.checkColor,
     required this.borderColor,
   });
+
+  // ================= helpers =================
 
   bool _isColumnAllChecked(String module) {
     if (members.isEmpty) return false;
@@ -1296,10 +2306,38 @@ class AccessMatrixTable extends StatelessWidget {
     return true;
   }
 
+  bool _isRowAllChecked(int userId) {
+    if (modules.isEmpty) return false;
+    for (final mod in modules) {
+      if (getValue(userId, mod) != true) return false;
+    }
+    return true;
+  }
+
+  void _applyWholeRow(int userId, bool? v) {
+    if (setWholeRow != null) {
+      setWholeRow!(userId, v);
+    } else {
+      // fallback: set each module via setValue
+      for (final mod in modules) {
+        setValue(userId, mod, v);
+      }
+    }
+  }
+
+  // ================ build =====================
+
   @override
   Widget build(BuildContext context) {
-    final headerStyle =
-        const TextStyle(fontWeight: FontWeight.w700, color: Colors.black87);
+    const headerTxtStyle =
+        TextStyle(fontWeight: FontWeight.w700, color: Colors.black87);
+
+    Widget _headerCellCenter(String label) => Container(
+          height: 56,
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Text(label, style: headerTxtStyle, textAlign: TextAlign.center),
+        );
 
     Widget headCb(String module) => Transform.scale(
           scale: 0.95,
@@ -1314,85 +2352,58 @@ class AccessMatrixTable extends StatelessWidget {
           ),
         );
 
-    // final headerRow = TableRow(
-    //   decoration: BoxDecoration(color: headerColor),
-    //   children: [
-    //     _thCell('User', headerStyle),
-    //     _thCell('Role', headerStyle),
-    //     for (final mod in modules)
-    //       Padding(
-    //         padding: const EdgeInsets.all(10),
-    //         child: Row(
-    //           mainAxisAlignment: MainAxisAlignment.center,
-    //           children: [
-    //             Text(mod, style: headerStyle),
-    //             const SizedBox(width: 6),
-    //             headCb(mod),
-    //           ],
-    //         ),
-    //       ),
-    //   ],
-    // );
-
     final headerRow = TableRow(
-  decoration: BoxDecoration(color: headerColor),
-  children: [
-    _thCell('User', headerStyle),
-    _thCell('Role', headerStyle),
-    for (final mod in modules)
-      Padding(
-        padding: const EdgeInsets.all(10),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // <- lets the text wrap/ellipsize within the fixed cell width
-            Expanded(
-              child: Text(
-                mod,
-                style: headerStyle,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                softWrap: true,
-              ),
+      decoration: BoxDecoration(color: headerColor),
+      children: [
+        _headerCellCenter(''), // Row master (blank header)
+        _headerCellCenter('User'),
+        _headerCellCenter('Role'),
+        for (final mod in modules)
+          Padding(
+            padding: const EdgeInsets.all(0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 6),
+                Text(
+                  mod,
+                  style: headerTxtStyle,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: true,
+                ),
+                Align(alignment: Alignment.center, child: headCb(mod)),
+              ],
             ),
-            const SizedBox(width: 6),
-            headCb(mod),
-          ],
-        ),
-      ),
-  ],
-);
+          ),
+      ],
+    );
 
+    Widget _td(Widget child, {bool tight = false}) =>
+        Padding(padding: EdgeInsets.all(tight ? 6 : 12), child: child);
+
+    Widget _cellCenter(Widget child) => Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+          child: child,
+    );
 
     final bodyRows = <TableRow>[
       for (final m in members)
         TableRow(
           decoration: const BoxDecoration(color: Colors.white),
           children: [
-            _td(Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(m.name,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w700, color: Colors.black)),
-                  const SizedBox(height: 2),
-                  Text(m.email,
-                      style:
-                          const TextStyle(fontSize: 12, color: Colors.black54)),
-                ],
-              ),
-            )),
-            _td(Text(m.role)),
-            for (final mod in modules)
-              _td(Center(
+            // NEW: Row master checkbox (grants/removes all modules for this user)
+            _td(
+              Center(
                 child: Transform.scale(
                   scale: 0.95,
                   child: Checkbox(
-                    value: getValue(m.id, mod),
-                    onChanged: (v) => setValue(m.id, mod, v),
+                    value: _isRowAllChecked(m.id),
+                    onChanged: (v) => _applyWholeRow(m.id, v),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4)),
                     checkColor: Colors.white,
@@ -1400,7 +2411,51 @@ class AccessMatrixTable extends StatelessWidget {
                     side: BorderSide(color: Colors.grey.shade500),
                   ),
                 ),
-              ), tight: true),
+              ),
+              tight: true,
+            ),
+
+            // User
+            _td(
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 2),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(m.name,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w700, color: Colors.black)),
+                    const SizedBox(height: 2),
+                    Text(m.email,
+                        style: const TextStyle(
+                            fontSize: 12, color: Colors.black54)),
+                  ],
+                ),
+              ),
+            ),
+
+            // Role
+            _td(_cellCenter(Text(m.role))),
+
+            // Modules matrix
+            for (final mod in modules)
+              _td(
+                Center(
+                  child: Transform.scale(
+                    scale: 0.95,
+                    child: Checkbox(
+                      value: getValue(m.id, mod),
+                      onChanged: (v) => setValue(m.id, mod, v),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4)),
+                      checkColor: Colors.white,
+                      activeColor: checkColor,
+                      side: BorderSide(color: Colors.grey.shade500),
+                    ),
+                  ),
+                ),
+                tight: true,
+              ),
           ],
         ),
     ];
@@ -1415,12 +2470,14 @@ class AccessMatrixTable extends StatelessWidget {
             constraints: const BoxConstraints(minWidth: 1100),
             child: SingleChildScrollView(
               child: Table(
+                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 border: TableBorder.all(color: borderColor),
                 columnWidths: {
-                  0: const FixedColumnWidth(260), // user
-                  1: const FixedColumnWidth(160), // role
+                  0: const FixedColumnWidth(56),  // row master
+                  1: const FixedColumnWidth(190), // user
+                  2: const FixedColumnWidth(100), // role
                   for (int i = 0; i < modules.length; i++)
-                    2 + i: const FixedColumnWidth(160),
+                    3 + i: const FixedColumnWidth(120),
                 },
                 children: [
                   headerRow,
@@ -1433,13 +2490,8 @@ class AccessMatrixTable extends StatelessWidget {
       ),
     );
   }
-
-  Widget _thCell(String label, TextStyle style) =>
-      Padding(padding: const EdgeInsets.all(12), child: Text(label, style: style));
-
-  Widget _td(Widget child, {bool tight = false}) =>
-      Padding(padding: EdgeInsets.all(tight ? 6 : 12), child: child);
 }
+
 
 /// ---------------------------------------------------------------------
 /// Models & Fake/Stub APIs
