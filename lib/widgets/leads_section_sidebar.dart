@@ -22,7 +22,8 @@ class LeadsSectionSidebar extends StatelessWidget {
             icon: Icons.dashboard,
             // route: '/pipelines/dashboard',
             route: '/dashboard',
-            isSelected: currentPath == '/dashboard',
+            // isSelected: currentPath == '/dashboard',
+            isSelected: currentPath == '/dashboard' || currentPath == '/automateLeads',
             // isSelected: currentPath == '/pipelines/dashboard',
           ),
           _menuItem(
