@@ -1622,7 +1622,7 @@ class Sidebar extends StatelessWidget {
             currentLocation.startsWith('/activities');
 
     final isTeamsSectionActive = currentLocation.startsWith('/team') ||
-        currentLocation.startsWith('/useraccess') ||
+        currentLocation.startsWith('/accesscontrol') ||
         currentLocation.startsWith('/customize');
 
     final isBillingSectionActive = currentLocation.startsWith('/billing');
@@ -1723,9 +1723,9 @@ class TeamSidebar extends StatelessWidget {
           ),
           _menuItem(
             context,
-            label: 'User Access',
+            label: 'Access Control',
             icon: Icons.security,
-            route: '/useraccess',
+            route: '/accesscontrol',
             isSelected: currentPath == '/useraccess',
           ),
           _menuItem(
