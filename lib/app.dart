@@ -102,6 +102,16 @@ final _router = GoRouter(
           (context, state) => const NoTransitionPage(child: ProductsScreen()),
     ),
     GoRoute(
+      path: '/automateLeads',
+      pageBuilder:
+          (context, state) => const NoTransitionPage(child: pipelinesScreen()),
+    ),
+    GoRoute(
+      path: '/dashboard',
+      pageBuilder:
+          (context, state) => const NoTransitionPage(child: pipelinesScreen()),
+    ),
+    GoRoute(
       path: '/products/:productName',
       pageBuilder: (context, state) {
         final productName = state.pathParameters['productName']!;
