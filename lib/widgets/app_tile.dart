@@ -141,6 +141,9 @@ class AppTile extends StatelessWidget {
                     ],
                   ),
                 ),
+                if(title == "AutomateWA" || title == "Automate Links" ||
+                    title == "Integrations" || title == "Automate Quotation")
+                Icon(Icons.lock, color: Colors.grey, size: 28),
               ],
             ),
           ),
