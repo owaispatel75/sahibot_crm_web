@@ -52,6 +52,8 @@ class Sidebar extends StatelessWidget {
     final currentLocation = GoRouterState.of(context).uri.toString();
 
     final isLeadsSectionActive =
+        currentLocation.startsWith('/dashboard') ||
+        currentLocation.startsWith('/automateLeads') ||
         currentLocation.startsWith('/pipelines') ||
         currentLocation.startsWith('/contacts') ||
         currentLocation.startsWith('/parties') ||
