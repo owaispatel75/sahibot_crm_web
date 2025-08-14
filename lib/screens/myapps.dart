@@ -29,12 +29,28 @@ class MyAppsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         section("Sales & Marketing", [
+                          // AppTile(
+                          //   title: "Dashboard",
+                          //   subtitle: "Clear view of your performance",
+                          //   icon: Icons.dashboard,
+                          //   onPressed: () {
+                          //     //context.go('/dashboard');
+                          //   },
+                          // ),
+                          // AppTile(
+                          //   title: "AutomateLeads",
+                          //   subtitle: "Track and assign leads",
+                          //   icon: Icons.group,
+                          //   onPressed: () {
+                          //     //context.go('/dashboard');
+                          //   },
+                          // ),
                           AppTile(
                             title: "Dashboard",
                             subtitle: "Clear view of your performance",
                             icon: Icons.dashboard,
                             onPressed: () {
-                              //context.go('/dashboard');
+                              context.go('/dashboard');
                             },
                           ),
                           AppTile(
@@ -42,7 +58,7 @@ class MyAppsScreen extends StatelessWidget {
                             subtitle: "Track and assign leads",
                             icon: Icons.group,
                             onPressed: () {
-                              //context.go('/dashboard');
+                              context.go('/automateLeads');
                             },
                           ),
                           AppTile(
