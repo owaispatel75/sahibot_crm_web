@@ -71,14 +71,23 @@ class MyAppsScreen extends StatelessWidget {
                             },
                           ),
                           AppTile(
-                            title: "Company Details",
-                            subtitle: "Manage Company Details with ease",
+                            title: "Parties Details",
+                            subtitle: "Manage parties details with ease",
                             icon: Icons.business,
                             onPressed: () {
                               context.go('/parties');
                               //context.go('/dashboard');
                             },
                           ),
+                          // AppTile(
+                          //   title: "Company Details",
+                          //   subtitle: "Manage Company Details with ease",
+                          //   icon: Icons.business,
+                          //   onPressed: () {
+                          //     context.go('/parties');
+                          //     //context.go('/dashboard');
+                          //   },
+                          // ),
                           AppTile(
                             title: "Follow-up",
                             subtitle: "Stay organized and move forward",
