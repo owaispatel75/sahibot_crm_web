@@ -63,7 +63,7 @@ class Sidebar extends StatelessWidget {
 
     final isTeamsSectionActive =
         currentLocation.startsWith('/team') ||
-        currentLocation.startsWith('/useraccess') || currentLocation.startsWith('/customize');    
+        currentLocation.startsWith('/accesscontrol') || currentLocation.startsWith('/customize');    
     
     final isBillingSectionActive =
         currentLocation.startsWith('/billing');
