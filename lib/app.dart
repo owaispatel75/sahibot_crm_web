@@ -141,7 +141,7 @@ final _router = GoRouter(
           (context, state) => const NoTransitionPage(child: TeamsUserRolesScreen()),
     ),
     GoRoute(
-      path: '/useraccess',
+      path: '/accesscontrol',
       pageBuilder:
           (context, state) =>
               const NoTransitionPage(child: TeamsUserAccessScreenF()),
