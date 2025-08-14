@@ -67,10 +67,10 @@ class TeamSidebar extends StatelessWidget {
           ),
           _menuItem(
             context,
-            label: 'User Access',
+            label: 'Access Control',
             icon: Icons.directions_run,
-            route: '/useraccess',
-            isSelected: currentPath == '/useraccess',
+            route: '/accesscontrol',
+            isSelected: currentPath == '/accesscontrol',
           ),
           _menuItem(
             context,
