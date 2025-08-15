@@ -71,8 +71,8 @@ class MyAppsScreen extends StatelessWidget {
                             },
                           ),
                           AppTile(
-                            title: "Parties Details",
-                            subtitle: "Manage parties details with ease",
+                            title: "Parties",
+                            subtitle: "Manage parties with ease",
                             icon: Icons.business,
                             onPressed: () {
                               context.go('/parties');
