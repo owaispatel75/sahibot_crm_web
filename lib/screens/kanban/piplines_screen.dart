@@ -602,6 +602,7 @@ import 'package:sahibot_crm_web/widgets/leads_section_sidebar.dart';
 import 'package:sahibot_crm_web/widgets/move_lead_dialog.dart';
 import '../../../widgets/topbar.dart';
 import '../../../widgets/sidebar.dart';
+import 'package:sahibot_crm_web/screens/kanban/AddDealDrawer.dart';
 
 /// Simple in-memory models (frontend-only)
 // class Stage {
@@ -1409,7 +1410,35 @@ class _pipelinesScreenState extends State<pipelinesScreen>
 
           // + Lead
           ElevatedButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              showGeneralDialog(
+                context: context,
+                barrierDismissible: true,
+                barrierLabel: "Add Deal",
+                transitionDuration: const Duration(milliseconds: 300),
+                pageBuilder:
+                    (c, a, s) => Align(
+                      alignment: Alignment.centerRight,
+                      child: SizedBox(
+                        width: MediaQuery.of(c).size.width * 0.40, // 40% drawer
+                        child: AddDealDrawer(
+                          onSubmit: (deal) {
+                            // TODO: wire to backend later
+                            // print(deal);
+                          },
+                        ),
+                      ),
+                    ),
+                transitionBuilder:
+                    (c, a, s, child) => SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(1, 0),
+                        end: Offset.zero,
+                      ).animate(a),
+                      child: child,
+                    ),
+              );
+            },
             icon: const Icon(Icons.add, color: Colors.white),
             label: const Text('Lead'),
             style: ElevatedButton.styleFrom(
