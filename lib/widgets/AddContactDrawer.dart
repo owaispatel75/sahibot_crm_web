@@ -11,7 +11,9 @@ class AddContactDrawer extends StatefulWidget {
 class _AddContactDrawerState extends State<AddContactDrawer> {
   final _formKey = GlobalKey<FormState>();
 
-  String selectedCountry = 'India';
+  //String selectedCountry = 'India';
+  String selectedCountry = 'UAE';
+  
   String selectedCompanyName = 'Select Company Name';
   String selectedLeadSource = 'Select Lead Source';
   String get countryCode => selectedCountry == 'India' ? '+91' : '+971';
