@@ -1440,7 +1440,7 @@ class _pipelinesScreenState extends State<pipelinesScreen>
               );
             },
             icon: const Icon(Icons.add, color: Colors.white),
-            label: const Text('Lead'),
+            label: const Text('Deals'),
             style: ElevatedButton.styleFrom(
               backgroundColor: AppCustomTheme.bluePrimary,
               foregroundColor: Colors.white,
