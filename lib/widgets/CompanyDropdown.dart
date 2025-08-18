@@ -299,7 +299,7 @@ class _CompanyDropdownState extends State<CompanyDropdown> {
             children: [
               Expanded(
                 child: Text(
-                  selectedCompany ?? 'Select Customer Name',
+                  selectedCompany ?? 'Select party Name',
                   style: TextStyle(
                     color:
                         selectedCompany == null ? Colors.black : Colors.black,
