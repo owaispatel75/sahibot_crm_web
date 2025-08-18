@@ -81,28 +81,86 @@ class _AddContactDrawerState extends State<AddContactDrawer> {
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ),
-                          const SizedBox(height: 12),
-                          Row(
-                            children: [
-                              Expanded(child: _buildTextField('First Name')),
-                              const SizedBox(width: 12),
-                              Expanded(child: _buildTextField('Last Name')),
-                            ],
-                          ),
+                          // const SizedBox(height: 12),
+                          // Row(
+                          //   children: [
+                          //     Expanded(child: _buildTextField('First Name')),
+                          //     const SizedBox(width: 12),
+                          //     Expanded(child: _buildTextField('Last Name')),
+                          //   ],
+                          // ),
+                          // const SizedBox(height: 12),
+                          // Row(
+                          //   children: [
+                          //     Expanded(child: _buildTextField('Title')),
+                          //     const SizedBox(width: 12),
+                          //     Expanded(
+                          //       child: CompanyDropdown(
+                          //         // selectedCompany: selectedCompanyName,
+                          //         // onCompanySelected: (val) {
+                          //         //   setState(() {
+                          //         //     selectedCompanyName = val;
+                          //         //   });
+                          //         // },
+                          //       ),
+                          //     ),
+                          //     // best working
+                          //     // Expanded(
+                          //     //   child: Column(
+                          //     //     crossAxisAlignment: CrossAxisAlignment.start,
+                          //     //     children: [
+                          //     //       // const Text("Country"),
+                          //     //       // const SizedBox(height: 4),
+                          //     //       DropdownButtonFormField<String>(
+                          //     //         hint: Text("Select your Company Name"),
+                          //     //         decoration: InputDecoration(
+                          //     //           border: OutlineInputBorder(
+                          //     //             borderSide: BorderSide(
+                          //     //               color: Colors.black,
+                          //     //             ),
+                          //     //           ),
+                          //     //         ),
+                          //     //         value: selectedCompanyName,
+                          //     //         items: const [
+                          //     //           DropdownMenuItem(
+                          //     //             value: 'Select Company Name',
+                          //     //             child: Text('Select Company Name'),
+                          //     //           ),
+                          //     //           DropdownMenuItem(
+                          //     //             value: 'WVTS',
+                          //     //             child: Text('WVTS'),
+                          //     //           ),
+                          //     //           DropdownMenuItem(
+                          //     //             value: 'Your Company',
+                          //     //             child: Text('Your Company'),
+                          //     //           ),
+                          //     //           DropdownMenuItem(
+                          //     //             value: 'Mine Company',
+                          //     //             child: Text('Mine Company'),
+                          //     //           ),
+                          //     //         ],
+                          //     //         onChanged:
+                          //     //             (val) => setState(
+                          //     //               () =>
+                          //     //                   selectedCompanyName =
+                          //     //                       val ??
+                          //     //                       'Select Company Name',
+                          //     //             ),
+                          //     //       ),
+                          //     //     ],
+                          //     //   ),
+                          //     // ),
+                          //     //Expanded(child: _buildTextField('Company Name')),
+                          //   ],
+                          // ),
+                          // const SizedBox(height: 12),
                           const SizedBox(height: 12),
                           Row(
                             children: [
                               Expanded(child: _buildTextField('Title')),
                               const SizedBox(width: 12),
                               Expanded(
-                                child: CompanyDropdown(
-                                  // selectedCompany: selectedCompanyName,
-                                  // onCompanySelected: (val) {
-                                  //   setState(() {
-                                  //     selectedCompanyName = val;
-                                  //   });
-                                  // },
-                                ),
+                                child: CompanyDropdown(),
                               ),
                               // best working
                               // Expanded(
@@ -151,6 +209,14 @@ class _AddContactDrawerState extends State<AddContactDrawer> {
                               //   ),
                               // ),
                               //Expanded(child: _buildTextField('Company Name')),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          Row(
+                            children: [
+                              Expanded(child: _buildTextField('First Name')),
+                              const SizedBox(width: 12),
+                              Expanded(child: _buildTextField('Last Name')),
                             ],
                           ),
                           const SizedBox(height: 12),
