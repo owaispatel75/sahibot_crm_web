@@ -53,26 +53,146 @@ import 'package:flutter/material.dart';
 //     );
 //   }
 // }
+// import 'package:flutter/material.dart';
+// import 'package:go_router/go_router.dart';
+// import 'package:sahibot_crm_web/config/app_theme.dart';
+// import 'package:sahibot_crm_web/widgets/SlideInContactDetailsPanel.dart';
+
+// class PartiesTable extends StatefulWidget {
+//   final Function(String) onContactTap;
+//   final bool isPanelOpen;
+
+//   PartiesTable({required this.onContactTap, required this.isPanelOpen});
+
+//   @override
+//   State<PartiesTable> createState() => _PartiesTableState();
+// }
+
+// class _PartiesTableState extends State<PartiesTable> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       padding: EdgeInsets.all(16),
+//       width: double.infinity,
+//       child: Table(
+//         columnWidths: const {
+//           0: FlexColumnWidth(2),
+//           1: FlexColumnWidth(2),
+//           2: FlexColumnWidth(3),
+//           3: FlexColumnWidth(2),
+//           4: FlexColumnWidth(3),
+//         },
+//         border: TableBorder.all(color: Colors.grey.shade300, width: 1),
+//         defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+//         children: [
+//           _buildHeaderRow(),
+//           _buildDataRow(
+//             partiesName: 'Zylker Corp',
+//             shippingAddress: 'Thane',
+//             billingAddress: 'Thane',
+//             city: 'Mumbai',
+//             state: 'Maharashtra',
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+
+//   TableRow _buildHeaderRow() {
+//     return TableRow(
+//       decoration: BoxDecoration(color: AppCustomTheme.lightBlueBg),
+//       children: [
+//         _headerCell('Parties Name'),
+//         _headerCell('Shipping Address'),
+//         _headerCell('Billing Address'),
+//         _headerCell('City'),
+//         _headerCell('State'),
+//       ],
+//     );
+//   }
+
+//   TableRow _buildDataRow({
+//     required String partiesName,
+//     required String shippingAddress,
+//     required String billingAddress,
+//     required String city,
+//     required String state,
+//   }) {
+//     return TableRow(
+//       children: [
+//         _dataCell(
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               GestureDetector(
+//                 onTap: () {
+//                   context.go('/parties/${Uri.encodeComponent(partiesName)}');
+//                 },
+//                 child: Text(
+//                   partiesName,
+//                   style: TextStyle(
+//                     fontWeight: FontWeight.bold,
+//                     color: Colors.blue,
+//                   ),
+//                 ),
+//               ),
+//               InkWell(
+//                 onTap: () => widget.onContactTap(partiesName),
+//                 child: CircleAvatar(
+//                   radius: 16,
+//                   backgroundColor: Colors.white,
+//                   child: Icon(
+//                     widget.isPanelOpen ? Icons.close : Icons.remove_red_eye,
+//                     color: AppCustomTheme.bluePrimary,
+//                     size: 18,
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//         _dataCell(Text(shippingAddress)),
+//         _dataCell(Text(billingAddress)),
+//         _dataCell(Text(city)),
+//         _dataCell(Text(state)),
+//       ],
+//     );
+//   }
+
+//   Widget _headerCell(String label) => Padding(
+//     padding: const EdgeInsets.all(12.0),
+//     child: Text(label, style: TextStyle(fontWeight: FontWeight.w600)),
+//   );
+
+//   Widget _dataCell(Widget child) =>
+//       Padding(padding: const EdgeInsets.all(12.0), child: child);
+// }
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sahibot_crm_web/config/app_theme.dart';
-import 'package:sahibot_crm_web/widgets/SlideInContactDetailsPanel.dart';
 
 class PartiesTable extends StatefulWidget {
   final Function(String) onContactTap;
   final bool isPanelOpen;
 
-  PartiesTable({required this.onContactTap, required this.isPanelOpen});
+  const PartiesTable({
+    super.key,
+    required this.onContactTap,
+    required this.isPanelOpen,
+  });
 
   @override
   State<PartiesTable> createState() => _PartiesTableState();
 }
 
 class _PartiesTableState extends State<PartiesTable> {
+  int? _hoveredRow;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       width: double.infinity,
       child: Table(
         columnWidths: const {
@@ -80,18 +200,27 @@ class _PartiesTableState extends State<PartiesTable> {
           1: FlexColumnWidth(2),
           2: FlexColumnWidth(3),
           3: FlexColumnWidth(2),
-          4: FlexColumnWidth(3),
+          4: FlexColumnWidth(2),
         },
         border: TableBorder.all(color: Colors.grey.shade300, width: 1),
         defaultVerticalAlignment: TableCellVerticalAlignment.middle,
         children: [
           _buildHeaderRow(),
           _buildDataRow(
+            index: 0,
             partiesName: 'Zylker Corp',
             shippingAddress: 'Thane',
             billingAddress: 'Thane',
             city: 'Mumbai',
             state: 'Maharashtra',
+          ),
+          _buildDataRow(
+            index: 1,
+            partiesName: 'Globex LLC',
+            shippingAddress: 'Al Barsha',
+            billingAddress: 'Business Bay',
+            city: 'Dubai',
+            state: 'Dubai',
           ),
         ],
       ),
@@ -101,69 +230,107 @@ class _PartiesTableState extends State<PartiesTable> {
   TableRow _buildHeaderRow() {
     return TableRow(
       decoration: BoxDecoration(color: AppCustomTheme.lightBlueBg),
-      children: [
-        _headerCell('Parties Name'),
-        _headerCell('Shipping Address'),
-        _headerCell('Billing Address'),
-        _headerCell('City'),
-        _headerCell('State'),
+      children: const [
+        _HeaderCell('Parties Name'),
+        _HeaderCell('Shipping Address'),
+        _HeaderCell('Billing Address'),
+        _HeaderCell('City'),
+        _HeaderCell('State'),
       ],
     );
   }
 
+  List<Widget> _wrapRowHover(int index, List<Widget> cells) {
+    return cells
+        .map(
+          (c) => MouseRegion(
+            onEnter: (_) => setState(() => _hoveredRow = index),
+            onExit: (_) {
+              if (_hoveredRow == index) setState(() => _hoveredRow = null);
+            },
+            child: c,
+          ),
+        )
+        .toList();
+  }
+
   TableRow _buildDataRow({
+    required int index,
     required String partiesName,
     required String shippingAddress,
     required String billingAddress,
     required String city,
     required String state,
   }) {
-    return TableRow(
-      children: [
-        _dataCell(
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  context.go('/parties/${Uri.encodeComponent(partiesName)}');
-                },
-                child: Text(
-                  partiesName,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () => widget.onContactTap(partiesName),
-                child: CircleAvatar(
-                  radius: 16,
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    widget.isPanelOpen ? Icons.close : Icons.remove_red_eye,
-                    color: AppCustomTheme.bluePrimary,
-                    size: 18,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        _dataCell(Text(shippingAddress)),
-        _dataCell(Text(billingAddress)),
-        _dataCell(Text(city)),
-        _dataCell(Text(state)),
-      ],
-    );
-  }
+    final isHovered = _hoveredRow == index;
 
-  Widget _headerCell(String label) => Padding(
-    padding: const EdgeInsets.all(12.0),
-    child: Text(label, style: TextStyle(fontWeight: FontWeight.w600)),
-  );
+    final cells = <Widget>[
+      _dataCell(
+        Row(
+          children: [
+            GestureDetector(
+              onTap:
+                  () => context.go(
+                    '/parties/${Uri.encodeComponent(partiesName)}',
+                  ),
+              child: Text(
+                partiesName,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            const Spacer(),
+            SizedBox(
+              width: 32,
+              height: 32,
+              child: IgnorePointer(
+                ignoring: !isHovered,
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 120),
+                  opacity: isHovered ? 1 : 0,
+                  child: InkWell(
+                    onTap: () => widget.onContactTap(partiesName),
+                    customBorder: const CircleBorder(),
+                    child: CircleAvatar(
+                      radius: 16,
+                      backgroundColor: Colors.white,
+                      child: Icon(
+                        widget.isPanelOpen ? Icons.close : Icons.remove_red_eye,
+                        color: AppCustomTheme.bluePrimary,
+                        size: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      _dataCell(Text(shippingAddress)),
+      _dataCell(Text(billingAddress)),
+      _dataCell(Text(city)),
+      _dataCell(Text(state)),
+    ];
+
+    return TableRow(children: _wrapRowHover(index, cells));
+  }
 
   Widget _dataCell(Widget child) =>
       Padding(padding: const EdgeInsets.all(12.0), child: child);
+}
+
+class _HeaderCell extends StatelessWidget {
+  final String label;
+  const _HeaderCell(this.label);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
+    );
+  }
 }
