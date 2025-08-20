@@ -76,6 +76,11 @@ final _router = GoRouter(
           (context, state) => const NoTransitionPage(child: ActivitiesScreen()),
     ),
     GoRoute(
+      path: '/projects',
+      pageBuilder:
+          (context, state) => const NoTransitionPage(child: pipelinesScreen()),
+    ),
+    GoRoute(
       path: '/pipelines',
       pageBuilder: (context, state) => const NoTransitionPage(child: pipelinesScreen()),
       routes: [
