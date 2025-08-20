@@ -53,6 +53,13 @@ class _AddProductState extends State<AddProduct> {
                       key: _formKey,
                       child: Column(
                         children: [
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Product Information",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
                           // const Align(
                           //   alignment: Alignment.centerLeft,
                           //   child: Text(
