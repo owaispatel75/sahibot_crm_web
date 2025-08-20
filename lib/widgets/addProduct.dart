@@ -20,6 +20,8 @@ class _AddProductState extends State<AddProduct> {
   DateTime? dob;
   DateTime? anniversary;
 
+  bool isstatus = true;
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -97,6 +99,25 @@ class _AddProductState extends State<AddProduct> {
                             ],
                           ),
                           const SizedBox(height: 12),
+                          // const SizedBox(height: 12),
+                          Row(
+                            children: [
+                              Text("Product Status"),
+                              SizedBox(width: 10),
+                              Switch(
+                                value: isstatus,
+                                //onChanged: (v) => !isstatus,
+                                onChanged: (v) => setState(() => isstatus = v),
+                                // Optional branding
+                                activeColor: Colors.white, // thumb when ON
+                                activeTrackColor:
+                                    AppCustomTheme.bluePrimary, // track when ON
+                                inactiveThumbColor: Colors.white,
+                                inactiveTrackColor: Colors.black12,
+                              ),
+                              // Expanded(child: _buildTextField('Description')),
+                            ],
+                          ),
                           // Row(
                           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           //   children: [
