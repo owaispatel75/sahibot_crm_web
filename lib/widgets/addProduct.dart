@@ -60,6 +60,7 @@ class _AddProductState extends State<AddProduct> {
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ),
+                          const SizedBox(height: 12),
                           // const Align(
                           //   alignment: Alignment.centerLeft,
                           //   child: Text(
