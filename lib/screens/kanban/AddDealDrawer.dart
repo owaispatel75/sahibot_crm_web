@@ -18,6 +18,7 @@ class _AddDealDrawerState extends State<AddDealDrawer> {
   final _amountCtl = TextEditingController();
   final _descCtl = TextEditingController();
   final _closingCtl = TextEditingController();
+  final _source = TextEditingController();
 
   DateTime? _closingDate;
 
@@ -26,7 +27,7 @@ class _AddDealDrawerState extends State<AddDealDrawer> {
   String? _stage;
   String? _party;
   String? _contact;
-  String? _source;
+  // String? _source;
 
   // sample data (mock; swap with backend later)
   final _pipelines = const ['Software Sale Pipeline', 'Support Pipeline'];
@@ -52,18 +53,19 @@ class _AddDealDrawerState extends State<AddDealDrawer> {
     'Wayne Enterprises': ['Lucius Fox', 'Alfred Pennyworth'],
   };
 
-  final _sources = const [
-    'RCO',
-    'Website',
-    'Referral',
-    'Google Ads',
-    'YouTube',
-  ];
+  // final _sources = const [
+  //   'RCO',
+  //   'Website',
+  //   'Referral',
+  //   'Google Ads',
+  //   'YouTube',
+  // ];
 
   @override
   void dispose() {
     _nameCtl.dispose();
     _amountCtl.dispose();
+    _source.dispose();
     _descCtl.dispose();
     _closingCtl.dispose();
     super.dispose();
@@ -296,22 +298,33 @@ class _AddDealDrawerState extends State<AddDealDrawer> {
                             ),
                           ),
                           const SizedBox(width: 12),
-                          Expanded(
-                            child: DropdownButtonFormField<String>(
-                              value: _source,
-                              items:
-                                  _sources
-                                      .map(
-                                        (e) => DropdownMenuItem(
-                                          value: e,
-                                          child: Text(e),
-                                        ),
-                                      )
-                                      .toList(),
-                              onChanged: (v) => setState(() => _source = v),
+                           Expanded(
+                            child: TextFormField(
+                              controller: _source,
                               decoration: _dec('Source'),
+                              validator:
+                                  (v) =>
+                                      (v == null || v.trim().isEmpty)
+                                          ? 'Required'
+                                          : null,
                             ),
                           ),
+                          // Expanded(
+                          //   child: DropdownButtonFormField<String>(
+                          //     value: _source,
+                          //     items:
+                          //         _sources
+                          //             .map(
+                          //               (e) => DropdownMenuItem(
+                          //                 value: e,
+                          //                 child: Text(e),
+                          //               ),
+                          //             )
+                          //             .toList(),
+                          //     onChanged: (v) => setState(() => _source = v),
+                          //     decoration: _dec('Source'),
+                          //   ),
+                          // ),
                         ],
                       ),
                       const SizedBox(height: 12),
