@@ -715,7 +715,7 @@ class ContactDetailsPage extends StatelessWidget {
                           const VerticalDivider(width: 1),
                           Expanded(
                             child: DefaultTabController(
-                              length: 4,
+                              length: 5,
                               child: Column(
                                 children: [
                                   TabBar(
@@ -729,6 +729,7 @@ class ContactDetailsPage extends StatelessWidget {
                                       Tab(text: 'Notes'),
                                       Tab(text: 'Activities'),
                                       Tab(text: 'Pipelines'),
+                                      Tab(text: 'Projects'),
                                       Row(
                                         children: [
                                           Text("Files"),
@@ -770,6 +771,7 @@ class ContactDetailsPage extends StatelessWidget {
                                           authorName: contactName,
                                         ),
                                         ActivityTab(),
+                                        PipelinesTab(),
                                         PipelinesTab()
                                         //Center(child: Text("Activities View")),
                                         
