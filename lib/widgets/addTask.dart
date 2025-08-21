@@ -493,6 +493,196 @@ class _LabeledField extends StatelessWidget {
   }
 }
 
+// /// Result model for the picker dialog
+// class _RelatedPickResult {
+//   final String category;
+//   final String item;
+//   _RelatedPickResult(this.category, this.item);
+// }
+
+// class _RelatedPickerDialog extends StatefulWidget {
+//   final Map<String, List<String>> options;
+//   final String? initialCategory;
+//   final String? initialItem;
+
+//   const _RelatedPickerDialog({
+//     required this.options,
+//     this.initialCategory,
+//     this.initialItem,
+//   });
+
+//   @override
+//   State<_RelatedPickerDialog> createState() => _RelatedPickerDialogState();
+// }
+
+// class _RelatedPickerDialogState extends State<_RelatedPickerDialog> {
+//   late String _category;
+//   String? _selectedItem;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _category = widget.initialCategory ?? widget.options.keys.first;
+//     _selectedItem = widget.initialItem;
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final items = widget.options[_category] ?? const <String>[];
+
+//     return Dialog(
+//       insetPadding: const EdgeInsets.symmetric(horizontal: 60, vertical: 80),
+//       backgroundColor: Colors.white,
+//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+//       clipBehavior: Clip.antiAlias, // ← ROUND the dialog & clip children
+//       child: ClipRRect(
+//         borderRadius: BorderRadius.circular(16), // ← extra safety
+//         child: Container(
+//           decoration: BoxDecoration(
+//             border: Border.all(color: AppCustomTheme.bluePrimary, width: 1.25),
+//             borderRadius: BorderRadius.circular(16),
+//           ),
+//           child: SizedBox(
+//             width: 560,
+//             height: 360,
+//             child: Row(
+//               children: [
+//                 // LEFT: categories
+//                 Container(
+//                   width: 200,
+//                   decoration: BoxDecoration(
+//                     color: Colors.grey.shade50,
+//                     border: Border(
+//                       right: BorderSide(color: Colors.grey.shade300),
+//                     ),
+//                   ),
+//                   child: ListView(
+//                     children:
+//                         widget.options.keys.map((cat) {
+//                           final selected = cat == _category;
+//                           return ListTile(
+//                             selected: selected,
+//                             selectedTileColor: AppCustomTheme.lightBlueBg,
+//                             title: Text(
+//                               cat,
+//                               style: TextStyle(
+//                                 fontWeight: FontWeight.w600,
+//                                 // ← BLUE when selected
+//                                 color:
+//                                     selected
+//                                         ? AppCustomTheme.bluePrimary
+//                                         : Colors.black87,
+//                               ),
+//                             ),
+//                             trailing: Icon(
+//                               Icons.chevron_right,
+//                               color:
+//                                   selected
+//                                       ? AppCustomTheme.bluePrimary
+//                                       : Colors.black45,
+//                             ),
+//                             onTap:
+//                                 () => setState(() {
+//                                   _category = cat;
+//                                   _selectedItem = null;
+//                                 }),
+//                           );
+//                         }).toList(),
+//                   ),
+//                 ),
+
+//                 // RIGHT: items
+//                 Expanded(
+//                   child: Column(
+//                     children: [
+//                       Container(
+//                         height: 48,
+//                         alignment: Alignment.centerLeft,
+//                         padding: const EdgeInsets.symmetric(horizontal: 12),
+//                         decoration: BoxDecoration(
+//                           color: AppCustomTheme.lightBlueBg.withOpacity(.4),
+//                           border: Border(
+//                             bottom: BorderSide(
+//                               color: AppCustomTheme.bluePrimary,
+//                               width: 1,
+//                             ),
+//                           ),
+//                         ),
+//                         child: Text(
+//                           '$_category',
+//                           style: const TextStyle(
+//                             fontWeight: FontWeight.w700,
+//                             fontSize: 16,
+//                           ),
+//                         ),
+//                       ),
+//                       Expanded(
+//                         child: ListView.builder(
+//                           itemCount: items.length,
+//                           itemBuilder: (_, i) {
+//                             final it = items[i];
+//                             return RadioListTile<String>(
+//                               value: it,
+//                               groupValue: _selectedItem,
+//                               activeColor: AppCustomTheme.bluePrimary,
+//                               title: Text(it),
+//                               onChanged:
+//                                   (v) => setState(() => _selectedItem = v),
+//                             );
+//                           },
+//                         ),
+//                       ),
+//                       const Divider(height: 1),
+//                       Padding(
+//                         padding: const EdgeInsets.symmetric(
+//                           horizontal: 12,
+//                           vertical: 10,
+//                         ),
+//                         child: Row(
+//                           mainAxisAlignment: MainAxisAlignment.end,
+//                           children: [
+//                             TextButton(
+//                               onPressed: () => Navigator.pop(context),
+//                               style: TextButton.styleFrom(
+//                                 foregroundColor: AppCustomTheme.bluePrimary,
+//                               ),
+//                               child: const Text('Cancel'),
+//                             ),
+//                             const SizedBox(width: 8),
+//                             ElevatedButton(
+//                               onPressed:
+//                                   _selectedItem == null
+//                                       ? null
+//                                       : () => Navigator.pop(
+//                                         context,
+//                                         _RelatedPickResult(
+//                                           _category,
+//                                           _selectedItem!,
+//                                         ),
+//                                       ),
+//                               style: ElevatedButton.styleFrom(
+//                                 backgroundColor: AppCustomTheme.bluePrimary,
+//                                 shape: RoundedRectangleBorder(
+//                                   borderRadius: BorderRadius.circular(10),
+//                                 ),
+//                               ),
+//                               child: const Text('Select'),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 /// Result model for the picker dialog
 class _RelatedPickResult {
   final String category;
@@ -519,6 +709,9 @@ class _RelatedPickerDialogState extends State<_RelatedPickerDialog> {
   late String _category;
   String? _selectedItem;
 
+  // 🔎 search
+  final _searchCtrl = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -527,29 +720,41 @@ class _RelatedPickerDialogState extends State<_RelatedPickerDialog> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final items = widget.options[_category] ?? const <String>[];
+  void dispose() {
+    _searchCtrl.dispose();
+    super.dispose();
+  }
 
+  List<String> get _items => widget.options[_category] ?? const <String>[];
+
+  List<String> get _filteredItems {
+    final q = _searchCtrl.text.trim().toLowerCase();
+    if (q.isEmpty) return _items;
+    return _items.where((e) => e.toLowerCase().contains(q)).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Dialog(
       insetPadding: const EdgeInsets.symmetric(horizontal: 60, vertical: 80),
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      clipBehavior: Clip.antiAlias, // ← ROUND the dialog & clip children
+      clipBehavior: Clip.antiAlias, // round + clip children
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(16), // ← extra safety
+        borderRadius: BorderRadius.circular(16),
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(color: AppCustomTheme.bluePrimary, width: 1.25),
             borderRadius: BorderRadius.circular(16),
           ),
           child: SizedBox(
-            width: 560,
-            height: 360,
+            width: 680,
+            height: 460,
             child: Row(
               children: [
                 // LEFT: categories
                 Container(
-                  width: 200,
+                  width: 220,
                   decoration: BoxDecoration(
                     color: Colors.grey.shade50,
                     border: Border(
@@ -557,48 +762,46 @@ class _RelatedPickerDialogState extends State<_RelatedPickerDialog> {
                     ),
                   ),
                   child: ListView(
-                    children:
-                        widget.options.keys.map((cat) {
-                          final selected = cat == _category;
-                          return ListTile(
-                            selected: selected,
-                            selectedTileColor: AppCustomTheme.lightBlueBg,
-                            title: Text(
-                              cat,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                // ← BLUE when selected
-                                color:
-                                    selected
-                                        ? AppCustomTheme.bluePrimary
-                                        : Colors.black87,
-                              ),
-                            ),
-                            trailing: Icon(
-                              Icons.chevron_right,
-                              color:
-                                  selected
-                                      ? AppCustomTheme.bluePrimary
-                                      : Colors.black45,
-                            ),
-                            onTap:
-                                () => setState(() {
-                                  _category = cat;
-                                  _selectedItem = null;
-                                }),
-                          );
-                        }).toList(),
+                    children: widget.options.keys.map((cat) {
+                      final selected = cat == _category;
+                      return ListTile(
+                        selected: selected,
+                        selectedTileColor: AppCustomTheme.lightBlueBg,
+                        title: Text(
+                          cat,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: selected
+                                ? AppCustomTheme.bluePrimary
+                                : Colors.black87,
+                          ),
+                        ),
+                        trailing: Icon(
+                          Icons.chevron_right,
+                          color: selected
+                              ? AppCustomTheme.bluePrimary
+                              : Colors.black45,
+                        ),
+                        onTap: () => setState(() {
+                          _category = cat;
+                          _selectedItem = null;
+                          _searchCtrl.clear(); // reset search on category change
+                        }),
+                      );
+                    }).toList(),
                   ),
                 ),
 
-                // RIGHT: items
+                // RIGHT: header + search + items
                 Expanded(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      // header
                       Container(
-                        height: 48,
+                        height: 52,
                         alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         decoration: BoxDecoration(
                           color: AppCustomTheme.lightBlueBg.withOpacity(.4),
                           border: Border(
@@ -609,29 +812,77 @@ class _RelatedPickerDialogState extends State<_RelatedPickerDialog> {
                           ),
                         ),
                         child: Text(
-                          '$_category',
+                          _category,
                           style: const TextStyle(
                             fontWeight: FontWeight.w700,
-                            fontSize: 16,
+                            fontSize: 18,
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: items.length,
-                          itemBuilder: (_, i) {
-                            final it = items[i];
-                            return RadioListTile<String>(
-                              value: it,
-                              groupValue: _selectedItem,
-                              activeColor: AppCustomTheme.bluePrimary,
-                              title: Text(it),
-                              onChanged:
-                                  (v) => setState(() => _selectedItem = v),
-                            );
-                          },
+
+                      // 🔎 search field
+                      Padding(
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                        child: TextField(
+                          controller: _searchCtrl,
+                          onChanged: (_) => setState(() {}),
+                          decoration: InputDecoration(
+                            hintText: 'Search $_category',
+                            isDense: true,
+                            prefixIcon: const Icon(Icons.search),
+                            suffixIcon: _searchCtrl.text.isEmpty
+                                ? null
+                                : IconButton(
+                                    icon: const Icon(Icons.clear),
+                                    onPressed: () {
+                                      _searchCtrl.clear();
+                                      setState(() {});
+                                    },
+                                  ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(
+                                color: AppCustomTheme.bluePrimary,
+                                width: 2,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
+
+                      // items
+                      Expanded(
+                        child: _filteredItems.isEmpty
+                            ? const Center(
+                                child: Text(
+                                  'No results',
+                                  style: TextStyle(color: Colors.black45),
+                                ),
+                              )
+                            : ListView.separated(
+                                keyboardDismissBehavior:
+                                    ScrollViewKeyboardDismissBehavior.onDrag,
+                                itemCount: _filteredItems.length,
+                                separatorBuilder: (_, __) =>
+                                    const Divider(height: 1),
+                                itemBuilder: (_, i) {
+                                  final it = _filteredItems[i];
+                                  return RadioListTile<String>(
+                                    value: it,
+                                    groupValue: _selectedItem,
+                                    activeColor: AppCustomTheme.bluePrimary,
+                                    title: Text(it),
+                                    onChanged: (v) =>
+                                        setState(() => _selectedItem = v),
+                                  );
+                                },
+                              ),
+                      ),
+
                       const Divider(height: 1),
                       Padding(
                         padding: const EdgeInsets.symmetric(
@@ -650,10 +901,9 @@ class _RelatedPickerDialogState extends State<_RelatedPickerDialog> {
                             ),
                             const SizedBox(width: 8),
                             ElevatedButton(
-                              onPressed:
-                                  _selectedItem == null
-                                      ? null
-                                      : () => Navigator.pop(
+                              onPressed: _selectedItem == null
+                                  ? null
+                                  : () => Navigator.pop(
                                         context,
                                         _RelatedPickResult(
                                           _category,
