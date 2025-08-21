@@ -639,7 +639,7 @@ class ProductDetailsPage extends StatelessWidget {
                           const VerticalDivider(width: 1),
                           Expanded(
                             child: DefaultTabController(
-                              length: 1,
+                              length: 2,
                               child: Column(
                                 children: const [
                                   TabBar(
@@ -648,6 +648,7 @@ class ProductDetailsPage extends StatelessWidget {
 
                                     tabs: [
                                       Tab(text: 'Pipelines'),
+                                      Tab(text: 'Projects'),
                                       Row(
                                         children: [
                                           Text("Files"),
@@ -665,6 +666,7 @@ class ProductDetailsPage extends StatelessWidget {
                                   Expanded(
                                     child: TabBarView(
                                       children: [
+                                        PipelinesTab(),
                                         PipelinesTab(),
                                       ],
                                     ),
