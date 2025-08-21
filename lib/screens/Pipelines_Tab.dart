@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sahibot_crm_web/config/app_theme.dart';
+import 'package:sahibot_crm_web/screens/kanban/AddDealDrawer.dart';
 
 /// Replace with your theme if you already have one
 // class AppCustomTheme {
@@ -239,402 +240,402 @@ class _PipelinesTabState extends State<PipelinesTab> {
       Padding(padding: EdgeInsets.all(pad), child: child);
 }
 
-/// ============== ADD DEAL DRAWER =================
-/// Pure-frontend form (no backend). Returns a _Deal via onSave.
-class AddDealDrawer extends StatefulWidget {
-  final void Function(_Deal deal) onSave;
-  final VoidCallback onCancel;
+// /// ============== ADD DEAL DRAWER =================
+// /// Pure-frontend form (no backend). Returns a _Deal via onSave.
+// class AddDealDrawer extends StatefulWidget {
+//   final void Function(_Deal deal) onSave;
+//   final VoidCallback onCancel;
 
-  const AddDealDrawer({
-    super.key,
-    required this.onSave,
-    required this.onCancel,
-  });
+//   const AddDealDrawer({
+//     super.key,
+//     required this.onSave,
+//     required this.onCancel,
+//   });
 
-  @override
-  State<AddDealDrawer> createState() => _AddDealDrawerState();
-}
+//   @override
+//   State<AddDealDrawer> createState() => _AddDealDrawerState();
+// }
 
-class _AddDealDrawerState extends State<AddDealDrawer> {
-  final _form = GlobalKey<FormState>();
+// class _AddDealDrawerState extends State<AddDealDrawer> {
+//   final _form = GlobalKey<FormState>();
 
-  // fields
-  String _name = '';
-  DateTime? _closing;
-  String _pipeline = 'Sales Pipeline';
-  String _stage = 'Prospecting';
-  String _party = 'Zylker Corp';
-  String _contact = 'Bilal Shaikh';
-  double? _amount;
-  String _source = 'Website';
-  String _desc = '';
+//   // fields
+//   String _name = '';
+//   DateTime? _closing;
+//   String _pipeline = 'Sales Pipeline';
+//   String _stage = 'Prospecting';
+//   String _party = 'Zylker Corp';
+//   String _contact = 'Bilal Shaikh';
+//   double? _amount;
+//   String _source = 'Website';
+//   String _desc = '';
 
-  // demo data
-  final _pipelines = const ['Sales Pipeline', 'Implementation'];
-  final Map<String, List<String>> _stages = const {
-    'Sales Pipeline': ['Prospecting', 'Qualified', 'Proposal', 'Won', 'Lost'],
-    'Implementation': ['Kickoff', 'In Progress', 'Go-Live'],
-  };
-  final _parties = const ['Zylker Corp', 'Acme LLC', 'Globex Inc.'];
-  final _contacts = const ['Bilal Shaikh', 'Owais Patel', 'Asha Iyer'];
-  final _sources = const ['Website', 'Referral', 'Google Ads', 'Event'];
+//   // demo data
+//   final _pipelines = const ['Sales Pipeline', 'Implementation'];
+//   final Map<String, List<String>> _stages = const {
+//     'Sales Pipeline': ['Prospecting', 'Qualified', 'Proposal', 'Won', 'Lost'],
+//     'Implementation': ['Kickoff', 'In Progress', 'Go-Live'],
+//   };
+//   final _parties = const ['Zylker Corp', 'Acme LLC', 'Globex Inc.'];
+//   final _contacts = const ['Bilal Shaikh', 'Owais Patel', 'Asha Iyer'];
+//   final _sources = const ['Website', 'Referral', 'Google Ads', 'Event'];
 
-  Future<void> _pickDate() async {
-    final now = DateTime.now();
-    final p = await showDatePicker(
-      context: context,
-      firstDate: DateTime(now.year - 1),
-      lastDate: DateTime(now.year + 5),
-      initialDate: _closing ?? now,
-    );
-    if (p != null) setState(() => _closing = p);
-  }
+//   Future<void> _pickDate() async {
+//     final now = DateTime.now();
+//     final p = await showDatePicker(
+//       context: context,
+//       firstDate: DateTime(now.year - 1),
+//       lastDate: DateTime(now.year + 5),
+//       initialDate: _closing ?? now,
+//     );
+//     if (p != null) setState(() => _closing = p);
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    final stageList = _stages[_pipeline] ?? const <String>[];
-    if (!stageList.contains(_stage)) _stage = stageList.first;
+//   @override
+//   Widget build(BuildContext context) {
+//     final stageList = _stages[_pipeline] ?? const <String>[];
+//     if (!stageList.contains(_stage)) _stage = stageList.first;
 
-    return Material(
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 14),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                const Text(
-                  'Deal Information',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const Spacer(),
-                IconButton(
-                  onPressed: widget.onCancel,
-                  icon: const Icon(Icons.close),
-                ),
-              ],
-            ),
-            const Divider(),
+//     return Material(
+//       color: Colors.white,
+//       child: Padding(
+//         padding: const EdgeInsets.fromLTRB(20, 20, 20, 14),
+//         child: Column(
+//           children: [
+//             Row(
+//               children: [
+//                 const Text(
+//                   'Deal Information',
+//                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+//                 ),
+//                 const Spacer(),
+//                 IconButton(
+//                   onPressed: widget.onCancel,
+//                   icon: const Icon(Icons.close),
+//                 ),
+//               ],
+//             ),
+//             const Divider(),
 
-            Expanded(
-              child: SingleChildScrollView(
-                child: Form(
-                  key: _form,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Row 1: Deal Name / Closing Date
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _field(
-                              label: 'Deal Name',
-                              child: TextFormField(
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                                onChanged: (v) => _name = v.trim(),
-                                validator:
-                                    (v) =>
-                                        (v == null || v.trim().isEmpty)
-                                            ? 'Enter deal name'
-                                            : null,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: _field(
-                              label: 'Closing Date',
-                              child: InkWell(
-                                onTap: _pickDate,
-                                child: InputDecorator(
-                                  decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          _closing == null
-                                              ? 'Select date'
-                                              : DateFormat(
-                                                'dd/MM/yyyy',
-                                              ).format(_closing!),
-                                        ),
-                                      ),
-                                      const Icon(
-                                        Icons.calendar_today,
-                                        size: 18,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
+//             Expanded(
+//               child: SingleChildScrollView(
+//                 child: Form(
+//                   key: _form,
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       // Row 1: Deal Name / Closing Date
+//                       Row(
+//                         children: [
+//                           Expanded(
+//                             child: _field(
+//                               label: 'Deal Name',
+//                               child: TextFormField(
+//                                 decoration: const InputDecoration(
+//                                   border: OutlineInputBorder(),
+//                                 ),
+//                                 onChanged: (v) => _name = v.trim(),
+//                                 validator:
+//                                     (v) =>
+//                                         (v == null || v.trim().isEmpty)
+//                                             ? 'Enter deal name'
+//                                             : null,
+//                               ),
+//                             ),
+//                           ),
+//                           const SizedBox(width: 12),
+//                           Expanded(
+//                             child: _field(
+//                               label: 'Closing Date',
+//                               child: InkWell(
+//                                 onTap: _pickDate,
+//                                 child: InputDecorator(
+//                                   decoration: const InputDecoration(
+//                                     border: OutlineInputBorder(),
+//                                   ),
+//                                   child: Row(
+//                                     children: [
+//                                       Expanded(
+//                                         child: Text(
+//                                           _closing == null
+//                                               ? 'Select date'
+//                                               : DateFormat(
+//                                                 'dd/MM/yyyy',
+//                                               ).format(_closing!),
+//                                         ),
+//                                       ),
+//                                       const Icon(
+//                                         Icons.calendar_today,
+//                                         size: 18,
+//                                       ),
+//                                     ],
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                       const SizedBox(height: 12),
 
-                      // Row 2: Pipeline / Stage
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _field(
-                              label: 'Pipeline',
-                              child: DropdownButtonFormField<String>(
-                                value: _pipeline,
-                                items:
-                                    _pipelines
-                                        .map(
-                                          (e) => DropdownMenuItem(
-                                            value: e,
-                                            child: Text(e),
-                                          ),
-                                        )
-                                        .toList(),
-                                onChanged:
-                                    (v) => setState(
-                                      () => _pipeline = v ?? _pipeline,
-                                    ),
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: _field(
-                              label: 'Stage',
-                              child: DropdownButtonFormField<String>(
-                                value: _stage,
-                                items:
-                                    stageList
-                                        .map(
-                                          (e) => DropdownMenuItem(
-                                            value: e,
-                                            child: Text(e),
-                                          ),
-                                        )
-                                        .toList(),
-                                onChanged:
-                                    (v) => setState(() => _stage = v ?? _stage),
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
+//                       // Row 2: Pipeline / Stage
+//                       Row(
+//                         children: [
+//                           Expanded(
+//                             child: _field(
+//                               label: 'Pipeline',
+//                               child: DropdownButtonFormField<String>(
+//                                 value: _pipeline,
+//                                 items:
+//                                     _pipelines
+//                                         .map(
+//                                           (e) => DropdownMenuItem(
+//                                             value: e,
+//                                             child: Text(e),
+//                                           ),
+//                                         )
+//                                         .toList(),
+//                                 onChanged:
+//                                     (v) => setState(
+//                                       () => _pipeline = v ?? _pipeline,
+//                                     ),
+//                                 decoration: const InputDecoration(
+//                                   border: OutlineInputBorder(),
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                           const SizedBox(width: 12),
+//                           Expanded(
+//                             child: _field(
+//                               label: 'Stage',
+//                               child: DropdownButtonFormField<String>(
+//                                 value: _stage,
+//                                 items:
+//                                     stageList
+//                                         .map(
+//                                           (e) => DropdownMenuItem(
+//                                             value: e,
+//                                             child: Text(e),
+//                                           ),
+//                                         )
+//                                         .toList(),
+//                                 onChanged:
+//                                     (v) => setState(() => _stage = v ?? _stage),
+//                                 decoration: const InputDecoration(
+//                                   border: OutlineInputBorder(),
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                       const SizedBox(height: 12),
 
-                      // Row 3: Party / Contact
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _field(
-                              label: 'Party',
-                              child: DropdownButtonFormField<String>(
-                                value: _party,
-                                items:
-                                    _parties
-                                        .map(
-                                          (e) => DropdownMenuItem(
-                                            value: e,
-                                            child: Text(e),
-                                          ),
-                                        )
-                                        .toList(),
-                                onChanged:
-                                    (v) => setState(() => _party = v ?? _party),
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: _field(
-                              label: 'Contact',
-                              child: DropdownButtonFormField<String>(
-                                value: _contact,
-                                items:
-                                    _contacts
-                                        .map(
-                                          (e) => DropdownMenuItem(
-                                            value: e,
-                                            child: Text(e),
-                                          ),
-                                        )
-                                        .toList(),
-                                onChanged:
-                                    (v) => setState(
-                                      () => _contact = v ?? _contact,
-                                    ),
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
+//                       // Row 3: Party / Contact
+//                       Row(
+//                         children: [
+//                           Expanded(
+//                             child: _field(
+//                               label: 'Party',
+//                               child: DropdownButtonFormField<String>(
+//                                 value: _party,
+//                                 items:
+//                                     _parties
+//                                         .map(
+//                                           (e) => DropdownMenuItem(
+//                                             value: e,
+//                                             child: Text(e),
+//                                           ),
+//                                         )
+//                                         .toList(),
+//                                 onChanged:
+//                                     (v) => setState(() => _party = v ?? _party),
+//                                 decoration: const InputDecoration(
+//                                   border: OutlineInputBorder(),
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                           const SizedBox(width: 12),
+//                           Expanded(
+//                             child: _field(
+//                               label: 'Contact',
+//                               child: DropdownButtonFormField<String>(
+//                                 value: _contact,
+//                                 items:
+//                                     _contacts
+//                                         .map(
+//                                           (e) => DropdownMenuItem(
+//                                             value: e,
+//                                             child: Text(e),
+//                                           ),
+//                                         )
+//                                         .toList(),
+//                                 onChanged:
+//                                     (v) => setState(
+//                                       () => _contact = v ?? _contact,
+//                                     ),
+//                                 decoration: const InputDecoration(
+//                                   border: OutlineInputBorder(),
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                       const SizedBox(height: 12),
 
-                      // Row 4: Amount / Source
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _field(
-                              label: 'Amount',
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                                onChanged:
-                                    (v) =>
-                                        _amount = double.tryParse(
-                                          v.replaceAll(',', ''),
-                                        ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: _field(
-                              label: 'Source',
-                              child: DropdownButtonFormField<String>(
-                                value: _source,
-                                items:
-                                    _sources
-                                        .map(
-                                          (e) => DropdownMenuItem(
-                                            value: e,
-                                            child: Text(e),
-                                          ),
-                                        )
-                                        .toList(),
-                                onChanged:
-                                    (v) =>
-                                        setState(() => _source = v ?? _source),
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
+//                       // Row 4: Amount / Source
+//                       Row(
+//                         children: [
+//                           Expanded(
+//                             child: _field(
+//                               label: 'Amount',
+//                               child: TextFormField(
+//                                 keyboardType: TextInputType.number,
+//                                 decoration: const InputDecoration(
+//                                   border: OutlineInputBorder(),
+//                                 ),
+//                                 onChanged:
+//                                     (v) =>
+//                                         _amount = double.tryParse(
+//                                           v.replaceAll(',', ''),
+//                                         ),
+//                               ),
+//                             ),
+//                           ),
+//                           const SizedBox(width: 12),
+//                           Expanded(
+//                             child: _field(
+//                               label: 'Source',
+//                               child: DropdownButtonFormField<String>(
+//                                 value: _source,
+//                                 items:
+//                                     _sources
+//                                         .map(
+//                                           (e) => DropdownMenuItem(
+//                                             value: e,
+//                                             child: Text(e),
+//                                           ),
+//                                         )
+//                                         .toList(),
+//                                 onChanged:
+//                                     (v) =>
+//                                         setState(() => _source = v ?? _source),
+//                                 decoration: const InputDecoration(
+//                                   border: OutlineInputBorder(),
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                       const SizedBox(height: 12),
 
-                      // Description (full width)
-                      _field(
-                        label: 'Description',
-                        child: TextFormField(
-                          minLines: 3,
-                          maxLines: 6,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                          ),
-                          onChanged: (v) => _desc = v,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+//                       // Description (full width)
+//                       _field(
+//                         label: 'Description',
+//                         child: TextFormField(
+//                           minLines: 3,
+//                           maxLines: 6,
+//                           decoration: const InputDecoration(
+//                             border: OutlineInputBorder(),
+//                           ),
+//                           onChanged: (v) => _desc = v,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ),
+//             ),
 
-            // actions
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: widget.onCancel,
-                  style: TextButton.styleFrom(
-                    foregroundColor: AppCustomTheme.bluePrimary,
-                    side: const BorderSide(
-                      color: AppCustomTheme.bluePrimary,
-                      width: 2,
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 12,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: const Text('Cancel'),
-                ),
-                const SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    if (!(_form.currentState?.validate() ?? false)) return;
-                    if (_closing == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Please select Closing Date'),
-                        ),
-                      );
-                      return;
-                    }
-                    widget.onSave(
-                      _Deal(
-                        name: _name,
-                        closingDate: _closing!,
-                        pipeline: _pipeline,
-                        stage: _stage,
-                        party: _party,
-                        contact: _contact,
-                        amount: _amount,
-                        source: _source,
-                        description: _desc,
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppCustomTheme.bluePrimary,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 22,
-                      vertical: 12,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: const Text(
-                    'Add Deal',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+//             // actions
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.end,
+//               children: [
+//                 TextButton(
+//                   onPressed: widget.onCancel,
+//                   style: TextButton.styleFrom(
+//                     foregroundColor: AppCustomTheme.bluePrimary,
+//                     side: const BorderSide(
+//                       color: AppCustomTheme.bluePrimary,
+//                       width: 2,
+//                     ),
+//                     padding: const EdgeInsets.symmetric(
+//                       horizontal: 18,
+//                       vertical: 12,
+//                     ),
+//                     shape: RoundedRectangleBorder(
+//                       borderRadius: BorderRadius.circular(8),
+//                     ),
+//                   ),
+//                   child: const Text('Cancel'),
+//                 ),
+//                 const SizedBox(width: 10),
+//                 ElevatedButton(
+//                   onPressed: () {
+//                     if (!(_form.currentState?.validate() ?? false)) return;
+//                     if (_closing == null) {
+//                       ScaffoldMessenger.of(context).showSnackBar(
+//                         const SnackBar(
+//                           content: Text('Please select Closing Date'),
+//                         ),
+//                       );
+//                       return;
+//                     }
+//                     widget.onSave(
+//                       _Deal(
+//                         name: _name,
+//                         closingDate: _closing!,
+//                         pipeline: _pipeline,
+//                         stage: _stage,
+//                         party: _party,
+//                         contact: _contact,
+//                         amount: _amount,
+//                         source: _source,
+//                         description: _desc,
+//                       ),
+//                     );
+//                   },
+//                   style: ElevatedButton.styleFrom(
+//                     backgroundColor: AppCustomTheme.bluePrimary,
+//                     padding: const EdgeInsets.symmetric(
+//                       horizontal: 22,
+//                       vertical: 12,
+//                     ),
+//                     shape: RoundedRectangleBorder(
+//                       borderRadius: BorderRadius.circular(8),
+//                     ),
+//                   ),
+//                   child: const Text(
+//                     'Add Deal',
+//                     style: TextStyle(color: Colors.white),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
 
-  Widget _field({required String label, required Widget child}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
-        ),
-        const SizedBox(height: 6),
-        child,
-      ],
-    );
-  }
-}
+//   Widget _field({required String label, required Widget child}) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           label,
+//           style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+//         ),
+//         const SizedBox(height: 6),
+//         child,
+//       ],
+//     );
+//   }
+// }
 
 /// simple demo model used in this UI
 class _Deal {
