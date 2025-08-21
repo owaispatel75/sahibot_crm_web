@@ -649,7 +649,7 @@ class PartiesDetailsPage extends StatelessWidget {
                           const VerticalDivider(width: 1),
                           Expanded(
                             child: DefaultTabController(
-                              length: 5,
+                              length: 6,
                               child: Column(
                                 children: [
                                   TabBar(
@@ -661,6 +661,7 @@ class PartiesDetailsPage extends StatelessWidget {
                                       Tab(text: 'Activities'),
                                       Tab(text: 'Contacts'),
                                       Tab(text: 'Pipelines'),
+                                      Tab(text: 'Projects'),
                                       Row(
                                         children: [
                                           Text("Files"),
@@ -687,7 +688,7 @@ class PartiesDetailsPage extends StatelessWidget {
                                         ),
                                         ActivityTab(),
                                         ContactsTab(partyName: partiesName),
-
+                                        PipelinesTab(),
                                         PipelinesTab(),
                                       ],
                                     ),
