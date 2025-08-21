@@ -265,8 +265,9 @@ class _AddTaskState extends State<AddTask> {
   // Demo data (frontend only)
   final Map<String, List<String>> _relatedOptions = const {
     'Contacts': ['Bilal Shaikh', 'Owais Patel', 'Asha Iyer'],
-    'Pipelines': ['Website Redesign', 'Mobile App Deal', 'Enterprise RFP'],
     'Parties': ['Zylker Corp', 'Acme LLC', 'Globex Inc.'],
+    'Pipelines': ['Website Redesign', 'Mobile App Deal', 'Enterprise RFP'],
+    'Projects': ['Acme LLC','Zylker Corp', 'NoNo', 'Globex Inc.'],
   };
 
   @override
@@ -400,7 +401,7 @@ class _AddTaskState extends State<AddTask> {
                                   child: Text(
                                     (_selectedCategory == null ||
                                             _selectedItem == null)
-                                        ? 'Select (Contacts / Pipelines / Parties)'
+                                        ? 'Related to'
                                         : '$_selectedCategory → $_selectedItem',
                                     style: TextStyle(
                                       color:
