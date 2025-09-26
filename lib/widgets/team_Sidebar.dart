@@ -65,20 +65,20 @@ class TeamSidebar extends StatelessWidget {
             //isSelected: isTeamsSectionActive,
             isSelected: currentPath == '/team',
           ),
-          _menuItem(
-            context,
-            label: 'Access Control',
-            icon: Icons.directions_run,
-            route: '/accesscontrol',
-            isSelected: currentPath == '/accesscontrol',
-          ),
-          _menuItem(
-            context,
-            label: 'Customize',
-            icon: Icons.directions_run,
-            route: '/customize',
-            isSelected: currentPath == '/customize',
-          ),
+          // _menuItem(
+          //   context,
+          //   label: 'Access Control',
+          //   icon: Icons.directions_run,
+          //   route: '/accesscontrol',
+          //   isSelected: currentPath == '/accesscontrol',
+          // ),
+          // _menuItem(
+          //   context,
+          //   label: 'Customize',
+          //   icon: Icons.directions_run,
+          //   route: '/customize',
+          //   isSelected: currentPath == '/customize',
+          // ),
 
           // _menuItem(
           //   context,
