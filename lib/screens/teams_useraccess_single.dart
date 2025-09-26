@@ -1861,7 +1861,10 @@ class _TeamsUserAccessScreenFState extends State<TeamsUserAccessScreenF> {
     return Scaffold(
       body: Stack(
         children: [
-          Row(children: const [Sidebar(), TeamSidebar()]),
+          Row(children: const [
+              Sidebar(), 
+              BillingSidebar()]),
+              // TeamSidebar()]),
           // content
           Padding(
             padding:
