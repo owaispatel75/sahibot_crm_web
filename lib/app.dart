@@ -67,7 +67,7 @@ final _router = GoRouter(
           (context, state) => NoTransitionPage(child: CustomizeScreen()),
     ),
     GoRoute(
-      path: '/billing',
+      path: '/settings',
       pageBuilder: (context, state) => NoTransitionPage(child: billingScreen()),
     ),
     GoRoute(
