@@ -62,6 +62,13 @@ class BillingSidebar extends StatelessWidget {
           ),
           _menuItem(
             context,
+            label: 'Wallet Logs',
+            icon: Icons.wallet,
+            route: '/walletlogs',
+            isSelected: currentPath == '/walletlogs',
+          ),
+          _menuItem(
+            context,
             label: 'Access Control',
             icon: Icons.directions_run,
             route: '/accesscontrol',
@@ -103,7 +110,10 @@ class BillingSidebar extends StatelessWidget {
     required bool isSelected,
   }) {
     return InkWell(
-      onTap: () => context.go(route),
+      onTap: () {
+        if (route != "/walletlogs") context.go(route);
+      },
+      // onTap: () => context.go(route),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         color: isSelected ? AppCustomTheme.lightBlueBg : Colors.transparent,
@@ -125,6 +135,9 @@ class BillingSidebar extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(width: 12),
+            if (label == "Wallet Logs")
+              Icon(Icons.lock, size: 20, color: Colors.grey),
           ],
         ),
       ),
