@@ -34,6 +34,7 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:sahibot_crm_web/widgets/billing_sidebar.dart';
 import 'package:sahibot_crm_web/widgets/team_Sidebar.dart';
 import '../../widgets/topbar.dart';
 import '../../widgets/sidebar.dart';
@@ -147,7 +148,8 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
           Row(
             children: [
               const Sidebar(),
-              const TeamSidebar(),
+              // const TeamSidebar(),
+              const BillingSidebar(),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 64),

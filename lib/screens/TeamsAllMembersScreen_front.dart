@@ -3,7 +3,6 @@ import 'package:sahibot_crm_web/widgets/sidebar.dart';
 import 'package:sahibot_crm_web/widgets/team_Sidebar.dart';
 import 'package:sahibot_crm_web/widgets/topbar.dart';
 
-
 ///--------------------------------------------------------------------------
 ///  SCREEN: All Members (frontend only; uses FakeApiService below)
 ///--------------------------------------------------------------------------
@@ -112,14 +111,15 @@ class _TeamsAllMemberScreenFState extends State<TeamsAllMembersScreenF> {
                       if (snap.hasError) {
                         return Center(child: Text('Error: ${snap.error}'));
                       }
-          
+
                       final members = _filtered(snap.data!);
                       return Column(
                         children: [
                           _HeaderBar(
                             onAdd: () => _openAddEditDrawer(),
                             onSearch: (v) => setState(() => _search = v),
-                            onRoleFilter: (v) => setState(() => _roleFilter = v),
+                            onRoleFilter:
+                                (v) => setState(() => _roleFilter = v),
                             onStatusFilter:
                                 (v) => setState(() => _statusFilter = v),
                             totalCount: members.length,
@@ -134,10 +134,11 @@ class _TeamsAllMemberScreenFState extends State<TeamsAllMembersScreenF> {
                                     () => _selected = _selected == m ? null : m,
                                   ),
                               onStatusChanged: (updated) async {
-                                final ok = await FakeApiService.updateUserStatus(
-                                  updated.id,
-                                  updated.isActive,
-                                );
+                                final ok =
+                                    await FakeApiService.updateUserStatus(
+                                      updated.id,
+                                      updated.isActive,
+                                    );
                                 if (!mounted) return;
                                 if (!ok) {
                                   ScaffoldMessenger.of(context).showSnackBar(
@@ -464,6 +465,8 @@ class _AddTeamMemberDrawerState extends State<AddTeamMemberDrawer> {
   String _role = 'User';
   bool _saving = false;
 
+  String countryCode = '+971';
+
   @override
   void initState() {
     super.initState();
@@ -560,10 +563,52 @@ class _AddTeamMemberDrawerState extends State<AddTeamMemberDrawer> {
                                   : null,
                     ),
                     const SizedBox(height: 12),
-                    _tf(
-                      _mobileCtl,
-                      'Mobile / WhatsApp',
-                      keyboardType: TextInputType.phone,
+                    // _tf(
+                    //   _mobileCtl,
+                    //   'Mobile / WhatsApp',
+                    //   keyboardType: TextInputType.phone,
+                    // ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 180,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              DropdownButtonFormField<String>(
+                                hint: Text("Country Code"),
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.black),
+                                  ),
+                                ),
+                                value: countryCode,
+                                items: const [
+                                  DropdownMenuItem(
+                                    value: '+91',
+                                    child: Text('+91'),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: '+971',
+                                    child: Text('+971'),
+                                  ),
+                                ],
+                                onChanged:
+                                    (val) => setState(
+                                      () => countryCode = val ?? '+91',
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: _buildTextField(
+                            'Whatsapp Number',
+                            dense: true,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 12),
                     _tf(_reportsToCtl, 'Reports To'),
@@ -610,6 +655,16 @@ class _AddTeamMemberDrawerState extends State<AddTeamMemberDrawer> {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildTextField(String hint, {bool dense = false}) {
+    return TextFormField(
+      decoration: InputDecoration(
+        labelText: hint,
+        isDense: dense,
+        border: const OutlineInputBorder(),
       ),
     );
   }

@@ -245,6 +245,7 @@ class _CurrentPlanCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return _CardShell(
       width: 380,
+      height: 90,
       child: Row(
         children: [
           Expanded(
@@ -295,6 +296,7 @@ class _WalletCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return _CardShell(
       width: 380,
+      height: 90,
       child: Row(
         children: [
           const Text(
@@ -579,7 +581,10 @@ class _PlanTile extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(desc1, style: const TextStyle(color: Colors.black54)),
                   Text(desc2, style: const TextStyle(color: Colors.black54)),
-                  Text("Plus 10% AMC", style: const TextStyle(color: Colors.black54)),
+                  Text(
+                    "Plus 10% AMC",
+                    style: const TextStyle(color: Colors.black54),
+                  ),
                 ],
               ),
             ),
@@ -613,12 +618,14 @@ class _PlanTile extends StatelessWidget {
 class _CardShell extends StatelessWidget {
   final Widget child;
   final double? width;
-  const _CardShell({required this.child, this.width});
+  final double? height;
+  const _CardShell({required this.child, this.width, this.height});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width,
+      height: height,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,

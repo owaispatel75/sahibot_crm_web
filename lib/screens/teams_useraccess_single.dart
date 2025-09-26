@@ -1,7 +1,6 @@
 // import 'package:flutter/material.dart';
 // import 'package:go_router/go_router.dart';
 
-
 // class TeamsUserAccessScreenF extends StatefulWidget {
 //   const TeamsUserAccessScreenF({Key? key}) : super(key: key);
 
@@ -718,8 +717,8 @@
 
 //     final isTeamsSectionActive =
 //         currentLocation.startsWith('/team') ||
-//         currentLocation.startsWith('/useraccess') || currentLocation.startsWith('/customize');    
-    
+//         currentLocation.startsWith('/useraccess') || currentLocation.startsWith('/customize');
+
 //     final isBillingSectionActive =
 //         currentLocation.startsWith('/billing');
 
@@ -1365,7 +1364,6 @@
 //   ],
 // );
 
-
 //     final bodyRows = <TableRow>[
 //       for (final m in members)
 //         TableRow(
@@ -1783,6 +1781,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sahibot_crm_web/widgets/billing_sidebar.dart';
+import 'package:sahibot_crm_web/widgets/sidebar.dart';
 
 class TeamsUserAccessScreenF extends StatefulWidget {
   const TeamsUserAccessScreenF({Key? key}) : super(key: key);
@@ -1832,18 +1831,20 @@ class _TeamsUserAccessScreenFState extends State<TeamsUserAccessScreenF> {
 
   void _seedPermsAndRoles(List<TeamMember> members) {
     // roles list for Role List dropdown
-    _roles = {
-      for (final m in members) m.role,
-    }.toList()
-      ..sort();
+    _roles = {for (final m in members) m.role}.toList()..sort();
 
     // seed permissions (demo defaults)
     for (final m in members) {
       _perms.putIfAbsent(m.id, () {
         return {
           for (final mod in _modules)
-            mod: ['Tasks', 'Pipelines', 'Product', 'User Management', 'Parties']
-                .contains(mod),
+            mod: [
+              'Tasks',
+              'Pipelines',
+              'Product',
+              'User Management',
+              'Parties',
+            ].contains(mod),
         };
       });
     }
@@ -1851,9 +1852,9 @@ class _TeamsUserAccessScreenFState extends State<TeamsUserAccessScreenF> {
 
   /// build a single user's permission payload (for Save)
   UserPermission _permsFor(TeamMember m) => UserPermission(
-        userId: m.id,
-        moduleAccess: Map<String, bool>.from(_perms[m.id] ?? {}),
-      );
+    userId: m.id,
+    moduleAccess: Map<String, bool>.from(_perms[m.id] ?? {}),
+  );
 
   void _refresh() => setState(() => _future = ApiServiceFake.getTeamMembers());
 
@@ -1862,14 +1863,14 @@ class _TeamsUserAccessScreenFState extends State<TeamsUserAccessScreenF> {
     return Scaffold(
       body: Stack(
         children: [
-          Row(children: const [
-              Sidebar(), 
-              BillingSidebar()]),
-              // TeamSidebar()]),
+          Row(children: const [Sidebar(), BillingSidebar()]),
+          // TeamSidebar()]),
           // content
           Padding(
-            padding:
-                const EdgeInsets.only(left: 280.0, top: 64), // sidebars + topbar
+            padding: const EdgeInsets.only(
+              left: 280.0,
+              top: 64,
+            ), // sidebars + topbar
             child: Column(
               children: [
                 _header(),
@@ -1879,8 +1880,7 @@ class _TeamsUserAccessScreenFState extends State<TeamsUserAccessScreenF> {
                     future: _future,
                     builder: (ctx, snap) {
                       if (snap.connectionState != ConnectionState.done) {
-                        return const Center(
-                            child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       }
                       if (snap.hasError) {
                         return Center(child: Text('Error: ${snap.error}'));
@@ -1890,37 +1890,44 @@ class _TeamsUserAccessScreenFState extends State<TeamsUserAccessScreenF> {
 
                       // search filter
                       final q = _query.trim().toLowerCase();
-                      var filtered = q.isEmpty
-                          ? members
-                          : members
-                              .where((m) =>
-                                  m.name.toLowerCase().contains(q) ||
-                                  m.email.toLowerCase().contains(q) ||
-                                  m.role.toLowerCase().contains(q))
-                              .toList();
+                      var filtered =
+                          q.isEmpty
+                              ? members
+                              : members
+                                  .where(
+                                    (m) =>
+                                        m.name.toLowerCase().contains(q) ||
+                                        m.email.toLowerCase().contains(q) ||
+                                        m.role.toLowerCase().contains(q),
+                                  )
+                                  .toList();
 
                       // role filter (when Role List)
                       if (_filterType == 'Role List' && _selectedRole != null) {
-                        filtered = filtered
-                            .where((m) => m.role == _selectedRole)
-                            .toList();
+                        filtered =
+                            filtered
+                                .where((m) => m.role == _selectedRole)
+                                .toList();
                       }
 
                       return AccessMatrixTable(
                         modules: _modules,
                         members: filtered,
-                        getValue: (userId, module) =>
-                            _perms[userId]?[module] ?? false,
-                        setValue: (userId, module, v) => setState(() {
-                          _perms[userId]![module] = v ?? false;
-                          _hasChanges = true;
-                        }),
-                        setWholeColumn: (module, v) => setState(() {
-                          for (final m in filtered) {
-                            _perms[m.id]![module] = v ?? false;
-                          }
-                          _hasChanges = true;
-                        }),
+                        getValue:
+                            (userId, module) =>
+                                _perms[userId]?[module] ?? false,
+                        setValue:
+                            (userId, module, v) => setState(() {
+                              _perms[userId]![module] = v ?? false;
+                              _hasChanges = true;
+                            }),
+                        setWholeColumn:
+                            (module, v) => setState(() {
+                              for (final m in filtered) {
+                                _perms[m.id]![module] = v ?? false;
+                              }
+                              _hasChanges = true;
+                            }),
                         headerColor: AppCustomTheme.lightBlueBg,
                         checkColor: _purple,
                         borderColor: AppCustomTheme.lightgrayBg,
@@ -1959,8 +1966,9 @@ class _TeamsUserAccessScreenFState extends State<TeamsUserAccessScreenF> {
                 hintText: 'Search User',
                 prefixIcon: const Icon(Icons.search),
                 isDense: true,
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
             ),
           ),
@@ -1973,20 +1981,26 @@ class _TeamsUserAccessScreenFState extends State<TeamsUserAccessScreenF> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
-                  border:
-                      Border.all(color: Colors.black, width: 1), // as shared
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 1,
+                  ), // as shared
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: DropdownButton<String>(
                   underline: const SizedBox(),
                   value: _filterType,
-                  items: ['User List', 'Role List']
-                      .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                      .toList(),
-                  onChanged: (val) => setState(() {
-                    _filterType = val!;
-                    _selectedRole = null; // reset role when switching
-                  }),
+                  items:
+                      ['User List', 'Role List']
+                          .map(
+                            (e) => DropdownMenuItem(value: e, child: Text(e)),
+                          )
+                          .toList(),
+                  onChanged:
+                      (val) => setState(() {
+                        _filterType = val!;
+                        _selectedRole = null; // reset role when switching
+                      }),
                 ),
               ),
 
@@ -2003,10 +2017,15 @@ class _TeamsUserAccessScreenFState extends State<TeamsUserAccessScreenF> {
                     underline: const SizedBox(),
                     value: _selectedRole,
                     hint: const Text('Select Role'),
-                    items: _roles
-                        .map((role) =>
-                            DropdownMenuItem(value: role, child: Text(role)))
-                        .toList(),
+                    items:
+                        _roles
+                            .map(
+                              (role) => DropdownMenuItem(
+                                value: role,
+                                child: Text(role),
+                              ),
+                            )
+                            .toList(),
                     onChanged: (val) => setState(() => _selectedRole = val),
                   ),
                 ),
@@ -2021,8 +2040,9 @@ class _TeamsUserAccessScreenFState extends State<TeamsUserAccessScreenF> {
                   onPressed: () async {
                     // Build payload for all *currently loaded* members
                     final allMembers = await _future; // from same list
-                    final allPermissions =
-                        allMembers.map(_permsFor).toList(growable: false);
+                    final allPermissions = allMembers
+                        .map(_permsFor)
+                        .toList(growable: false);
 
                     await ApiService().savePermissions(allPermissions);
 
@@ -2035,12 +2055,15 @@ class _TeamsUserAccessScreenFState extends State<TeamsUserAccessScreenF> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppCustomTheme.bluePrimary,
                   ),
-                  child: const Text('Save',
-                      style: TextStyle(color: Colors.white)),
+                  child: const Text(
+                    'Save',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
             ],
           ),
+
           /// --------------------------------------------------------------------------
         ],
       ),
@@ -2184,8 +2207,6 @@ class _TeamsUserAccessScreenFState extends State<TeamsUserAccessScreenF> {
 //       ),
 //       child: child,
 //     );
-
-
 
 //     final bodyRows = <TableRow>[
 //       for (final m in members)
@@ -2333,28 +2354,29 @@ class AccessMatrixTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const headerTxtStyle =
-        TextStyle(fontWeight: FontWeight.w700, color: Colors.black87);
+    const headerTxtStyle = TextStyle(
+      fontWeight: FontWeight.w700,
+      color: Colors.black87,
+    );
 
     Widget _headerCellCenter(String label) => Container(
-          height: 56,
-          alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Text(label, style: headerTxtStyle, textAlign: TextAlign.center),
-        );
+      height: 56,
+      alignment: Alignment.center,
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Text(label, style: headerTxtStyle, textAlign: TextAlign.center),
+    );
 
     Widget headCb(String module) => Transform.scale(
-          scale: 0.95,
-          child: Checkbox(
-            value: _isColumnAllChecked(module),
-            onChanged: (v) => setWholeColumn(module, v),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-            checkColor: Colors.white,
-            activeColor: checkColor,
-            side: BorderSide(color: Colors.grey.shade500),
-          ),
-        );
+      scale: 0.95,
+      child: Checkbox(
+        value: _isColumnAllChecked(module),
+        onChanged: (v) => setWholeColumn(module, v),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        checkColor: Colors.white,
+        activeColor: checkColor,
+        side: BorderSide(color: Colors.grey.shade500),
+      ),
+    );
 
     final headerRow = TableRow(
       decoration: BoxDecoration(color: headerColor),
@@ -2390,9 +2412,9 @@ class AccessMatrixTable extends StatelessWidget {
         Padding(padding: EdgeInsets.all(tight ? 6 : 12), child: child);
 
     Widget _cellCenter(Widget child) => Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-          child: child,
+      alignment: Alignment.center,
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+      child: child,
     );
 
     final bodyRows = <TableRow>[
@@ -2409,7 +2431,8 @@ class AccessMatrixTable extends StatelessWidget {
                     value: _isRowAllChecked(m.id),
                     onChanged: (v) => _applyWholeRow(m.id, v),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4)),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
                     checkColor: Colors.white,
                     activeColor: checkColor,
                     side: BorderSide(color: Colors.grey.shade500),
@@ -2426,13 +2449,21 @@ class AccessMatrixTable extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(m.name,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w700, color: Colors.black)),
+                    Text(
+                      m.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
+                      ),
+                    ),
                     const SizedBox(height: 2),
-                    Text(m.email,
-                        style: const TextStyle(
-                            fontSize: 12, color: Colors.black54)),
+                    Text(
+                      m.email,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.black54,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -2451,7 +2482,8 @@ class AccessMatrixTable extends StatelessWidget {
                       value: getValue(m.id, mod),
                       onChanged: (v) => setValue(m.id, mod, v),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4)),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                       checkColor: Colors.white,
                       activeColor: checkColor,
                       side: BorderSide(color: Colors.grey.shade500),
@@ -2477,16 +2509,13 @@ class AccessMatrixTable extends StatelessWidget {
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 border: TableBorder.all(color: borderColor),
                 columnWidths: {
-                  0: const FixedColumnWidth(56),  // row master
+                  0: const FixedColumnWidth(56), // row master
                   1: const FixedColumnWidth(190), // user
                   2: const FixedColumnWidth(100), // role
                   for (int i = 0; i < modules.length; i++)
                     3 + i: const FixedColumnWidth(120),
                 },
-                children: [
-                  headerRow,
-                  ...bodyRows,
-                ],
+                children: [headerRow, ...bodyRows],
               ),
             ),
           ),
@@ -2495,7 +2524,6 @@ class AccessMatrixTable extends StatelessWidget {
     );
   }
 }
-
 
 /// ---------------------------------------------------------------------
 /// Models & Fake/Stub APIs
@@ -2518,13 +2546,13 @@ class TeamMember {
   });
 
   TeamMember copyWith({int? isActive}) => TeamMember(
-        id: id,
-        name: name,
-        email: email,
-        mobile: mobile,
-        role: role,
-        isActive: isActive ?? this.isActive,
-      );
+    id: id,
+    name: name,
+    email: email,
+    mobile: mobile,
+    role: role,
+    isActive: isActive ?? this.isActive,
+  );
 }
 
 /// Payload used by Save button
@@ -2662,99 +2690,99 @@ class TopBar extends StatelessWidget {
   }
 }
 
-class Sidebar extends StatelessWidget {
-  const Sidebar({super.key});
+// class Sidebar extends StatelessWidget {
+//   const Sidebar({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    final currentLocation = GoRouterState.of(context).uri.toString();
+//   @override
+//   Widget build(BuildContext context) {
+//     final currentLocation = GoRouterState.of(context).uri.toString();
 
-    final isLeadsSectionActive =
-        currentLocation.startsWith('/pipelines') ||
-            currentLocation.startsWith('/contacts') ||
-            currentLocation.startsWith('/parties') ||
-            currentLocation.startsWith('/followup') ||
-            currentLocation.startsWith('/products') ||
-            currentLocation.startsWith('/activities');
+//     final isLeadsSectionActive =
+//         currentLocation.startsWith('/pipelines') ||
+//             currentLocation.startsWith('/contacts') ||
+//             currentLocation.startsWith('/parties') ||
+//             currentLocation.startsWith('/followup') ||
+//             currentLocation.startsWith('/products') ||
+//             currentLocation.startsWith('/activities');
 
-    final isTeamsSectionActive = currentLocation.startsWith('/team') ||
-        currentLocation.startsWith('/accesscontrol') ||
-        currentLocation.startsWith('/customize');
+//     final isTeamsSectionActive = currentLocation.startsWith('/team') ||
+//         currentLocation.startsWith('/accesscontrol') ||
+//         currentLocation.startsWith('/customize');
 
-    final isBillingSectionActive = currentLocation.startsWith('/billing');
+//     final isBillingSectionActive = currentLocation.startsWith('/billing');
 
-    return Container(
-      width: 65,
-      color: AppCustomTheme.bluePrimary,
-      child: Column(
-        children: [
-          const SizedBox(height: 60),
-          _buildMenuItem(
-            context,
-            route: '/',
-            icon: Icons.grid_view,
-            label: 'My Apps',
-            isSelected: currentLocation == '/',
-          ),
-          const SizedBox(height: 8),
-          _buildMenuItem(
-            context,
-            route: '/pipelines',
-            icon: Icons.bar_chart,
-            label: 'Pipelines',
-            isSelected: isLeadsSectionActive,
-          ),
-          _buildMenuItem(
-            context,
-            route: '/team',
-            icon: Icons.groups,
-            label: 'Team',
-            isSelected: isTeamsSectionActive,
-          ),
-          _buildMenuItem(
-            context,
-            route: '/billing',
-            icon: Icons.receipt_long,
-            label: 'Billing',
-            isSelected: isBillingSectionActive,
-          ),
-        ],
-      ),
-    );
-  }
+//     return Container(
+//       width: 65,
+//       color: AppCustomTheme.bluePrimary,
+//       child: Column(
+//         children: [
+//           const SizedBox(height: 60),
+//           _buildMenuItem(
+//             context,
+//             route: '/',
+//             icon: Icons.grid_view,
+//             label: 'My Apps',
+//             isSelected: currentLocation == '/',
+//           ),
+//           const SizedBox(height: 8),
+//           _buildMenuItem(
+//             context,
+//             route: '/pipelines',
+//             icon: Icons.bar_chart,
+//             label: 'Pipelines',
+//             isSelected: isLeadsSectionActive,
+//           ),
+//           _buildMenuItem(
+//             context,
+//             route: '/team',
+//             icon: Icons.groups,
+//             label: 'Team',
+//             isSelected: isTeamsSectionActive,
+//           ),
+//           _buildMenuItem(
+//             context,
+//             route: '/billing',
+//             icon: Icons.receipt_long,
+//             label: 'Billing',
+//             isSelected: isBillingSectionActive,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
 
-  Widget _buildMenuItem(
-    BuildContext context, {
-    required String route,
-    required IconData icon,
-    required String label,
-    required bool isSelected,
-  }) {
-    final bgColor = isSelected ? Colors.white : AppCustomTheme.bluePrimary;
-    final iconColor = isSelected ? AppCustomTheme.bluePrimary : Colors.white;
-    final textColor = iconColor;
+//   Widget _buildMenuItem(
+//     BuildContext context, {
+//     required String route,
+//     required IconData icon,
+//     required String label,
+//     required bool isSelected,
+//   }) {
+//     final bgColor = isSelected ? Colors.white : AppCustomTheme.bluePrimary;
+//     final iconColor = isSelected ? AppCustomTheme.bluePrimary : Colors.white;
+//     final textColor = iconColor;
 
-    return InkWell(
-      onTap: () {
-        final currentLocation = GoRouterState.of(context).uri.toString();
-        if (currentLocation != route) context.go(route);
-      },
-      child: Container(
-        width: double.infinity,
-        color: bgColor,
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, color: iconColor, size: 20),
-            const SizedBox(height: 6),
-            Text(label, style: TextStyle(color: textColor, fontSize: 12)),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//     return InkWell(
+//       onTap: () {
+//         final currentLocation = GoRouterState.of(context).uri.toString();
+//         if (currentLocation != route) context.go(route);
+//       },
+//       child: Container(
+//         width: double.infinity,
+//         color: bgColor,
+//         padding: const EdgeInsets.symmetric(vertical: 16),
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Icon(icon, color: iconColor, size: 20),
+//             const SizedBox(height: 6),
+//             Text(label, style: TextStyle(color: textColor, fontSize: 12)),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class TeamSidebar extends StatelessWidget {
   const TeamSidebar({super.key});
@@ -2810,20 +2838,19 @@ class TeamSidebar extends StatelessWidget {
         color: isSelected ? AppCustomTheme.lightBlueBg : Colors.transparent,
         child: Row(
           children: [
-            Icon(icon,
-                size: 20,
-                color:
-                    isSelected ? AppCustomTheme.bluePrimary : Colors.black54),
+            Icon(
+              icon,
+              size: 20,
+              color: isSelected ? AppCustomTheme.bluePrimary : Colors.black54,
+            ),
             const SizedBox(width: 12),
             Expanded(
               child: Text(
                 label,
                 style: TextStyle(
-                  color: isSelected
-                      ? AppCustomTheme.bluePrimary
-                      : Colors.black87,
-                  fontWeight:
-                      isSelected ? FontWeight.w600 : FontWeight.normal,
+                  color:
+                      isSelected ? AppCustomTheme.bluePrimary : Colors.black87,
+                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
                 ),
               ),
             ),
