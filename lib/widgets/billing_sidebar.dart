@@ -55,10 +55,24 @@ class BillingSidebar extends StatelessWidget {
           // ),
           _menuItem(
             context,
-            label: 'Accounts',
+            label: 'Billing',
             icon: Icons.phone_callback,
-            route: '/billing',
-            isSelected: currentPath == '/billing',
+            route: '/settings',
+            isSelected: currentPath == '/settings',
+          ),
+          _menuItem(
+            context,
+            label: 'Access Control',
+            icon: Icons.directions_run,
+            route: '/accesscontrol',
+            isSelected: currentPath == '/accesscontrol',
+          ),
+          _menuItem(
+            context,
+            label: 'Customize',
+            icon: Icons.directions_run,
+            route: '/customize',
+            isSelected: currentPath == '/customize',
           ),
           // _menuItem(
           //   context,
