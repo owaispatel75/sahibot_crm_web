@@ -62,12 +62,15 @@ class Sidebar extends StatelessWidget {
         currentLocation.startsWith('/products') ||
         currentLocation.startsWith('/activities');
 
+    // final isTeamsSectionActive =
+    //     currentLocation.startsWith('/team') ||
+    //     currentLocation.startsWith('/accesscontrol') || currentLocation.startsWith('/customize');   
+
     final isTeamsSectionActive =
-        currentLocation.startsWith('/team') ||
-        currentLocation.startsWith('/accesscontrol') || currentLocation.startsWith('/customize');    
+        currentLocation.startsWith('/team');
     
     final isBillingSectionActive =
-        currentLocation.startsWith('/billing');
+        currentLocation.startsWith('/settings') || currentLocation.startsWith('/accesscontrol') || currentLocation.startsWith('/customize');;
 
     return Container(
       width: 65,
@@ -145,9 +148,9 @@ class Sidebar extends StatelessWidget {
           ),
           _buildMenuItem(
             context,
-            route: '/billing',
+            route: '/settings',
             icon: Icons.receipt_long,
-            label: 'Billing',
+            label: 'Settings',
             isSelected: isBillingSectionActive
             // isSelected: currentLocation == '/billing',
           ),
