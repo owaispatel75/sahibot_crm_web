@@ -7,11 +7,11 @@ import 'package:sahibot_crm_web/widgets/addProduct.dart';
 import 'package:sahibot_crm_web/widgets/contact_actions_menu.dart';
 import 'package:sahibot_crm_web/widgets/product_table.dart';
 import 'package:sahibot_crm_web/widgets/sales_team_table.dart';
-import 'package:sahibot_crm_web/widgets/team_Sidebar.dart';
+import 'package:sahibot_crm_web/All%20Sidebars/team_Sidebar.dart';
 import 'package:sahibot_crm_web/widgets/teams_tabbar.dart';
 import '../widgets/topbar.dart';
-import '../widgets/sidebar.dart';
-import '../widgets/leads_section_sidebar.dart';
+import '../All Sidebars/sidebar.dart';
+import '../All Sidebars/leads_section_sidebar.dart';
 
 class TeamsAllMemberScreen extends StatefulWidget {
   const TeamsAllMemberScreen({Key? key}) : super(key: key);

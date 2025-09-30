@@ -7,12 +7,12 @@ import 'package:sahibot_crm_web/widgets/addProduct.dart';
 import 'package:sahibot_crm_web/widgets/contact_actions_menu.dart';
 import 'package:sahibot_crm_web/widgets/product_table.dart';
 import 'package:sahibot_crm_web/widgets/sales_team_table.dart';
-import 'package:sahibot_crm_web/widgets/team_Sidebar.dart';
+import 'package:sahibot_crm_web/All%20Sidebars/team_Sidebar.dart';
 import 'package:sahibot_crm_web/widgets/teams_tabbar.dart';
 import 'package:sahibot_crm_web/widgets/userRoleTable.dart';
 import '../widgets/topbar.dart';
-import '../widgets/sidebar.dart';
-import '../widgets/leads_section_sidebar.dart';
+import '../All Sidebars/sidebar.dart';
+import '../All Sidebars/leads_section_sidebar.dart';
 
 class TeamsUserRolesScreen extends StatefulWidget {
   const TeamsUserRolesScreen({Key? key}) : super(key: key);

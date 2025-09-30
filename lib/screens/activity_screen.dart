@@ -810,8 +810,8 @@
 import 'package:flutter/material.dart';
 import 'package:sahibot_crm_web/config/app_theme.dart';
 import 'package:sahibot_crm_web/widgets/addTask.dart';
-import 'package:sahibot_crm_web/widgets/leads_section_sidebar.dart';
-import 'package:sahibot_crm_web/widgets/sidebar.dart';
+import 'package:sahibot_crm_web/All%20Sidebars/leads_section_sidebar.dart';
+import 'package:sahibot_crm_web/All%20Sidebars/sidebar.dart';
 import 'package:sahibot_crm_web/widgets/topbar.dart';
 
 class ActivitiesScreen extends StatefulWidget {

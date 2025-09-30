@@ -54,6 +54,8 @@ class TopBar extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               const Text("Bilal\nManager", style: TextStyle(fontSize: 12)),
+              const SizedBox(width: 8),
+              const Icon(Icons.logout, color: Colors.grey, size: 22),
             ],
           ),
         ],

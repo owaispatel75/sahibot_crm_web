@@ -8,8 +8,8 @@ import 'package:sahibot_crm_web/widgets/addProduct.dart';
 import 'package:sahibot_crm_web/widgets/contact_actions_menu.dart';
 import 'package:sahibot_crm_web/widgets/product_table.dart';
 import '../widgets/topbar.dart';
-import '../widgets/sidebar.dart';
-import '../widgets/leads_section_sidebar.dart';
+import '../All Sidebars/sidebar.dart';
+import '../All Sidebars/leads_section_sidebar.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({Key? key}) : super(key: key);

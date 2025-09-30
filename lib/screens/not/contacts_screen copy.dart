@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sahibot_crm_web/config/app_theme.dart';
 import 'package:sahibot_crm_web/widgets/add_contact_dialog.dart';
 import 'package:sahibot_crm_web/widgets/contact_actions_menu.dart';
-import 'package:sahibot_crm_web/widgets/leads_section_sidebar.dart';
+import 'package:sahibot_crm_web/All%20Sidebars/leads_section_sidebar.dart';
 import '../../../widgets/topbar.dart';
-import '../../../widgets/sidebar.dart';
+import '../../All Sidebars/sidebar.dart';
 
 class ContactScreen extends StatelessWidget {
   const ContactScreen({super.key});

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sahibot_crm_web/sampleErrorPage.dart';
 import 'package:sahibot_crm_web/screens/FollowUpScreen.dart';
 import 'package:sahibot_crm_web/screens/activity_screen.dart';
 import 'package:sahibot_crm_web/screens/contact_details.dart';
@@ -67,7 +68,7 @@ final _router = GoRouter(
           (context, state) => NoTransitionPage(child: CustomizeScreen()),
     ),
     GoRoute(
-      path: '/settings',
+      path: '/billing',
       pageBuilder: (context, state) => NoTransitionPage(child: billingScreen()),
     ),
     GoRoute(
@@ -82,7 +83,8 @@ final _router = GoRouter(
     ),
     GoRoute(
       path: '/pipelines',
-      pageBuilder: (context, state) => const NoTransitionPage(child: pipelinesScreen()),
+      pageBuilder:
+          (context, state) => const NoTransitionPage(child: pipelinesScreen()),
       routes: [
         GoRoute(
           path: 'details',
@@ -133,23 +135,51 @@ final _router = GoRouter(
     GoRoute(
       path: '/team',
       pageBuilder:
-          (context, state) => const NoTransitionPage(child: TeamsAllMembersScreenF()),
+          (context, state) =>
+              const NoTransitionPage(child: TeamsAllMembersScreenF()),
     ),
     GoRoute(
       path: '/allmembers',
       pageBuilder:
-          (context, state) => const NoTransitionPage(child: TeamsAllMemberScreen()),
+          (context, state) =>
+              const NoTransitionPage(child: TeamsAllMemberScreen()),
     ),
     GoRoute(
       path: '/userroles',
       pageBuilder:
-          (context, state) => const NoTransitionPage(child: TeamsUserRolesScreen()),
+          (context, state) =>
+              const NoTransitionPage(child: TeamsUserRolesScreen()),
     ),
     GoRoute(
       path: '/accesscontrol',
       pageBuilder:
           (context, state) =>
               const NoTransitionPage(child: TeamsUserAccessScreenF()),
+    ),
+    GoRoute(
+      path: '/tasks',
+      pageBuilder:
+          (context, state) =>
+              const NoTransitionPage(child: Sampleerrorpage(title: "Tasks")),
+    ),
+    GoRoute(
+      path: '/hrms',
+      pageBuilder:
+          (context, state) =>
+              const NoTransitionPage(child: Sampleerrorpage(title: "HRMS")),
+    ),
+    GoRoute(
+      path: '/finance',
+      pageBuilder:
+          (context, state) =>
+              const NoTransitionPage(child: Sampleerrorpage(title: "Finance")),
+    ),
+    GoRoute(
+      path: '/warehouse',
+      pageBuilder:
+          (context, state) => const NoTransitionPage(
+            child: Sampleerrorpage(title: "Warehouse Inventory"),
+          ),
     ),
   ],
 );

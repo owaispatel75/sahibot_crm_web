@@ -417,8 +417,8 @@ import 'package:sahibot_crm_web/screens/Pipelines_Tab.dart';
 import 'package:sahibot_crm_web/screens/activity_screen.dart';
 import 'package:sahibot_crm_web/screens/activity_tab.dart';
 import 'package:sahibot_crm_web/widgets/Notes_tab.dart';
-import 'package:sahibot_crm_web/widgets/leads_section_sidebar.dart';
-import 'package:sahibot_crm_web/widgets/sidebar.dart';
+import 'package:sahibot_crm_web/All%20Sidebars/leads_section_sidebar.dart';
+import 'package:sahibot_crm_web/All%20Sidebars/sidebar.dart';
 import 'package:sahibot_crm_web/widgets/topbar.dart';
 
 class ContactDetailsPage extends StatelessWidget {

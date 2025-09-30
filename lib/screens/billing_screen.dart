@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sahibot_crm_web/widgets/billing_sidebar.dart';
+import 'package:sahibot_crm_web/All%20Sidebars/billing_sidebar.dart';
+import 'package:sahibot_crm_web/All%20Sidebars/settings_sidebar.dart';
 import '../../widgets/topbar.dart';
-import '../../widgets/sidebar.dart';
+import '../All Sidebars/sidebar.dart';
 import 'dart:math' as math;
 
 class billingScreen extends StatefulWidget {

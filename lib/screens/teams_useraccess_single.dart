@@ -1780,8 +1780,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sahibot_crm_web/widgets/billing_sidebar.dart';
-import 'package:sahibot_crm_web/widgets/sidebar.dart';
+import 'package:sahibot_crm_web/All%20Sidebars/settings_sidebar.dart';
+import 'package:sahibot_crm_web/All%20Sidebars/sidebar.dart';
 
 class TeamsUserAccessScreenF extends StatefulWidget {
   const TeamsUserAccessScreenF({Key? key}) : super(key: key);
@@ -1863,7 +1863,7 @@ class _TeamsUserAccessScreenFState extends State<TeamsUserAccessScreenF> {
     return Scaffold(
       body: Stack(
         children: [
-          Row(children: const [Sidebar(), BillingSidebar()]),
+          Row(children: const [Sidebar(), SettingsSidebar()]),
           // TeamSidebar()]),
           // content
           Padding(
@@ -2812,13 +2812,13 @@ class TeamSidebar extends StatelessWidget {
             route: '/accesscontrol',
             isSelected: currentPath == '/accesscontrol',
           ),
-          _menuItem(
-            context,
-            label: 'Customize',
-            icon: Icons.tune,
-            route: '/customize',
-            isSelected: currentPath == '/customize',
-          ),
+          // _menuItem(
+          //   context,
+          //   label: 'Customize',
+          //   icon: Icons.tune,
+          //   route: '/customize',
+          //   isSelected: currentPath == '/customize',
+          // ),
         ],
       ),
     );

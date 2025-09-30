@@ -432,9 +432,9 @@ import 'package:sahibot_crm_web/screens/not/contacts_screen%20copy.dart';
 import 'package:sahibot_crm_web/widgets/AddContactDrawer.dart';
 import 'package:sahibot_crm_web/widgets/contact_actions_menu.dart';
 import 'package:sahibot_crm_web/widgets/contact_table.dart';
-import 'package:sahibot_crm_web/widgets/leads_section_sidebar.dart';
+import 'package:sahibot_crm_web/All%20Sidebars/leads_section_sidebar.dart';
 import '../../widgets/topbar.dart';
-import '../../widgets/sidebar.dart';
+import '../All Sidebars/sidebar.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({super.key});

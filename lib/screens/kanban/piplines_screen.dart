@@ -598,10 +598,10 @@ import 'package:go_router/go_router.dart';
 import 'package:sahibot_crm_web/config/app_theme.dart';
 import 'package:sahibot_crm_web/screens/kanban/kanban_models.dart';
 import 'package:sahibot_crm_web/screens/kanban/pipeline_details_screen.dart';
-import 'package:sahibot_crm_web/widgets/leads_section_sidebar.dart';
+import 'package:sahibot_crm_web/All%20Sidebars/leads_section_sidebar.dart';
 import 'package:sahibot_crm_web/widgets/move_lead_dialog.dart';
 import '../../../widgets/topbar.dart';
-import '../../../widgets/sidebar.dart';
+import '../../All Sidebars/sidebar.dart';
 import 'package:sahibot_crm_web/screens/kanban/AddDealDrawer.dart';
 
 /// Simple in-memory models (frontend-only)

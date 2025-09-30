@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sahibot_crm_web/widgets/sidebar.dart';
-import 'package:sahibot_crm_web/widgets/team_Sidebar.dart';
+import 'package:sahibot_crm_web/All%20Sidebars/sidebar.dart';
+import 'package:sahibot_crm_web/All%20Sidebars/team_Sidebar.dart';
 import 'package:sahibot_crm_web/widgets/topbar.dart';
 
 ///--------------------------------------------------------------------------
@@ -399,10 +399,14 @@ class AllMemberTeamTable extends StatelessWidget {
           child: Text(m.role, style: const TextStyle(fontSize: 12)),
         ),
       ),
+
       _cell(
-        Switch(
-          value: m.isActive == 1,
-          onChanged: (v) => onStatusChanged(m.copyWith(isActive: v ? 1 : 0)),
+        Visibility(
+          visible: m.role != "Owner",
+          child: Switch(
+            value: m.isActive == 1,
+            onChanged: (v) => onStatusChanged(m.copyWith(isActive: v ? 1 : 0)),
+          ),
         ),
       ),
       _cell(
@@ -413,6 +417,15 @@ class AllMemberTeamTable extends StatelessWidget {
               icon: const Icon(Icons.edit),
               color: _T.blue,
               onPressed: () => onEdit(m),
+            ),
+            Visibility(
+              visible: m.role != "Owner",
+              child: IconButton(
+                tooltip: 'Reset Password',
+                icon: const Icon(Icons.lock),
+                color: _T.blue,
+                onPressed: () {},
+              ),
             ),
           ],
         ),
@@ -739,7 +752,7 @@ class FakeApiService {
       name: 'Bilal Shaikh',
       email: 'bilal@sahibot.com',
       mobile: '9769175240',
-      role: 'Admin',
+      role: 'Owner',
       isActive: 1,
       reportsTo: '—',
     ),

@@ -68,28 +68,32 @@
 //   }
 // }
 
+// import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:sahibot_crm_web/config/app_theme.dart';
 
 class AppTile extends StatelessWidget {
   final IconData icon;
   final String title;
-  final String subtitle;
+  final double width;
+  final String? subtitle;
   final VoidCallback onPressed;
 
   const AppTile({
     super.key,
     required this.icon,
     required this.title,
-    required this.subtitle,
+    this.subtitle,
     required this.onPressed,
+    required this.width,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 150,
-      width: 280,
+      width: width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: Colors.white,
@@ -132,7 +136,8 @@ class AppTile extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        subtitle,
+                        subtitle ?? '',
+                        maxLines: 3,
                         style: const TextStyle(
                           fontSize: 14,
                           color: Colors.black54,
@@ -141,9 +146,11 @@ class AppTile extends StatelessWidget {
                     ],
                   ),
                 ),
-                if(title == "AutomateWA" || title == "Automate Links" ||
-                    title == "Integrations" || title == "Automate Quotation")
-                Icon(Icons.lock, color: Colors.grey, size: 28),
+                if (title == "AutomateWA" ||
+                    title == "Automate Links" ||
+                    title == "Integrations" ||
+                    title == "Quotations")
+                  Icon(Icons.lock, color: Colors.grey, size: 22),
               ],
             ),
           ),

@@ -34,10 +34,11 @@
 // }
 
 import 'package:flutter/material.dart';
-import 'package:sahibot_crm_web/widgets/billing_sidebar.dart';
-import 'package:sahibot_crm_web/widgets/team_Sidebar.dart';
+import 'package:sahibot_crm_web/All%20Sidebars/settings_sidebar.dart';
+import 'package:sahibot_crm_web/All%20Sidebars/leads_section_sidebar.dart';
+import 'package:sahibot_crm_web/All%20Sidebars/team_Sidebar.dart';
 import '../../widgets/topbar.dart';
-import '../../widgets/sidebar.dart';
+import '../All Sidebars/sidebar.dart';
 
 class CustomizeScreen extends StatefulWidget {
   const CustomizeScreen({super.key});
@@ -149,7 +150,8 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
             children: [
               const Sidebar(),
               // const TeamSidebar(),
-              const BillingSidebar(),
+              // const BillingSidebar(),
+              LeadsSectionSidebar(),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 64),
