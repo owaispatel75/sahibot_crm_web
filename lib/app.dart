@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sahibot_crm_web/sampleErrorPage.dart';
 import 'package:sahibot_crm_web/screens/FollowUpScreen.dart';
+import 'package:sahibot_crm_web/screens/PipelinesCustomizeScreen.dart';
+import 'package:sahibot_crm_web/screens/ProjectsCustomizeScreen.dart';
 import 'package:sahibot_crm_web/screens/activity_screen.dart';
 import 'package:sahibot_crm_web/screens/contact_details.dart';
 import 'package:sahibot_crm_web/screens/contacts_screen.dart';
@@ -181,18 +183,18 @@ final _router = GoRouter(
             child: Sampleerrorpage(title: "Warehouse Inventory"),
           ),
     ),
-    // GoRoute(
-    //   path: '/customize/pipelines',
-    //   name: 'customize-pipelines',
-    //   pageBuilder:
-    //       (ctx, st) => NoTransitionPage(child: PipelinesCustomizeScreen()),
-    // ),
-    // GoRoute(
-    //   path: '/customize/projects',
-    //   name: 'customize-projects',
-    //   pageBuilder:
-    //       (ctx, st) => NoTransitionPage(child: ProjectsCustomizeScreen()),
-    // ),
+    GoRoute(
+      path: '/customize/pipelines',
+      name: 'customize-pipelines',
+      pageBuilder:
+          (ctx, st) => NoTransitionPage(child: PipelinesCustomizeScreen()),
+    ),
+    GoRoute(
+      path: '/customize/projects',
+      name: 'customize-projects',
+      pageBuilder:
+          (ctx, st) => NoTransitionPage(child: ProjectsCustomizeScreen()),
+    ),
   ],
 );
 

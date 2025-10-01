@@ -130,11 +130,16 @@ import 'package:sahibot_crm_web/config/app_theme.dart';
 import 'package:sahibot_crm_web/All%20Sidebars/logout_subsidebar.dart';
 
 class LeadsSectionSidebar extends StatelessWidget {
-  const LeadsSectionSidebar({super.key});
+  LeadsSectionSidebar({super.key});
+
+  bool _expandCustomize = false;
 
   @override
   Widget build(BuildContext context) {
     final currentPath = GoRouterState.of(context).uri.toString();
+    // Keep expanded if we're on /customize/*
+    final onCustomize = currentPath.startsWith('/customize');
+    if (onCustomize && !_expandCustomize) _expandCustomize = true;
 
     return Container(
       width: 180,

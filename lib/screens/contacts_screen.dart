@@ -445,9 +445,7 @@ class ContactScreen extends StatefulWidget {
 
 class _ContactScreenState extends State<ContactScreen>
     with SingleTickerProviderStateMixin {
-  
   String selectedContactName = '';
-  
 
   bool isPanelOpen = false;
 
@@ -490,7 +488,7 @@ class _ContactScreenState extends State<ContactScreen>
           Row(
             children: [
               const Sidebar(),
-              const LeadsSectionSidebar(),
+              LeadsSectionSidebar(),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 64),

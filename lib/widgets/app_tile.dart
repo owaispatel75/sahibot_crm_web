@@ -92,7 +92,7 @@ class AppTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 110,
+      height: 125,
       width: 200,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
@@ -148,11 +148,11 @@ class AppTile extends StatelessWidget {
                     ],
                   ),
                 ),
-                if (title == "AutomateWA" ||
-                    title == "Automate Links" ||
-                    title == "Integrations" ||
-                    title == "Quotations")
-                  Icon(Icons.lock, color: Colors.grey, size: 22),
+                // if (title == "AutomateWA" ||
+                //     title == "Automate Links" ||
+                //     title == "Integrations" ||
+                //     title == "Quotations")
+                //   Icon(Icons.lock, color: Colors.grey, size: 22),
               ],
             ),
           ),

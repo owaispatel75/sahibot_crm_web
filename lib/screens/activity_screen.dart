@@ -845,7 +845,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen>
           Row(
             children: [
               Sidebar(),
-              const LeadsSectionSidebar(),
+              LeadsSectionSidebar(),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -864,7 +864,6 @@ class _ActivitiesScreenState extends State<ActivitiesScreen>
                                     horizontal: 20,
                                   ),
 
-                              
                                   child: TabBar(
                                     dividerColor: Colors.transparent,
                                     overlayColor: MaterialStateProperty.all(
@@ -900,11 +899,10 @@ class _ActivitiesScreenState extends State<ActivitiesScreen>
                                           ],
                                         ),
                                       ),
-                                      
                                     ],
                                   ),
                                 ),
-                                
+
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -966,7 +964,6 @@ class _ActivitiesScreenState extends State<ActivitiesScreen>
                                             AppCustomTheme.bluePrimary,
                                       ),
                                     ),
-                                    
                                   ],
                                 ),
                               ],
@@ -984,10 +981,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen>
                               height: MediaQuery.of(context).size.height - 160,
                               child: TabBarView(
                                 controller: _tabController,
-                                children: const [
-                                  TasksTabView(),
-                                 
-                                ],
+                                children: const [TasksTabView()],
                               ),
                             ),
                           ],
@@ -1132,4 +1126,3 @@ Widget _buildActionButton(String text) {
     child: Text(text, style: const TextStyle(color: Colors.green)),
   );
 }
-

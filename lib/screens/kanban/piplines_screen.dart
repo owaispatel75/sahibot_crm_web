@@ -959,7 +959,7 @@ class _pipelinesScreenState extends State<pipelinesScreen>
           Row(
             children: [
               const Sidebar(),
-              const LeadsSectionSidebar(),
+              LeadsSectionSidebar(),
               // Board
               Expanded(
                 child: Padding(
@@ -1963,7 +1963,6 @@ class _DraggableDeal extends StatelessWidget {
     );
   }
 }
-
 
 /// Draggable deal card
 class _DealCard extends StatelessWidget {

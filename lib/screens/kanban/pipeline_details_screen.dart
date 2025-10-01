@@ -263,7 +263,7 @@ class _PipelineDetailsScreenState extends State<PipelineDetailsScreen>
           Row(
             children: [
               const Sidebar(),
-              const LeadsSectionSidebar(),
+              LeadsSectionSidebar(),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 64),

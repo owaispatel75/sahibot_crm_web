@@ -313,7 +313,7 @@ class MyAppsScreen extends StatelessWidget {
                           //   onPressed: () {},
                           // ),
                           AppTile(
-                            buttonColor: AppCustomTheme.bluePrimary,
+                            buttonColor: Colors.grey,
                             title: "Quotations",
                             //subtitle: "Generate and send quotations",
                             icon: Icons.description,
@@ -512,8 +512,7 @@ class MyAppsScreen extends StatelessWidget {
             SizedBox(width: 12),
             if (title == "Warehouse & Inventory Management" ||
                 title == "Finance" ||
-                title == "HR Management" ||
-                title == "Team Management")
+                title == "HR Management")
               const Icon(Icons.lock, color: Colors.grey, size: 22),
           ],
         ),

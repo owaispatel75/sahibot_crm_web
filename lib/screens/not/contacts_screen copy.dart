@@ -17,7 +17,7 @@ class ContactScreen extends StatelessWidget {
           Row(
             children: [
               const Sidebar(),
-              const LeadsSectionSidebar(),
+              LeadsSectionSidebar(),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(

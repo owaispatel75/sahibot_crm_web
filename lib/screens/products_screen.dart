@@ -73,7 +73,7 @@ class _ProductsScreenState extends State<ProductsScreen>
           Row(
             children: [
               const Sidebar(),
-              const LeadsSectionSidebar(),
+              LeadsSectionSidebar(),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 64),

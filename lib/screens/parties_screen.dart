@@ -61,7 +61,7 @@ class _PartiesScreenState extends State<PartiesScreen>
           Row(
             children: [
               const Sidebar(),
-              const LeadsSectionSidebar(),
+              LeadsSectionSidebar(),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 64),

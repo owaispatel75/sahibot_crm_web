@@ -435,7 +435,7 @@ class PartiesDetailsPage extends StatelessWidget {
           Row(
             children: [
               const Sidebar(),
-              const LeadsSectionSidebar(),
+              LeadsSectionSidebar(),
               Expanded(
                 child: Column(
                   children: [
