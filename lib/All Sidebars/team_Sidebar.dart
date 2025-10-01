@@ -179,7 +179,7 @@ class TeamSidebar extends StatelessWidget {
               _menuItem(
                 context,
                 label: 'Sales Team',
-                icon: Icons.groups_2_rounded,
+                icon: Icons.people_rounded,
                 route: '/salesteam',
                 isSelected: currentPath == '/salesteam',
               ),
