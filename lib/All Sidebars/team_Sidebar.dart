@@ -183,6 +183,13 @@ class TeamSidebar extends StatelessWidget {
                 route: '/salesteam',
                 isSelected: currentPath == '/salesteam',
               ),
+              _menuItem(
+                context,
+                label: 'User Roles',
+                icon: Icons.wallet,
+                route: '/userrole',
+                isSelected: currentPath == '/userrole',
+              ),
             ],
           ),
           Padding(
@@ -203,7 +210,9 @@ class TeamSidebar extends StatelessWidget {
   }) {
     return InkWell(
       onTap: () {
-        if (route != "/salesteam") context.go(route);
+        if (route != "/salesteam" && route != "/userrole") {
+          context.go(route);
+        }
       },
       // onTap: () => context.go(route),
       child: Container(
@@ -228,7 +237,7 @@ class TeamSidebar extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
-            if (label == "Sales Team")
+            if (label == "Sales Team" || label == "User Roles")
               Icon(Icons.lock, size: 20, color: Colors.grey),
           ],
         ),

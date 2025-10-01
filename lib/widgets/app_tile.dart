@@ -76,7 +76,7 @@ import 'package:sahibot_crm_web/config/app_theme.dart';
 class AppTile extends StatelessWidget {
   final IconData icon;
   final String title;
-  final double width;
+  final Color buttonColor;
   final String? subtitle;
   final VoidCallback onPressed;
 
@@ -86,14 +86,14 @@ class AppTile extends StatelessWidget {
     required this.title,
     this.subtitle,
     required this.onPressed,
-    required this.width,
+    required this.buttonColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
-      width: width,
+      height: 110,
+      width: 200,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: Colors.white,
@@ -107,15 +107,16 @@ class AppTile extends StatelessWidget {
         children: [
           // Top content
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(8),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Icon in green box
                 Container(
-                  padding: const EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(6),
                   decoration: BoxDecoration(
-                    color: AppCustomTheme.bluePrimary,
+                    // color: AppCustomTheme.bluePrimary,
+                    color: buttonColor,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Icon(icon, color: Colors.white, size: 28),
@@ -128,21 +129,22 @@ class AppTile extends StatelessWidget {
                     children: [
                       Text(
                         title,
+                        maxLines: 2,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
                         ),
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        subtitle ?? '',
-                        maxLines: 3,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.black54,
-                        ),
-                      ),
+                      // const SizedBox(height: 4),
+                      // Text(
+                      //   subtitle ?? '',
+                      //   maxLines: 3,
+                      //   style: const TextStyle(
+                      //     fontSize: 14,
+                      //     color: Colors.black54,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -159,9 +161,10 @@ class AppTile extends StatelessWidget {
             onTap: onPressed,
             child: Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              decoration: const BoxDecoration(
-                color: AppCustomTheme.bluePrimary,
+              padding: const EdgeInsets.symmetric(vertical: 11),
+              decoration: BoxDecoration(
+                // color: AppCustomTheme.bluePrimary,
+                color: buttonColor,
                 // color: Color(0xFF00C853),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(12),

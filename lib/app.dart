@@ -181,6 +181,18 @@ final _router = GoRouter(
             child: Sampleerrorpage(title: "Warehouse Inventory"),
           ),
     ),
+    // GoRoute(
+    //   path: '/customize/pipelines',
+    //   name: 'customize-pipelines',
+    //   pageBuilder:
+    //       (ctx, st) => NoTransitionPage(child: PipelinesCustomizeScreen()),
+    // ),
+    // GoRoute(
+    //   path: '/customize/projects',
+    //   name: 'customize-projects',
+    //   pageBuilder:
+    //       (ctx, st) => NoTransitionPage(child: ProjectsCustomizeScreen()),
+    // ),
   ],
 );
 

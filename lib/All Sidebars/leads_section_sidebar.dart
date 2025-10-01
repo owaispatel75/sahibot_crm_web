@@ -155,19 +155,20 @@ class LeadsSectionSidebar extends StatelessWidget {
                     currentPath == '/dashboard' ||
                     currentPath == '/automateLeads',
               ),
-              _menuItem(
-                context,
-                label: 'Projects',
-                icon: Icons.filter_alt,
-                route: '/projects',
-                isSelected: currentPath == '/projects',
-              ),
+
               _menuItem(
                 context,
                 label: 'Pipelines',
                 icon: Icons.filter_alt,
                 route: '/pipelines',
                 isSelected: currentPath == '/pipelines',
+              ),
+              _menuItem(
+                context,
+                label: 'Projects',
+                icon: Icons.filter_alt,
+                route: '/projects',
+                isSelected: currentPath == '/projects',
               ),
 
               _menuItem(
