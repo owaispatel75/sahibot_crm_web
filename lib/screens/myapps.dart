@@ -510,10 +510,10 @@ class MyAppsScreen extends StatelessWidget {
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(width: 12),
-            if (title == "Warehouse & Inventory Management" ||
-                title == "Finance" ||
-                title == "HR Management")
-              const Icon(Icons.lock, color: Colors.grey, size: 22),
+            // if (title == "Warehouse & Inventory Management" ||
+            //     title == "Finance" ||
+            //     title == "HR Management")
+            //   const Icon(Icons.lock, color: Colors.grey, size: 22),
           ],
         ),
 

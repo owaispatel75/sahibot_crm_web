@@ -109,7 +109,7 @@ class AppTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Icon in green box
                 Container(
