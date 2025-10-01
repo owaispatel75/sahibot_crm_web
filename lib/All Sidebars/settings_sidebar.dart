@@ -74,7 +74,7 @@ class SettingsSidebar extends StatelessWidget {
               _menuItem(
                 context,
                 label: 'Access Control',
-                icon: Icons.directions_run,
+                icon: Icons.manage_accounts_rounded,
                 route: '/accesscontrol',
                 isSelected: currentPath == '/accesscontrol',
               ),

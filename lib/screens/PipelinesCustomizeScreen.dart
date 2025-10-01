@@ -279,7 +279,7 @@ class _ActionCard extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(16),
       child: Container(
-        height: 132,
+        height: 140,
         padding: const EdgeInsets.symmetric(horizontal: 24),
         decoration: BoxDecoration(
           color: _cardBg,
@@ -290,7 +290,7 @@ class _ActionCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon, size: 42, color: _textMain),
-            const SizedBox(width: 16),
+            const SizedBox(width: 8),
             Text(
               title,
               style: const TextStyle(
@@ -299,7 +299,7 @@ class _ActionCard extends StatelessWidget {
                 color: _textMain,
               ),
             ),
-            const SizedBox(width: 16),
+            const SizedBox(width: 8),
             if (!disabled)
               const Icon(Icons.chevron_right, color: Colors.white70)
             else

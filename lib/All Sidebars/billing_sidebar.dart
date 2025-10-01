@@ -59,15 +59,15 @@ class BillingSidebar extends StatelessWidget {
               // ),
               _menuItem(
                 context,
-                label: 'Billing',
-                icon: Icons.phone_callback,
+                label: 'My Plan',
+                icon: Icons.price_check_rounded,
                 route: '/billing',
                 isSelected: currentPath == '/billing',
               ),
               _menuItem(
                 context,
                 label: 'Wallet Logs',
-                icon: Icons.wallet,
+                icon: Icons.wallet_rounded,
                 route: '/walletlogs',
                 isSelected: currentPath == '/walletlogs',
               ),
