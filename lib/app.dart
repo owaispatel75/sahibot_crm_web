@@ -7,6 +7,9 @@ import 'package:sahibot_crm_web/screens/ProjectsCustomizeScreen.dart';
 import 'package:sahibot_crm_web/screens/activity_screen.dart';
 import 'package:sahibot_crm_web/screens/contact_details.dart';
 import 'package:sahibot_crm_web/screens/contacts_screen.dart';
+import 'package:sahibot_crm_web/screens/kanban/dashboard_pipeline.dart';
+import 'package:sahibot_crm_web/screens/kanban/dashboard_project.dart';
+import 'package:sahibot_crm_web/screens/kanban/project_screen.dart';
 import 'package:sahibot_crm_web/screens/myapps.dart';
 import 'package:sahibot_crm_web/screens/parties_details.dart';
 import 'package:sahibot_crm_web/screens/parties_screen.dart';
@@ -81,7 +84,7 @@ final _router = GoRouter(
     GoRoute(
       path: '/projects',
       pageBuilder:
-          (context, state) => const NoTransitionPage(child: pipelinesScreen()),
+          (context, state) => const NoTransitionPage(child: projectsScreen()),
     ),
     GoRoute(
       path: '/pipelines',
@@ -116,9 +119,14 @@ final _router = GoRouter(
           (context, state) => const NoTransitionPage(child: pipelinesScreen()),
     ),
     GoRoute(
-      path: '/dashboard',
+      path: '/pipelinesdashboard',
       pageBuilder:
-          (context, state) => const NoTransitionPage(child: pipelinesScreen()),
+          (context, state) => const NoTransitionPage(child: pipelinesScreenD()),
+    ),
+    GoRoute(
+      path: '/projectdashboard',
+      pageBuilder:
+          (context, state) => const NoTransitionPage(child: projectsScreenD()),
     ),
     GoRoute(
       path: '/products/:productName',

@@ -273,14 +273,14 @@ import 'package:go_router/go_router.dart';
 import 'package:sahibot_crm_web/config/app_theme.dart';
 import 'package:sahibot_crm_web/All Sidebars/logout_subsidebar.dart';
 
-class LeadsSectionSidebar extends StatefulWidget {
-  const LeadsSectionSidebar({super.key});
+class DashboardSidebar extends StatefulWidget {
+  const DashboardSidebar({super.key});
 
   @override
-  State<LeadsSectionSidebar> createState() => _LeadsSectionSidebarState();
+  State<DashboardSidebar> createState() => _DashboardSidebarState();
 }
 
-class _LeadsSectionSidebarState extends State<LeadsSectionSidebar> {
+class _DashboardSidebarState extends State<DashboardSidebar> {
   bool customizeExpanded = true; // default open
 
   @override
@@ -300,21 +300,59 @@ class _LeadsSectionSidebarState extends State<LeadsSectionSidebar> {
 
               _menuItem(
                 context,
-                label: 'Dashboard',
-                icon: Icons.dashboard_rounded,
-                route: '/dashboard',
-                isSelected:
-                    currentPath == '/dashboard' ||
-                    currentPath == '/automateLeads',
+                label: 'Pipelines',
+                icon: Icons.filter_alt_rounded,
+                // route: '/dashboard',
+                // isSelected:
+                //     currentPath == '/dashboard' ||
+                //     currentPath == '/automateLeads',
+                route: '/pipelinesdashboard',
+                isSelected: currentPath == '/pipelinesdashboard',
+              ),
+              _menuItem(
+                context,
+                label: 'Projects',
+                icon: Icons.account_tree_rounded,
+                route: '/projectdashboard',
+                isSelected: currentPath == '/projectdashboard',
               ),
 
               _menuItem(
                 context,
-                label: 'Pipelines',
-                icon: Icons.filter_alt_rounded,
-                route: '/pipelines',
-                isSelected: currentPath == '/pipelines',
+                label: 'Tasks',
+                icon: Icons.task_alt_rounded,
+                route: '/tasksdashboard',
+                isSelected: currentPath == '/tasksdashboard',
               ),
+              _menuItem(
+                context,
+                label: 'HRMS',
+                icon: Icons.diversity_2_rounded,
+                route: '/hrmsdashboard',
+                isSelected: currentPath == '/hrmsdashboard',
+              ),
+              _menuItem(
+                context,
+                label: 'Finance',
+                icon: Icons.receipt_long_rounded,
+                route: '/financedashboard',
+                isSelected: currentPath == '/financedashboard',
+              ),
+              _menuItem(
+                context,
+                label: 'Warehouse Inventory',
+                icon: Icons.inventory_rounded,
+                route: '/warehousedashboard',
+                isSelected: currentPath == '/warehousedashboard',
+              ),
+
+              // _menuItem(
+              //   context,
+              //   label: 'Pipelines',
+              //   icon: Icons.filter_alt_rounded,
+              //   route: '/pipelines',
+              //   isSelected: currentPath == '/pipelines',
+              // ),
 
               // _menuItem(
               //   context,
@@ -323,58 +361,52 @@ class _LeadsSectionSidebarState extends State<LeadsSectionSidebar> {
               //   route: '/projects',
               //   isSelected: currentPath == '/projects',
               // ),
-              _menuItem(
-                context,
-                label: 'Contacts',
-                icon: Icons.contact_phone_rounded,
-                route: '/contacts',
-                isSelected:
-                    currentPath == '/contacts' ||
-                    currentPath.startsWith('/contacts/'),
-              ),
 
-              _menuItem(
-                context,
-                label: 'Parties',
-                icon: Icons.apartment,
-                route: '/parties',
-                isSelected:
-                    currentPath == '/parties' ||
-                    currentPath.startsWith('/parties/'),
-              ),
+              // _menuItem(
+              //   context,
+              //   label: 'Contacts',
+              //   icon: Icons.contact_phone_rounded,
+              //   route: '/contacts',
+              //   isSelected:
+              //       currentPath == '/contacts' ||
+              //       currentPath.startsWith('/contacts/'),
+              // ),
 
-              _menuItem(
-                context,
-                label: 'Follow-up',
-                icon: Icons.connect_without_contact_rounded,
-                route: '/followup',
-                isSelected: currentPath == '/followup',
-              ),
+              // _menuItem(
+              //   context,
+              //   label: 'Parties',
+              //   icon: Icons.apartment,
+              //   route: '/parties',
+              //   isSelected:
+              //       currentPath == '/parties' ||
+              //       currentPath.startsWith('/parties/'),
+              // ),
 
-              _menuItem(
-                context,
-                label: 'Products',
-                icon: Icons.category_rounded,
-                route: '/products',
-                isSelected:
-                    currentPath == '/products' ||
-                    currentPath.startsWith('/products/'),
-              ),
+              // _menuItem(
+              //   context,
+              //   label: 'Follow-up',
+              //   icon: Icons.connect_without_contact_rounded,
+              //   route: '/followup',
+              //   isSelected: currentPath == '/followup',
+              // ),
 
-              _menuItem(
-                context,
-                label: 'Activities',
-                icon: Icons.directions_run,
-                route: '/activities',
-                isSelected: currentPath == '/activities',
-              ),
-              _menuItem(
-                context,
-                label: 'Customize',
-                icon: Icons.filter_alt_rounded,
-                route: '/customize/pipelines',
-                isSelected: currentPath == '/customize/pipelines',
-              ),
+              // _menuItem(
+              //   context,
+              //   label: 'Products',
+              //   icon: Icons.category_rounded,
+              //   route: '/products',
+              //   isSelected:
+              //       currentPath == '/products' ||
+              //       currentPath.startsWith('/products/'),
+              // ),
+
+              // _menuItem(
+              //   context,
+              //   label: 'Activities',
+              //   icon: Icons.directions_run,
+              //   route: '/activities',
+              //   isSelected: currentPath == '/activities',
+              // ),
 
               // // Parent: Customize
               // InkWell(
@@ -467,7 +499,15 @@ class _LeadsSectionSidebarState extends State<LeadsSectionSidebar> {
     required bool isSelected,
   }) {
     return InkWell(
-      onTap: () => context.go(route),
+      // onTap: () => context.go(route),
+      onTap: () {
+        if (route != "/tasksdashboard" &&
+            route != "/hrmsdashboard" &&
+            route != "/financedashboard" &&
+            route != "/warehousedashboard") {
+          context.go(route);
+        }
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         color: isSelected ? AppCustomTheme.lightBlueBg : Colors.transparent,
@@ -489,6 +529,12 @@ class _LeadsSectionSidebarState extends State<LeadsSectionSidebar> {
                 ),
               ),
             ),
+            const SizedBox(width: 12),
+            if (label == "Tasks" ||
+                label == "HRMS" ||
+                label == "Finance" ||
+                label == "Warehouse Inventory")
+              Icon(Icons.lock, size: 20, color: Colors.grey),
           ],
         ),
       ),

@@ -199,7 +199,8 @@ class Sidebar extends StatelessWidget {
         currentLocation.startsWith('/followup') ||
         currentLocation.startsWith('/products') ||
         currentLocation.startsWith('/activities') ||
-        currentLocation.startsWith('/customize');
+        currentLocation.startsWith('/customize/pipelines') ||
+        currentLocation.startsWith('/customize/projects');
 
     // final isTeamsSectionActive =
     //     currentLocation.startsWith('/team') ||
@@ -240,10 +241,18 @@ class Sidebar extends StatelessWidget {
               const SizedBox(height: 2),
               _buildMenuItem(
                 context,
+                route: '/pipelinesdashboard',
+                icon: Icons.dashboard_rounded,
+                label: 'Dashboard',
+                // isSelected: isLeadsSectionActive,
+                isSelected: currentLocation == '/pipelinesdashboard',
+              ),
+              _buildMenuItem(
+                context,
                 route: '/pipelines',
                 icon: Icons.filter_alt_rounded,
                 label: 'Pipelines',
-                // isSelected: isLeadsSectionActive,
+                //isSelected: isLeadsSectionActive,
                 isSelected: currentLocation == '/pipelines',
               ),
               _buildMenuItem(
@@ -343,7 +352,7 @@ class Sidebar extends StatelessWidget {
       child: Container(
         width: double.infinity,
         color: bgColor,
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 5),
         // decoration: BoxDecoration(
         //   border: Border.all(color: AppCustomTheme.yellowPrimary),
         // ),

@@ -273,14 +273,14 @@ import 'package:go_router/go_router.dart';
 import 'package:sahibot_crm_web/config/app_theme.dart';
 import 'package:sahibot_crm_web/All Sidebars/logout_subsidebar.dart';
 
-class LeadsSectionSidebar extends StatefulWidget {
-  const LeadsSectionSidebar({super.key});
+class projectsSidebar extends StatefulWidget {
+  const projectsSidebar({super.key});
 
   @override
-  State<LeadsSectionSidebar> createState() => _LeadsSectionSidebarState();
+  State<projectsSidebar> createState() => _projectsSidebarState();
 }
 
-class _LeadsSectionSidebarState extends State<LeadsSectionSidebar> {
+class _projectsSidebarState extends State<projectsSidebar> {
   bool customizeExpanded = true; // default open
 
   @override
@@ -308,21 +308,22 @@ class _LeadsSectionSidebarState extends State<LeadsSectionSidebar> {
                     currentPath == '/automateLeads',
               ),
 
-              _menuItem(
-                context,
-                label: 'Pipelines',
-                icon: Icons.filter_alt_rounded,
-                route: '/pipelines',
-                isSelected: currentPath == '/pipelines',
-              ),
-
               // _menuItem(
               //   context,
-              //   label: 'Projects',
-              //   icon: Icons.account_tree_rounded,
-              //   route: '/projects',
-              //   isSelected: currentPath == '/projects',
+              //   label: 'Pipelines',
+              //   icon: Icons.filter_alt_rounded,
+              //   route: '/pipelines',
+              //   isSelected: currentPath == '/pipelines',
               // ),
+
+              _menuItem(
+                context,
+                label: 'Projects',
+                icon: Icons.account_tree_rounded,
+                route: '/projects',
+                isSelected: currentPath == '/projects',
+              ),
+
               _menuItem(
                 context,
                 label: 'Contacts',
@@ -371,9 +372,9 @@ class _LeadsSectionSidebarState extends State<LeadsSectionSidebar> {
               _menuItem(
                 context,
                 label: 'Customize',
-                icon: Icons.filter_alt_rounded,
-                route: '/customize/pipelines',
-                isSelected: currentPath == '/customize/pipelines',
+                icon: Icons.account_tree_outlined,
+                route: '/customize/projects',
+                isSelected: currentPath == '/customize/projects',
               ),
 
               // // Parent: Customize

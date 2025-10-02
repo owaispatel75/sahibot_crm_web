@@ -71,20 +71,19 @@
 // import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:sahibot_crm_web/config/app_theme.dart';
 
 class AppTile extends StatelessWidget {
   final IconData icon;
   final String title;
   final Color buttonColor;
-  final String? subtitle;
+  final String subtitle;
   final VoidCallback onPressed;
 
   const AppTile({
     super.key,
     required this.icon,
     required this.title,
-    this.subtitle,
+    required this.subtitle,
     required this.onPressed,
     required this.buttonColor,
   });
@@ -93,7 +92,7 @@ class AppTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 125,
-      width: 200,
+      width: 265,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: Colors.white,
@@ -136,15 +135,15 @@ class AppTile extends StatelessWidget {
                           color: Colors.black,
                         ),
                       ),
-                      // const SizedBox(height: 4),
-                      // Text(
-                      //   subtitle ?? '',
-                      //   maxLines: 3,
-                      //   style: const TextStyle(
-                      //     fontSize: 14,
-                      //     color: Colors.black54,
-                      //   ),
-                      // ),
+                      const SizedBox(height: 4),
+                      Text(
+                        subtitle,
+                        // maxLines: 3,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.black54,
+                        ),
+                      ),
                     ],
                   ),
                 ),

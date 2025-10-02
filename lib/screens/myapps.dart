@@ -232,15 +232,15 @@ class MyAppsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         section("Sales & Operations", [
-                          AppTile(
-                            buttonColor: AppCustomTheme.bluePrimary,
-                            title: "Dashboard",
-                            //subtitle: "Clear view of your performance",
-                            icon: Icons.dashboard_rounded,
-                            onPressed: () {
-                              context.go('/dashboard');
-                            },
-                          ),
+                          // AppTile(
+                          //   buttonColor: AppCustomTheme.bluePrimary,
+                          //   title: "Dashboard",
+                          //   //subtitle: "Clear view of your performance",
+                          //   icon: Icons.dashboard_rounded,
+                          //   onPressed: () {
+                          //     context.go('/dashboard');
+                          //   },
+                          // ),
                           // AppTile(
                           //   title: "AutomateLeads",
                           //   subtitle: "Track and assign leads",
@@ -261,7 +261,8 @@ class MyAppsScreen extends StatelessWidget {
                           AppTile(
                             buttonColor: AppCustomTheme.bluePrimary,
                             title: "Pipelines",
-                            //subtitle: "Manage contacts with ease",
+                            subtitle:
+                                "Gain clarity, take control, and close more deals",
                             icon: Icons.filter_alt_rounded,
                             onPressed: () {
                               context.go('/pipelines');
@@ -270,7 +271,8 @@ class MyAppsScreen extends StatelessWidget {
                           AppTile(
                             buttonColor: AppCustomTheme.bluePrimary,
                             title: "Projects",
-                            //subtitle: "Stay organized and move forward",
+                            subtitle:
+                                "Gain clarity, take control, and streamline operations",
                             icon: Icons.account_tree_rounded,
                             onPressed: () {
                               context.go('/projects');
@@ -279,7 +281,8 @@ class MyAppsScreen extends StatelessWidget {
                           AppTile(
                             buttonColor: AppCustomTheme.bluePrimary,
                             title: "Contacts",
-                            //subtitle: "Manage contacts with ease",
+                            subtitle:
+                                "Effortlessly manage your contacts with ease",
                             icon: Icons.contact_phone_rounded,
                             onPressed: () {
                               context.go('/contacts');
@@ -288,7 +291,8 @@ class MyAppsScreen extends StatelessWidget {
                           AppTile(
                             buttonColor: AppCustomTheme.bluePrimary,
                             title: "Follow-up",
-                            //subtitle: "Stay organized and move forward",
+                            subtitle:
+                                "Add follow-ups to stay organized and move forward",
                             icon: Icons.connect_without_contact_rounded,
                             onPressed: () {
                               context.go('/followup');
@@ -315,7 +319,8 @@ class MyAppsScreen extends StatelessWidget {
                           AppTile(
                             buttonColor: Colors.grey,
                             title: "Quotations",
-                            //subtitle: "Generate and send quotations",
+                            subtitle:
+                                "Generate and send Quotations to your leads",
                             icon: Icons.add_chart_rounded,
                             onPressed: () {},
                           ),
@@ -328,159 +333,163 @@ class MyAppsScreen extends StatelessWidget {
                           //   icon: Icons.task,
                           //   onPressed: () {},
                           // ),
-                          AppTile(
-                            buttonColor: AppCustomTheme.bluePrimary,
-                            title: "Dashboard",
-                            //subtitle: null,
-                            icon: Icons.dashboard_rounded,
-                            onPressed: () {},
-                          ),
+                          // AppTile(
+                          //   buttonColor: AppCustomTheme.bluePrimary,
+                          //   title: "Dashboard",
+                          //   //subtitle: null,
+                          //   icon: Icons.dashboard_rounded,
+                          //   onPressed: () {},
+                          // ),
                           AppTile(
                             buttonColor: AppCustomTheme.bluePrimary,
                             title: "Tasks",
-                            //subtitle: null,
+                            subtitle:
+                                "Delegate one time and recurring tasks to your team",
                             icon: Icons.task_alt_rounded,
                             onPressed: () {},
                           ),
                           AppTile(
                             buttonColor: AppCustomTheme.bluePrimary,
                             title: "My Tasks",
-                            //subtitle: null,
+                            subtitle:
+                                "Overview of tasks assigned to you by the team",
                             icon: Icons.add_task_rounded,
                             onPressed: () {},
                           ),
                           AppTile(
                             buttonColor: AppCustomTheme.bluePrimary,
                             title: "Delegated Tasks",
-                            //subtitle: null,
+                            subtitle:
+                                "Overview of tasks delegated to other members",
                             icon: Icons.assignment_ind_rounded,
                             onPressed: () {},
                           ),
                         ]),
                         const SizedBox(height: 24),
                         section("HR Management", [
-                          AppTile(
-                            buttonColor: Colors.grey,
-                            title: "Dashboard",
-                            //subtitle: null,
-                            icon: Icons.dashboard_rounded,
-                            onPressed: () {},
-                          ),
+                          // AppTile(
+                          //   buttonColor: Colors.grey,
+                          //   title: "Dashboard",
+                          //   //subtitle: null,
+                          //   icon: Icons.dashboard_rounded,
+                          //   onPressed: () {},
+                          // ),
                           AppTile(
                             buttonColor: Colors.grey,
                             title: "Employees",
-                            //subtitle: null,
+                            subtitle:
+                                "Details and list of employees in your company",
                             icon: Icons.diversity_2_rounded,
                             onPressed: () {},
                           ),
                           AppTile(
                             buttonColor: Colors.grey,
                             title: "Payroll",
-                            //subtitle: null,
+                            subtitle: "Process payroll and generate pay slips",
                             icon: Icons.diversity_3_rounded,
                             onPressed: () {},
                           ),
                           AppTile(
                             buttonColor: Colors.grey,
                             title: "Attendance",
-                            //subtitle: null,
+                            subtitle: "Track attendance of team members",
                             icon: Icons.event_available_rounded,
                             onPressed: () {},
                           ),
                           AppTile(
                             buttonColor: Colors.grey,
                             title: "Leaves",
-                            //subtitle: null,
+                            subtitle: "Overview of requested and approved leaves",
                             icon: Icons.event_busy_rounded,
                             onPressed: () {},
                           ),
                           AppTile(
                             buttonColor: Colors.grey,
                             title: "Assets",
-                            //subtitle: null,
+                            subtitle: "Manage your asset allocation with ease",
                             icon: Icons.screen_share_rounded,
                             onPressed: () {},
                           ),
                         ]),
                         const SizedBox(height: 24),
                         section("Finance", [
-                          AppTile(
-                            buttonColor: Colors.grey,
-                            title: "Dashboard",
-                            //subtitle: null,
-                            icon: Icons.dashboard_rounded,
-                            onPressed: () {},
-                          ),
+                          // AppTile(
+                          //   buttonColor: Colors.grey,
+                          //   title: "Dashboard",
+                          //   //subtitle: null,
+                          //   icon: Icons.dashboard_rounded,
+                          //   onPressed: () {},
+                          // ),
                           AppTile(
                             buttonColor: Colors.grey,
                             title: "Invoice",
-                            //subtitle: null,
+                            subtitle: "Records of Income",
                             icon: Icons.receipt_long_rounded,
                             onPressed: () {},
                           ),
                           AppTile(
                             buttonColor: Colors.grey,
                             title: "Purchase",
-                            //subtitle: null,
+                            subtitle: "Records of Expense",
                             icon: Icons.receipt_rounded,
                             onPressed: () {},
                           ),
                           AppTile(
                             buttonColor: Colors.grey,
                             title: "Customer",
-                            //subtitle: null,
+                            subtitle: "List of Customers",
                             icon: Icons.group_add_rounded,
                             onPressed: () {},
                           ),
                           AppTile(
                             buttonColor: Colors.grey,
                             title: "Vendor",
-                            //subtitle: null,
+                            subtitle: "List of Suppliers",
                             icon: Icons.group_remove_rounded,
                             onPressed: () {},
                           ),
                           AppTile(
                             buttonColor: Colors.grey,
                             title: "Banking",
-                            //subtitle: null,
+                            subtitle: "Manage Bank accounts and transactions",
                             icon: Icons.account_balance_rounded,
                             onPressed: () {},
                           ),
                         ]),
                         const SizedBox(height: 24),
                         section("Warehouse & Inventory Management", [
-                          AppTile(
-                            buttonColor: Colors.grey,
-                            title: "Dashboard",
-                            //subtitle: null,
-                            icon: Icons.dashboard_rounded,
-                            onPressed: () {},
-                          ),
+                          // AppTile(
+                          //   buttonColor: Colors.grey,
+                          //   title: "Dashboard",
+                          //   //subtitle: null,
+                          //   icon: Icons.dashboard_rounded,
+                          //   onPressed: () {},
+                          // ),
                           AppTile(
                             buttonColor: Colors.grey,
                             title: "Inventory",
-                            //subtitle: null,
+                            subtitle: "Stock details",
                             icon: Icons.inventory_rounded,
                             onPressed: () {},
                           ),
                           AppTile(
                             buttonColor: Colors.grey,
                             title: "Products",
-                            //subtitle: null,
+                            subtitle: "Overview of products",
                             icon: Icons.category_rounded,
                             onPressed: () {},
                           ),
                           AppTile(
                             buttonColor: Colors.grey,
                             title: "Warehouse",
-                            //subtitle: null,
+                            subtitle: "Product distribution as per warehouse",
                             icon: Icons.warehouse_rounded,
                             onPressed: () {},
                           ),
                           AppTile(
                             buttonColor: Colors.grey,
                             title: "Store",
-                            //subtitle: null,
+                            subtitle: "Store wise product distribution",
                             icon: Icons.store_rounded,
                             onPressed: () {},
                           ),
