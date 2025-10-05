@@ -306,8 +306,8 @@ class _DashboardSidebarState extends State<DashboardSidebar> {
                 // isSelected:
                 //     currentPath == '/dashboard' ||
                 //     currentPath == '/automateLeads',
-                route: '/pipelinesdashboard',
-                isSelected: currentPath == '/pipelinesdashboard',
+                route: '/pipelinedashboard',
+                isSelected: currentPath == '/pipelinedashboard',
               ),
               _menuItem(
                 context,
@@ -504,7 +504,8 @@ class _DashboardSidebarState extends State<DashboardSidebar> {
         if (route != "/tasksdashboard" &&
             route != "/hrmsdashboard" &&
             route != "/financedashboard" &&
-            route != "/warehousedashboard") {
+            route != "/warehousedashboard" &&
+            route != "/projectdashboard") {
           context.go(route);
         }
       },
@@ -533,7 +534,8 @@ class _DashboardSidebarState extends State<DashboardSidebar> {
             if (label == "Tasks" ||
                 label == "HRMS" ||
                 label == "Finance" ||
-                label == "Warehouse Inventory")
+                label == "Warehouse Inventory" ||
+                label == "Projects")
               Icon(Icons.lock, size: 20, color: Colors.grey),
           ],
         ),

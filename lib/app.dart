@@ -81,10 +81,16 @@ final _router = GoRouter(
       pageBuilder:
           (context, state) => const NoTransitionPage(child: ActivitiesScreen()),
     ),
+    // GoRoute(
+    //   path: '/projects',
+    //   pageBuilder:
+    //       (context, state) => const NoTransitionPage(child: projectsScreen()),
+    // ),
     GoRoute(
       path: '/projects',
       pageBuilder:
-          (context, state) => const NoTransitionPage(child: projectsScreen()),
+          (context, state) =>
+              const NoTransitionPage(child: Sampleerrorpage(title: "projects")),
     ),
     GoRoute(
       path: '/pipelines',
@@ -119,9 +125,14 @@ final _router = GoRouter(
           (context, state) => const NoTransitionPage(child: pipelinesScreen()),
     ),
     GoRoute(
-      path: '/pipelinesdashboard',
+      path: '/pipelinedashboard',
       pageBuilder:
           (context, state) => const NoTransitionPage(child: pipelinesScreenD()),
+    ),
+    GoRoute(
+      path: '/dashboard',
+      pageBuilder:
+          (context, state) => const NoTransitionPage(child: pipelinesScreen()),
     ),
     GoRoute(
       path: '/projectdashboard',

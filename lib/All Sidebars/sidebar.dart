@@ -189,18 +189,31 @@ class Sidebar extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentLocation = GoRouterState.of(context).uri.toString();
 
+    // final isLeadsSectionActive =
+    //     currentLocation.startsWith('/dashboard') ||
+    //     currentLocation.startsWith('/automateLeads') ||
+    //     // currentLocation.startsWith('/projects') ||
+    //     currentLocation.startsWith('/pipelines') ||
+    //     currentLocation.startsWith('/contacts') ||
+    //     currentLocation.startsWith('/parties') ||
+    //     currentLocation.startsWith('/followup') ||
+    //     currentLocation.startsWith('/products') ||
+    //     currentLocation.startsWith('/activities') ||
+    //     currentLocation.startsWith('/customize/pipelines') ||
+    //     currentLocation.startsWith('/customize/projects');
+
+    final isDashboardSectionActive = currentLocation.contains("/pipelinedashboard");
+
+
     final isLeadsSectionActive =
         currentLocation.startsWith('/dashboard') ||
-        currentLocation.startsWith('/automateLeads') ||
-        currentLocation.startsWith('/projects') ||
         currentLocation.startsWith('/pipelines') ||
         currentLocation.startsWith('/contacts') ||
         currentLocation.startsWith('/parties') ||
         currentLocation.startsWith('/followup') ||
         currentLocation.startsWith('/products') ||
         currentLocation.startsWith('/activities') ||
-        currentLocation.startsWith('/customize/pipelines') ||
-        currentLocation.startsWith('/customize/projects');
+        currentLocation.startsWith('/customize/pipelines');
 
     // final isTeamsSectionActive =
     //     currentLocation.startsWith('/team') ||
@@ -215,6 +228,7 @@ class Sidebar extends StatelessWidget {
     // ;
 
     final isBillingSectionActive = currentLocation.startsWith('/billing');
+    
 
     final isSettingsSectionActive = currentLocation.startsWith(
       '/accesscontrol',
@@ -241,19 +255,19 @@ class Sidebar extends StatelessWidget {
               const SizedBox(height: 2),
               _buildMenuItem(
                 context,
-                route: '/pipelinesdashboard',
+                route: '/pipelinedashboard',
                 icon: Icons.dashboard_rounded,
                 label: 'Dashboard',
-                // isSelected: isLeadsSectionActive,
-                isSelected: currentLocation == '/pipelinesdashboard',
+                isSelected: isDashboardSectionActive,
+                //isSelected: currentLocation == '/pipelinesdashboard',
               ),
               _buildMenuItem(
                 context,
                 route: '/pipelines',
                 icon: Icons.filter_alt_rounded,
                 label: 'Pipelines',
-                //isSelected: isLeadsSectionActive,
-                isSelected: currentLocation == '/pipelines',
+                isSelected: isLeadsSectionActive,
+                //isSelected: currentLocation == '/pipelines',
               ),
               _buildMenuItem(
                 context,
