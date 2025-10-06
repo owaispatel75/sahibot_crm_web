@@ -92,7 +92,7 @@ class AppTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 125,
-      width: 265,
+      width: 250,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: Colors.white,
