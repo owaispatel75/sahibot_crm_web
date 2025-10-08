@@ -467,6 +467,13 @@ class MyAppsScreen extends StatelessWidget {
                           // ),
                           AppTile(
                             buttonColor: Colors.grey,
+                            title: "Warehouse",
+                            subtitle: "Product distribution as per warehouse",
+                            icon: Icons.warehouse_rounded,
+                            onPressed: () {},
+                          ),
+                          AppTile(
+                            buttonColor: Colors.grey,
                             title: "Inventory",
                             subtitle: "Stock details",
                             icon: Icons.inventory_rounded,
@@ -479,13 +486,7 @@ class MyAppsScreen extends StatelessWidget {
                             icon: Icons.category_rounded,
                             onPressed: () {},
                           ),
-                          AppTile(
-                            buttonColor: Colors.grey,
-                            title: "Warehouse",
-                            subtitle: "Product distribution as per warehouse",
-                            icon: Icons.warehouse_rounded,
-                            onPressed: () {},
-                          ),
+                          
                           AppTile(
                             buttonColor: Colors.grey,
                             title: "Store",

@@ -301,7 +301,8 @@ class Sidebar extends StatelessWidget {
               _buildMenuItem(
                 context,
                 route: '/warehouse',
-                icon: Icons.inventory_rounded,
+                icon: Icons.warehouse_rounded,
+                // icon: Icons.inventory_rounded,
                 label: 'Warehouse\nInventory',
                 isSelected: currentLocation == '/warehouse',
               ),
